@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Navbar, Nav, Button} from 'react-bootstrap';
-import '../assets/css/Navbar.css'
+import {LinkContainer} from 'react-router-bootstrap';
+import '../assets/css/Navbar.css';
 const NavBar = () => {
   return (
     <Container fluid>
@@ -10,10 +11,18 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="#link">Menu</Nav.Link>
-              <Nav.Link href="#link">About us</Nav.Link>
-              <Nav.Link href="#link">Contacts</Nav.Link>
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Nav.Link>Menu</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Nav.Link>About us</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/">
+                <Nav.Link>Contacts</Nav.Link>
+              </LinkContainer>
             </Nav>
 
             <Button variant="outline-success">Search</Button>

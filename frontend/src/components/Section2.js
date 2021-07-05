@@ -1,46 +1,66 @@
 import React from 'react';
-import {Container, Col, Row, Navbar, Nav, Card, Button} from 'react-bootstrap';
-import image from '../assets/images/pizza.jpg';
-
+import {Container, Col, Row, Navbar, Nav, Card, Button, Pagination} from 'react-bootstrap';
+import Cards from './Food';
 const Section2 = () => {
+  let active = 3;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <Container>
       <Row>
         <Col xs={12} md={12}>
           <p>Menu</p>
-          <Navbar bg="light" expand="lg">
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto px-5">
-                <Nav.Link href="/" className="px-5">
-                  Newly Added
-                </Nav.Link>
-                <Nav.Link href="#link" className="px-5">
-                  Popular
-                </Nav.Link>
-                <Nav.Link href="#link" className="px-5">
-                  Top Selling
-                </Nav.Link>
-                <Nav.Link href="#link" className="px-5">
-                  All
-                </Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
+
+          <Nav
+            className="mr-auto px-5"
+            fill
+            variant="tabs"
+            defaultActiveKey="/"
+          >
+            <Nav.Link href="/" className="px-5">
+              All
+            </Nav.Link>
+            <Nav.Link href="#link1" eventKey="link-1" className="px-5">
+              Newly Added
+            </Nav.Link>
+            <Nav.Link href="#link2" className="px-5">
+              Popular
+            </Nav.Link>
+            <Nav.Link href="#link3" className="px-5">
+              Top Selling
+            </Nav.Link>
+          </Nav>
         </Col>
       </Row>
       <Row>
-        <Card style={{width: '18rem'}} className="px-0">
-          <Card.Img variant="top" src={image} />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-        </Card>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <Cards />
+        </Col>
+      </Row>
+      <Row className="my-5">
+        <Pagination size="sm" className="d-flex justify-content-center">{items}</Pagination>
       </Row>
     </Container>
   );
