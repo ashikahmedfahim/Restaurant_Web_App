@@ -1,7 +1,8 @@
 import React from 'react';
 import {Card, Button, Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import image from '../assets/images/pizza.jpg';
+// import image from '../assets/images/pizza.jpg';
+import image from '../assets/images/burger.png';
 
 const Food = () => {
   return (

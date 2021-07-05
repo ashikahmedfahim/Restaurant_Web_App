@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {Container} from 'react-bootstrap';
 import HomePage from './pages/HomePage';
+import Footer from './components/Footer';
 
 function App() {
   const [finalData, setData] = useState('');
@@ -26,7 +27,8 @@ function App() {
     <Router>
       {/* <h1>{finalData.name}</h1> */}
       <Navbar />
-        <Route path="/" component={HomePage} exact />
+      <Route path="/" component={HomePage} exact />
+      <Footer />
     </Router>
   );
 }

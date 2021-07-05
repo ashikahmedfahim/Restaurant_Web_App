@@ -8,7 +8,7 @@ const Section4 = () => {
         <Col
           sm={12}
           md={6}
-          lg={4}
+          lg={5}
           xl={4}
           className="d-flex justify-content-center align-items-center my-3"
         >
@@ -30,8 +30,8 @@ const Section4 = () => {
         </Col>
         <Col
           sm={12}
-          md={12}
-          lg={8}
+          md={6}
+          lg={7}
           xl={8}
           className="d-flex justify-content-center align-items-center my-3"
         >
