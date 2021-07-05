@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Row, Col, Form, Button} from 'react-bootstrap';
-import '../assets/css/Footer.css'
+import '../assets/css/Footer.css';
 const Footer = () => {
   return (
     <Container fluid style={{background: 'black', color: 'white'}}>
@@ -67,6 +67,11 @@ const Footer = () => {
             </Col>
           </Row>
         </div>
+        <Row>
+          <Col className="d-flex justify-content-center py-1">
+            <p>© 2021, All Rights Reserved.</p>
+          </Col>
+        </Row>
       </Container>
     </Container>
   );
