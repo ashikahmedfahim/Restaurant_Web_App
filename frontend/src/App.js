@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import Navbar from './components/Navbar';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Container} from 'react-bootstrap';
+import HomePage from './pages/HomePage';
+import Footer from './components/Footer';
 
 function App() {
-  const [finalData, setData] = useState("");
+  const [finalData, setData] = useState('');
   async function getUser() {
     try {
-      const response = await axios.post("http://localhost:5000/api/foods", {
-        name: "Burger",
+      const response = await axios.post('http://localhost:5000/api/foods', {
+        name: 'Burger',
         price: 10,
       });
       setData(response.data);
@@ -19,9 +24,12 @@ function App() {
     getUser();
   }, []);
   return (
-    <div>
-      <h1>{finalData.name}</h1>
-    </div>
+    <Router>
+      {/* <h1>{finalData.name}</h1> */}
+      <Navbar />
+      <Route path="/" component={HomePage} exact />
+      <Footer />
+    </Router>
   );
 }
 
