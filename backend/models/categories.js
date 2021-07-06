@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: true,
   },
   foods: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "Food",
   },
 });

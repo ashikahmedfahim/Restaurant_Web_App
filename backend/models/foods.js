@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 
 const foodSchema = new mongoose.Schema({
   type: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "Type",
     required: true,
   },
   category: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "Category",
     required: true,
   },
   name: {
     type: String,
-    lowerCase: true,
+    unique: true,
     required: true,
   },
   price: {
