@@ -3,9 +3,11 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const admins = require("./routes/admins");
+const categories = require("./routes/categories");
 const carts = require("./routes/carts");
 const foods = require("./routes/foods");
 const orders = require("./routes/orders");
+const types = require("./routes/types");
 const users = require("./routes/users");
 
 mongoose
@@ -27,7 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/admins", admins);
+app.use("/api/categories", categories);
 app.use("/api/carts", carts);
 app.use("/api/foods", foods);
 app.use("/api/orders", orders);
+app.use("/api/types", types);
 app.use("/api/users", users);

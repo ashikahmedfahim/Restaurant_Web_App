@@ -7,9 +7,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res, next) => {
-  const admins = await Admin.find({});
+  const admins = await Admin.find({},"email",);
   res.send(admins);
 });
+
 router.post("/", async (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -37,6 +38,7 @@ router.post("/", async (req, res, next) => {
       .send({ _id: result._id, email: result.email });
   }
 });
+
 router.post("/login", async (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -61,18 +63,50 @@ router.post("/login", async (req, res, next) => {
     res.send("Invalid Email or Password");
   }
 });
-router.get("/:id", (req, res, next) => {});
-router.put("/:id", (req, res, next) => {});
+
+router.get("/:id", async (req, res, next) => {
+  const schema = Joi.object({
+    id: Joi.objectId().required(),
+  });
+  const isValidData = schema.validate({ id: req.params.id });
+  if (isValidData.error) return res.send("Invalid Admin ID");
+  const result = await Admin.findOne({ _id: req.params.id });
+  if (!result) return res.send("ID Not Found");
+  res.send({_id: result._id, email: result.email});
+});
+
+router.put("/:id", async (req, res, next) => {
+  const schema = Joi.object({
+    id: Joi.objectId().required(),
+  });
+  const isValidData = schema.validate({ id: req.params.id });
+  if (isValidData.error) return res.send("Invalid Admin ID");
+  const passwordSchema = Joi.object({
+    password: Joi.string().required(),
+  });
+  const isValidPassword = passwordSchema.validate(req.body);
+  if (isValidPassword.error) {
+    res.send(isValidPassword.error.message);
+  } else {
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const result = await Admin.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { password: hashedPassword } }
+    );
+    if (!result) return res.send("Failed to update Password");
+    res.send("Password updated successfully");
+  }
+});
+
 router.delete("/:id", async (req, res, next) => {
   const schema = Joi.object({
     id: Joi.objectId().required(),
   });
   const isValidData = schema.validate({ id: req.params.id });
   if (isValidData.error) return res.send("Invalid Admin ID");
-  const isvalidId = await Admin.find({ _id: req.params.id });
-  if (!isvalidId) return res.send("Admin not Found");
-  const result = await Admin.deleteOne({ _id: req.params.id });
-  if (!result) return res.send("Failed to delete Admin");
+  const result = await Admin.findOneAndDelete({ _id: req.params.id });
+  if (!result) return res.send("Admin Id not found");
   res.send("Successfully deleted Admin");
 });
 
