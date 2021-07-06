@@ -1,35 +1,111 @@
-import "react-bootstrap-drawer/lib/style.css";
-import React, { useState } from "react";
-import { Col, Collapse, Container, Row } from "react-bootstrap";
-import { Drawer } from "react-bootstrap-drawer";
+import 'react-bootstrap-drawer/lib/style.css';
+import React, {useState} from 'react';
+import {Col, Collapse, Container, Row} from 'react-bootstrap';
+import {Drawer} from 'react-bootstrap-drawer';
 
-const Sidebar = ({ props, appliedbtn }) => {
+const Sidebar = ({props, appliedbtn}) => {
   const [open, setOpen] = useState(false);
   const handleToggle = () => setOpen(!open);
 
   const handleSelectedBtn = () => {
-    console.log("working");
-    appliedbtn("addType")};
+    appliedbtn('addType');
+  };
   return (
-    <Drawer {...props} style={{ backgroundColor: "red" }}>
+    <Drawer {...props} style={{backgroundColor: 'white'}}>
       <Drawer.Toggle onClick={handleToggle} className="mr-auto" />
 
       <Collapse in={open}>
         <Drawer.Overflow>
-          {/* <Drawer.ToC> */}
-          {/* <Drawer.Header href="/">Application</Drawer.Header> */}
+          <Drawer.ToC>
+            {/* <Drawer.Header href="/">Application</Drawer.Header> */}
 
-          <Drawer.Nav>
-            <Drawer.Item ><button onClick={handleSelectedBtn}>Add Type</button></Drawer.Item>
-            <Drawer.Item href="/settings">Add Category</Drawer.Item>
-            <Drawer.Item href="/settings">Add Food</Drawer.Item>
-            <Drawer.Item href="/settings">All Food</Drawer.Item>
-            <Drawer.Item href="/settings">Orders</Drawer.Item>
-            <Drawer.Item href="/settings">Users</Drawer.Item>
-            <Drawer.Item href="/settings">Settings</Drawer.Item>
-          </Drawer.Nav>
-
-          {/* </Drawer.ToC> */}
+            <Drawer.Nav>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('home');
+                    handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Home
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('addType');
+                    handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Add Type
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('addCategory');
+                     handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Add Category
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('addFood');
+                     handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Add Food
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('allFood');
+                     handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  All Food
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('orders');
+                     handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Orders
+                </p>
+              </Drawer.Item>
+              <Drawer.Item>
+                <p
+                  onClick={() => {
+                    appliedbtn('Users');
+                     handleToggle()
+                  }}
+                  style={{cursor: 'pointer'}}
+                  className="mb-0"
+                >
+                  Users
+                </p>
+              </Drawer.Item>
+            </Drawer.Nav>
+          </Drawer.ToC>
         </Drawer.Overflow>
       </Collapse>
     </Drawer>
