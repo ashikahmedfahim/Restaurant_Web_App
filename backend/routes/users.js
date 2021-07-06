@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 
-router.get("/api/users", (req, res, next) => {});
-router.post("/api/users", (req, res, next) => {});
-router.get("/api/users/:id", (req, res, next) => {});
-router.put("/api/users/:id", (req, res, next) => {});
-router.delete("/api/users/:id", (req, res, next) => {});
+router.get("/", (req, res, next) => {});
+router.post("/", (req, res, next) => {});
+router.get("/:id", (req, res, next) => {});
+router.put("/:id", (req, res, next) => {});
+router.delete("/:id", (req, res, next) => {});
 
 module.exports = router;

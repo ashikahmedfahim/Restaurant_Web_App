@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const adminSchema = new mongoose.Schema({
   email: {
     type: String,
+    unique: true,
     required: true,
   },
-  passowrd: {
+  password: {
     type: String,
     max: 1024,
     required: true,

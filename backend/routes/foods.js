@@ -20,9 +20,9 @@ router.post("/",async (req, res, next) => {
     inStock: Joi.bool().required(),
     discount: Joi.number().min(0),
   });
-  const result = schema.validate(req.body);
-  if (result.error) {
-    res.send(result.error.message);
+  const isValidData = schema.validate(req.body);
+  if (isValidData.error) {
+    res.send(isValidData.error.message);
   } else {
     const food  = new Food(req.body);
     const data =  await food.save();
