@@ -1,5 +1,22 @@
 const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({});
+const cartSchema = new mongoose.Schema({
+  items: {
+    foodId: {
+      type: [Schema.Types.ObjectId],
+      ref: "Food",
+      required: true,
+    },
+    quantity: {
+      type: [Number],
+      required: true,
+      validate: {
+        validator: function () {
+          return this.foodId == this.quantity;
+        },
+      },
+    },
+  },
+});
 
 module.exports = mongoose.model("Cart", cartSchema);

@@ -1,24 +1,14 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://localhost/restaurant", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((error) => console.log(error));
-
 const foodSchema = new mongoose.Schema({
   type: {
-    type: [String],
-    enum: ["New", "Old"],
+    type: [Schema.Types.ObjectId],
+    ref: "Type",
     required: true,
   },
   category: {
-    type: [String],
-    enum: ["Burger", "Pizza"],
+    type: [Schema.Types.ObjectId],
+    ref: "Category",
     required: true,
   },
   name: {
