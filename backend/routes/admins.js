@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res, next) => {
-  const admins = await Admin.find({},"email",);
+  const admins = await Admin.find({}, "email");
   res.send(admins);
 });
 
@@ -17,26 +17,26 @@ router.post("/", async (req, res, next) => {
     password: Joi.string().required(),
   });
   const isValidData = schema.validate(req.body);
-  if (isValidData.error) {
-    res.send(isValidData.error.message);
-  } else {
-    const isAlreadyRegistered = await Admin.findOne({ email: req.body.email });
-    if (isAlreadyRegistered) return res.send("Admin is Already Registered");
-    const salt = await bcrypt.genSalt(12);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    const admin = new Admin({
-      email: req.body.email,
-      password: hashedPassword,
-    });
-    const result = await admin.save();
-    const token = jwt.sign(
-      { _id: result._id, email: result.email, isAdmin: true },
-      "thisstheprivatekey"
-    );
-    res
-      .header("x-auth-token", token)
-      .send({ _id: result._id, email: result.email });
-  }
+
+  // if (isValidData.error) {
+  //   res.send(isValidData.error.message);
+  // } else {
+  const isAlreadyRegistered = await Admin.findOne({ email: req.body.email });
+  if (isAlreadyRegistered) return res.send("Admin is Already Registered");
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const admin = new Admin({
+    email: req.body.email,
+    password: hashedPassword,
+  });
+
+  const result = await admin.save();
+  const token = jwt.sign(
+    { _id: result._id, email: result.email, isAdmin: true },
+    "thisstheprivatekey"
+  );
+  res.header("x-auth-token", token).send(result);
+  // }
 });
 
 router.post("/login", async (req, res, next) => {
@@ -44,12 +44,15 @@ router.post("/login", async (req, res, next) => {
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   });
+  console.log("data----------",req.body)
   const isValidData = schema.validate(req.body);
-  if (isValidData.error) return res.send(isValidData.error.message);
-  const isAdmin = await Admin.findOne({ email: req.body.email });
+    if (isValidData.error) 
+    return res.status(400).json({ message:isValidData.error.message });
+   const isAdmin = await Admin.findOne({ email: req.body.email });
   if (isAdmin) {
     console.log(isAdmin);
-    const isValidAdmin = bcrypt.compare(req.body.password, isAdmin.password);
+    const isValidAdmin = await bcrypt.compare(req.body.password, isAdmin.password);
+    console.log("isValidAdmin",isValidAdmin);
     if (isValidAdmin) {
       const token = jwt.sign(
         { _id: isAdmin._id, email: isAdmin.email, isAdmin: true },
@@ -57,10 +60,12 @@ router.post("/login", async (req, res, next) => {
       );
       res.send(token);
     } else {
-      res.send("Invalid Email or Password");
+      res.status(400).json({ message: "Invalid credentials" })
+      // res.send("Invalid Email or Password");
     }
   } else {
-    res.send("Invalid Email or Password");
+    res.status(404).json({ message: "Admin Doesn't Exists."});
+    // res.send("Admin Doesn't Exists.");
   }
 });
 
@@ -72,7 +77,7 @@ router.get("/:id", async (req, res, next) => {
   if (isValidData.error) return res.send("Invalid Admin ID");
   const result = await Admin.findOne({ _id: req.params.id });
   if (!result) return res.send("ID Not Found");
-  res.send({_id: result._id, email: result.email});
+  res.send({ _id: result._id, email: result.email });
 });
 
 router.put("/:id", async (req, res, next) => {

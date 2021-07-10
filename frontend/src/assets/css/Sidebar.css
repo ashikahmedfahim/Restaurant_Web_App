@@ -1,0 +1,14 @@
+.nav-item:hover{
+    /* background-color: yellowgreen; */
+}
+.sidebar-links {
+  cursor: pointer !important;
+  color: #888888 !important;
+  font-size: 1.2rem !important;
+  font-weight: 300;
+  font-family: 'Arial', 'Arial Narrow', Arial, sans-serif;
+}
+.sidebar-links:hover {
+  color: #9828f4 !important;
+  
+}

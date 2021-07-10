@@ -2,32 +2,29 @@ import 'react-bootstrap-drawer/lib/style.css';
 import React, {useState} from 'react';
 import {Col, Collapse, Container, Row} from 'react-bootstrap';
 import {Drawer} from 'react-bootstrap-drawer';
-
+import '../assets/css/Sidebar.css';
 const Sidebar = ({props, appliedbtn}) => {
   const [open, setOpen] = useState(false);
   const handleToggle = () => setOpen(!open);
 
-  const handleSelectedBtn = () => {
-    appliedbtn('addType');
-  };
+ 
   return (
     <Drawer {...props} style={{backgroundColor: 'white'}}>
       <Drawer.Toggle onClick={handleToggle} className="mr-auto" />
 
       <Collapse in={open}>
-        <Drawer.Overflow>
-          <Drawer.ToC>
-            {/* <Drawer.Header href="/">Application</Drawer.Header> */}
+        <Drawer.Overflow style={{backgroundColor: 'white'}}>
+          {/* <Drawer.ToC> */}
+            {/* <Drawer.Header>Admin Panel</Drawer.Header> */}
 
             <Drawer.Nav>
-              <Drawer.Item>
+              <Drawer.Item className="sidebar-links-bg">
                 <p
                   onClick={() => {
                     appliedbtn('home');
-                    handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Home
                 </p>
@@ -36,10 +33,9 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('addType');
-                    handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Add Type
                 </p>
@@ -48,10 +44,9 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('addCategory');
-                     handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Add Category
                 </p>
@@ -60,10 +55,9 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('addFood');
-                     handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Add Food
                 </p>
@@ -72,10 +66,9 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('allFood');
-                     handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   All Food
                 </p>
@@ -84,10 +77,9 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('orders');
-                     handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Orders
                 </p>
@@ -96,16 +88,15 @@ const Sidebar = ({props, appliedbtn}) => {
                 <p
                   onClick={() => {
                     appliedbtn('Users');
-                     handleToggle()
+                    handleToggle();
                   }}
-                  style={{cursor: 'pointer'}}
-                  className="mb-0"
+                  className="mb-0 sidebar-links"
                 >
                   Users
                 </p>
               </Drawer.Item>
             </Drawer.Nav>
-          </Drawer.ToC>
+          {/* </Drawer.ToC> */}
         </Drawer.Overflow>
       </Collapse>
     </Drawer>

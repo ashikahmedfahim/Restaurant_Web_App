@@ -6,19 +6,19 @@ const HomePanel = () => {
   return (
     <Row style={{height: '100px'}}>
       <Col sm={12} md={4} lg={4} xl={3}>
-        <Cards name={'New Order'} count={'5'} price={'10'} bg={'success'} />
+        <Cards name={'New Order'} count={'5'} price={'10'} bg={'light'} />
       </Col>
       <Col sm={12} md={4} lg={4} xl={3}>
-        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'info'} />
+        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'light'} />
       </Col>
       <Col sm={12} md={4} lg={4} xl={3}>
-        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'info'} />
+        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'light'} />
       </Col>
       <Col sm={12} md={4} lg={4} xl={3}>
-        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'info'} />
+        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'warning'} />
       </Col>
       <Col sm={12} md={4} lg={4} xl={3}>
-        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'info'} />
+        <Cards name={'Total Order'} count={'15'} price={'150'} bg={'success'} />
       </Col>
     </Row>
   );

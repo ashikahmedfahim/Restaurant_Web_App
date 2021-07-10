@@ -1,8 +1,18 @@
-import React from 'react';
-import {Container, Row, Navbar, Nav, Button} from 'react-bootstrap';
-import {LinkContainer} from 'react-router-bootstrap';
-import '../assets/css/Navbar.css';
+import React from "react";
+import { Container, Row, Navbar, Nav, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faUser,
+  faShoppingCart,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+import "../assets/css/Navbar.css";
 const NavBar = () => {
+  library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
   return (
     <Container fluid>
       <Row>
@@ -27,9 +37,22 @@ const NavBar = () => {
 
             <Button variant="outline-success">Search</Button>
             <Nav className="ml-auto">
-              <Nav.Link href="#link">Fav</Nav.Link>
-              <Nav.Link href="#link">Cart</Nav.Link>
-              <Nav.Link href="#link">login</Nav.Link>
+              <LinkContainer to="/favourite">
+                <Nav.Link href="#link">
+                  <FontAwesomeIcon icon="heart" style={{ color: "red" }} />
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/cart">
+                <Nav.Link href="#link">
+                  <FontAwesomeIcon icon="shopping-cart" />
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <Nav.Link href="#link">
+                  {" "}
+                  <FontAwesomeIcon icon="user" /> Login
+                </Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
