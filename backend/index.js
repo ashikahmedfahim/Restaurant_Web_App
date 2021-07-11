@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const ExpressError = require("./utilities/expressError");
 const admins = require("./routes/admins");
 const categories = require("./routes/categories");
 const carts = require("./routes/carts");
@@ -35,3 +36,11 @@ app.use("/api/foods", foods);
 app.use("/api/orders", orders);
 app.use("/api/types", types);
 app.use("/api/users", users);
+
+app.use("*", (req, res, next) => {
+  next(new ExpressError("Page Not Found", 404));
+});
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Server Error" } = err;
+  res.status(status).send(message);
+});

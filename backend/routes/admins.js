@@ -5,11 +5,15 @@ Joi.objectId = require("joi-objectid")(Joi);
 const Admin = require("../models/admins");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const catchAsync = require("../utilities/catchAsync");
 
-router.get("/", async (req, res, next) => {
-  const admins = await Admin.find({}, "email");
-  res.send(admins);
-});
+router.get(
+  "/",
+  catchAsync(async (req, res, next) => {
+    const admins = await Admin.find({}, "email");
+    res.send(admins);
+  })
+);
 
 router.post("/", async (req, res, next) => {
   const schema = Joi.object({
@@ -44,15 +48,18 @@ router.post("/login", async (req, res, next) => {
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   });
-  console.log("data----------",req.body)
+  console.log("data----------", req.body);
   const isValidData = schema.validate(req.body);
-    if (isValidData.error) 
-    return res.status(400).json({ message:isValidData.error.message });
-   const isAdmin = await Admin.findOne({ email: req.body.email });
+  if (isValidData.error)
+    return res.status(400).json({ message: isValidData.error.message });
+  const isAdmin = await Admin.findOne({ email: req.body.email });
   if (isAdmin) {
     console.log(isAdmin);
-    const isValidAdmin = await bcrypt.compare(req.body.password, isAdmin.password);
-    console.log("isValidAdmin",isValidAdmin);
+    const isValidAdmin = await bcrypt.compare(
+      req.body.password,
+      isAdmin.password
+    );
+    console.log("isValidAdmin", isValidAdmin);
     if (isValidAdmin) {
       const token = jwt.sign(
         { _id: isAdmin._id, email: isAdmin.email, isAdmin: true },
@@ -60,11 +67,11 @@ router.post("/login", async (req, res, next) => {
       );
       res.send(token);
     } else {
-      res.status(400).json({ message: "Invalid credentials" })
+      res.status(400).json({ message: "Invalid credentials" });
       // res.send("Invalid Email or Password");
     }
   } else {
-    res.status(404).json({ message: "Admin Doesn't Exists."});
+    res.status(404).json({ message: "Admin Doesn't Exists." });
     // res.send("Admin Doesn't Exists.");
   }
 });
