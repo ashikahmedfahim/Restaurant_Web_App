@@ -11,21 +11,23 @@ router.get("/", async (req, res, next) => {
 });
 router.post("/",async (req, res, next) => {
   const schema = Joi.object({
+    name: Joi.string().required(),
     type: Joi.array().items(Joi.objectId().required()),
     category: Joi.array().items(Joi.objectId().required()),
-    name: Joi.string().required(),
     price: Joi.number().required(),
-    description: Joi.string().required(),
-    image: Joi.string().required().uri(),
     inStock: Joi.bool().required(),
+    image: Joi.string().required().uri(),
+    description: Joi.string().required(),
     discount: Joi.number().min(0),
   });
+  console.log("food-------",req.body)
   const isValidData = schema.validate(req.body);
   if (isValidData.error) {
-    res.send(isValidData.error.message);
+    return res.status(400).json({ message: isValidData.error.message });
   } else {
     const food  = new Food(req.body);
     const data =  await food.save();
+    console.log(data)
     res.send(data);
   }
 });

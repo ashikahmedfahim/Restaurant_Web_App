@@ -1,39 +1,71 @@
-import React , { useState , useEffect } from 'react'
-import {Container, Row, Col, Form, Button} from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import {addFOOD} from "../../acions/FoodActions";
+const initialState = {
+  name: "",
+  type: "",
+  category: "",
+  price: "",
+  inStock: "",
+  description: "",
+  discount: "",
+  image: "",
+};
+const AddFood = (history) => {
+  const [food, setFood] = useState(initialState);
 
-const AddFood = () => {
-  const [food, setFood] = useState({ name: '', type: '', category: '', price: '', inStock: '',description: '',discount: '' ,image: ''});
-  const handleChange = (e) => setFood({ ...food, [e.target.name]: e.target.value });
+  const dispatch = useDispatch();
+
+  const handleChange = (e) =>
+    setFood({ ...food, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("food---------", food);
+    dispatch(addFOOD(food, history));
+
+    setFood(initialState);
+  };
 
   return (
     <Row className="px-3">
       <h2 className="py-3">Add Food</h2>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <Col sm={12} md={6} lg={6} xl={6}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" name="name" onChange={handleChange} placeholder="Enter food name" />
+              <Form.Control
+                type="text"
+                name="name"
+                onChange={handleChange}
+                placeholder="Enter food name"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="number" placeholder="Enter food price" />
+              <Form.Control
+                type="number"
+                name="price"
+                onChange={handleChange}
+                placeholder="Enter food price"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
               <Form.Label>Select Type</Form.Label>
-              <Form.Control as="select" name="type">
-                <option>Choose a type</option>
-                <option>Newly Added</option>
-                <option>Popular</option>
+              <Form.Control as="select" name="type" onChange={handleChange}>
+                <option value="">Choose a type</option>
+                <option value="newlyAdded">Newly Added</option>
+                <option value="popular">Popular</option>
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
               <Form.Label>Select Category</Form.Label>
-              <Form.Control as="select" name="category">
-                <option>Choose a category</option>
-                <option>Pizza</option>
-                <option>Burger</option>
+              <Form.Control as="select" name="category" onChange={handleChange}>
+                <option value="">Choose a category</option>
+                <option value="pizza">Pizza</option>
+                <option value="burger">Burger</option>
               </Form.Control>
             </Form.Group>
           </Col>
@@ -43,22 +75,29 @@ const AddFood = () => {
 
               <Form.Check
                 inline
-                label="true"
+                label="Yes"
+                value="Yes"
                 name="inStock"
-                type="checkbox"
-                // id={`inline-${type}-1`}
+                type="radio"
+                onChange={handleChange}
               />
               <Form.Check
                 inline
-                label="false"
+                label="No"
+                value="No"
                 name="inStock"
-                type="checkbox"
-                // id={`inline-${type}-2`}
+                type="radio"
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>Add Image :</Form.Label>
-              <Form.Control type="file" size="sm" />
+              <Form.Control
+                type="file"
+                name="image"
+                size="sm"
+                onChange={handleChange}
+              />
             </Form.Group>
 
             <Form.Group
@@ -66,11 +105,21 @@ const AddFood = () => {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" name="description" rows={3} />
+              <Form.Control
+                as="textarea"
+                name="description"
+                rows={3}
+                onChange={handleChange}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Discount</Form.Label>
-              <Form.Control type="number" name="discount"placeholder="Add Discount" />
+              <Form.Control
+                type="number"
+                name="discount"
+                placeholder="Add Discount"
+                onChange={handleChange}
+              />
             </Form.Group>
             <Button variant="dark" type="submit">
               Submit

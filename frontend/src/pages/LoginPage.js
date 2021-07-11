@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../acions/AdminActions";
 import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 const initialState = {
   name: "",
   email: "",
@@ -86,16 +87,14 @@ const LoginPage = ({ location, history }) => {
   return (
     <>
       {adminloading ? (
-        <>
           <Loading />
-        </>
       ) : (
         <>
           <Container className="py-5">
             <Row>
               {adminerror ? (
                 <>
-                  <Alert variant="danger">{adminerror}</Alert>
+                <ErrorMessage variant="danger" message={adminerror}/>
                 </>
               ) : (
                 <></>
