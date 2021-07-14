@@ -6,14 +6,9 @@ const Admin = require("../models/admins");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utilities/catchAsync");
+const admin = require("../controllers/admin");
 
-router.get(
-  "/",
-  catchAsync(async (req, res, next) => {
-    const admins = await Admin.find({}, "email");
-    res.send(admins);
-  })
-);
+router.get("/", catchAsync(admin.index));
 
 router.post("/", async (req, res, next) => {
   const schema = Joi.object({
