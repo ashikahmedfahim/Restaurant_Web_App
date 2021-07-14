@@ -22,9 +22,9 @@ router.post("/", async (req, res, next) => {
   });
   const isValidData = schema.validate(req.body);
 
-  // if (isValidData.error) {
-  //   res.send(isValidData.error.message);
-  // } else {
+  if (isValidData.error) {
+    res.send(isValidData.error.message);
+  } else {
   const isAlreadyRegistered = await Admin.findOne({ email: req.body.email });
   if (isAlreadyRegistered) return res.send("Admin is Already Registered");
   const salt = await bcrypt.genSalt(12);
@@ -40,7 +40,7 @@ router.post("/", async (req, res, next) => {
     "thisstheprivatekey"
   );
   res.header("x-auth-token", token).send(result);
-  // }
+  }
 });
 
 router.post("/login", async (req, res, next) => {
@@ -48,13 +48,11 @@ router.post("/login", async (req, res, next) => {
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   });
-  console.log("data----------", req.body);
   const isValidData = schema.validate(req.body);
   if (isValidData.error)
     return res.status(400).json({ message: isValidData.error.message });
   const isAdmin = await Admin.findOne({ email: req.body.email });
   if (isAdmin) {
-    console.log(isAdmin);
     const isValidAdmin = await bcrypt.compare(
       req.body.password,
       isAdmin.password
@@ -68,11 +66,9 @@ router.post("/login", async (req, res, next) => {
       res.send(token);
     } else {
       res.status(400).json({ message: "Invalid credentials" });
-      // res.send("Invalid Email or Password");
     }
   } else {
     res.status(404).json({ message: "Admin Doesn't Exists." });
-    // res.send("Admin Doesn't Exists.");
   }
 });
 

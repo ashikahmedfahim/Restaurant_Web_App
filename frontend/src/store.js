@@ -19,8 +19,8 @@ import {
 import {
   adminLoginReducer,
   adminRegisterReducer,
-  
 } from "./reducers/AdminReducers";
+import { typeAddReducer, typeGetReducer } from "./reducers/TypeReducers";
 
 const reducer = combineReducers({
   foodList: foodListReducer,
@@ -32,6 +32,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   adminLogin: adminLoginReducer,
   adminRegister: adminRegisterReducer,
+  typeAdd: typeAddReducer,
+  allTypes:typeGetReducer
   // userDetails: userDetailsReducer,
   // userUpdateProfile: userUpdateProfileReducer,
   // userList: userListReducer,

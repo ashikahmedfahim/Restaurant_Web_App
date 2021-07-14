@@ -10,8 +10,11 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../acions/AdminActions";
+import { getType } from "../acions/TypeActions";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
+import AdminLogin from "../components/Admin/AdminLogin";
+import UserLoginRegister from "../components/Admin/User/UserLoginRegister";
 const initialState = {
   name: "",
   email: "",
@@ -39,9 +42,8 @@ const LoginPage = ({ location, history }) => {
   const adminRedirect = location.search
     ? location.search.split("=")[1]
     : "/admin/home";
-  const userRedirect = location.search
-    ? location.search.split("=")[1]
-    : "/admin/home";
+
+  const userRedirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (adminInfo) {
@@ -64,17 +66,13 @@ const LoginPage = ({ location, history }) => {
     e.preventDefault();
 
     if (selectedbtn === "admin") {
-      console.log("loginForm");
-      console.log(loginForm);
       dispatch(login(loginForm, history));
+      dispatch(getType());
       setLoginForm(loginInitialState);
     } else {
       if (isSignup === "true") {
-        console.log("register");
-        console.log(form);
         dispatch(register(form, history));
       } else {
-        console.log(form);
         dispatch(login(form, history));
       }
     }
@@ -87,14 +85,14 @@ const LoginPage = ({ location, history }) => {
   return (
     <>
       {adminloading ? (
-          <Loading />
+        <Loading />
       ) : (
         <>
           <Container className="py-5">
             <Row>
               {adminerror ? (
                 <>
-                <ErrorMessage variant="danger" message={adminerror}/>
+                  <ErrorMessage variant="danger" message={adminerror} />
                 </>
               ) : (
                 <></>
@@ -125,126 +123,21 @@ const LoginPage = ({ location, history }) => {
               </Row>
               <Row>
                 {selectedbtn === "admin" ? (
-                  <Col className="d-flex justify-content-center align-items-center">
-                    <form onSubmit={handleSubmit}>
-                      <h3>Admin LogIn</h3>
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          onChange={loginhandleChange}
-                          placeholder="Enter email"
-                        />
-                        <Form.Text className="text-muted">
-                          We'll never share your email with anyone else.
-                        </Form.Text>
-                      </Form.Group>
-
-                      <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="password"
-                          onChange={loginhandleChange}
-                          placeholder="Password"
-                        />
-                      </Form.Group>
-                      <Button variant="dark" type="submit" className="my-3">
-                        Login
-                      </Button>
-                    </form>
-                  </Col>
+                  <>
+                    <AdminLogin
+                      loginhandleChange={loginhandleChange}
+                      handleSubmit={handleSubmit}
+                    />
+                  </>
                 ) : (
-                  <Col className="d-flex justify-content-center align-items-center">
-                    <form onSubmit={handleSubmit}>
-                      <h3>
-                        {isSignup === "true" ? "User Register" : "User LogIn"}
-                      </h3>
-                      {isSignup === "true" ? (
-                        <Form.Group controlId="formBasicName">
-                          <Form.Label>Enter your Name</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="name"
-                            onChange={handleChange}
-                            placeholder="Enter name"
-                          />
-                        </Form.Group>
-                      ) : (
-                        <></>
-                      )}
-                      <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          onChange={handleChange}
-                          placeholder="Enter email"
-                        />
-                        <Form.Text className="text-muted">
-                          We'll never share your email with anyone else.
-                        </Form.Text>
-                      </Form.Group>
-
-                      <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="password"
-                          onChange={handleChange}
-                          placeholder="Password"
-                        />
-                      </Form.Group>
-                      {isSignup === "true" ? (
-                        <>
-                          <Form.Group controlId="formBasicPhone">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="phone"
-                              onChange={handleChange}
-                              placeholder="Enter phone number"
-                            />
-                          </Form.Group>
-                          <Form.Group controlId="formBasicAddress">
-                            <Form.Label>Enter your Address</Form.Label>
-                            <Form.Control
-                              type="text"
-                              name="address"
-                              onChange={handleChange}
-                              placeholder="Enter address"
-                            />
-                          </Form.Group>
-                          <Button variant="dark" type="submit" className="my-3">
-                            SignUp
-                          </Button>
-                          <p
-                            onClick={() => {
-                              switchMode("false");
-                            }}
-                            style={{ cursor: "pointer" }}
-                          >
-                            "Already have an account? Sign in"
-                          </p>
-                        </>
-                      ) : (
-                        <>
-                          <Button variant="dark" type="submit" className="my-3">
-                            Login
-                          </Button>
-                          <p
-                            onClick={() => {
-                              switchMode("true");
-                            }}
-                            style={{ cursor: "pointer" }}
-                          >
-                            "Don't have an account? Sign Up"
-                          </p>
-                        </>
-                      )}
-                    </form>
-                  </Col>
+                  <>
+                    <UserLoginRegister
+                      handleSubmit={handleSubmit}
+                      handleChange={handleChange}
+                      isSignup={isSignup}
+                      switchMode={switchMode}
+                    />
+                  </>
                 )}
               </Row>
             </Row>

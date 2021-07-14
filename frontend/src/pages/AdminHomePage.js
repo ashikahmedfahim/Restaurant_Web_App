@@ -1,92 +1,102 @@
-import React, {useState} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
-import Sidebar from '../components/Sidebar';
-import AddType from '../components/Admin/AddType';
-import AddCategory from '../components/Admin/AddCategory';
-import AddFood from '../components/Admin/AddFood';
-import AllFood from '../components/Admin/AllFood';
-import Orders from '../components/Admin/Orders';
-import Users from '../components/Admin/Users';
-import HomePanel from '../components/Admin/HomePanel';
-import '../assets/css/AdminHomePage.css';
-const AdminHomePage = () => {
-  const [selectedbtn, setSelectedbtn] = useState('');
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import Sidebar from "../components/Sidebar";
+import AddType from "../components/Admin/AddType";
+import AddCategory from "../components/Admin/AddCategory";
+import AddFood from "../components/Admin/AddFood";
+import AllFood from "../components/Admin/AllFood";
+import Orders from "../components/Admin/Orders";
+import Users from "../components/Admin/Users";
+import HomePanel from "../components/Admin/HomePanel";
+import "../assets/css/AdminHomePage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getType } from "../acions/TypeActions";
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
+
+const AdminHomePage = (history) => {
+  const [selectedbtn, setSelectedbtn] = useState("");
   const appliedbtn = (value) => {
     setSelectedbtn(value);
   };
+  const allTypes = useSelector((state) => state.allTypes);
+  const { typeloading, typeerror, AllTypeInfo } = allTypes;
+
+  const Type = JSON.parse(localStorage.getItem('Type'));
+
+  useEffect(() => {
+    console.log(Type)
+    getType();
+  }, [history, allTypes]);
   return (
-    <Container
-      fluid
-      className="py-0 px-0"
-      style={{backgroundColor: 'white'}}
-    >
+    <Container fluid className="py-0 px-0" style={{ backgroundColor: "white" }}>
       <Row className="g-0">
         <Col sm={2} md={3} lg={2} xl={2}>
           <Sidebar appliedbtn={appliedbtn} />
         </Col>
 
-        {selectedbtn === 'addType' ? (
+        {selectedbtn === "addType" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="d-flex justify-content-center align-items-start py-5"
           >
             <AddType />
           </Col>
-        ) : selectedbtn === 'addCategory' ? (
+        ) : selectedbtn === "addCategory" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="d-flex justify-content-center align-items-start py-5"
           >
             <AddCategory />
           </Col>
-        ) : selectedbtn === 'addFood' ? (
+        ) : selectedbtn === "addFood" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="d-flex justify-content-center align-items-start py-5"
           >
-            <AddFood />
+            <AddFood type={Type}/>
           </Col>
-        ) : selectedbtn === 'allFood' ? (
+        ) : selectedbtn === "allFood" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="d-flex justify-content-center align-items-start py-5"
           >
             <AllFood />
           </Col>
-        ) : selectedbtn === 'orders' ? (
+        ) : selectedbtn === "orders" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="py-5 admin-home-page"
           >
             <Orders />
           </Col>
-        ) : selectedbtn === 'Users' ? (
+        ) : selectedbtn === "Users" ? (
           <Col
             sm={12}
             md={9}
             lg={10}
             xl={10}
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
             className="d-flex admin-home-page justify-content-center align-items-start py-5"
           >
             <Users />
@@ -98,7 +108,7 @@ const AdminHomePage = () => {
             lg={10}
             xl={10}
             className="d-flex admin-home-page justify-content-start px-2 py-5"
-            style={{backgroundColor: 'white'}}
+            style={{ backgroundColor: "white" }}
           >
             <HomePanel />
           </Col>
