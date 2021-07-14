@@ -20,9 +20,12 @@ router.post("/",async (req, res, next) => {
     description: Joi.string().required(),
     discount: Joi.number().min(0),
   });
+  console.log("schema-------",req.body)
   console.log("food-------",req.body)
-  const isValidData = schema.validate(req.body);
+  const isValidData = await schema.validate(req.body);
   if (isValidData.error) {
+    console.log("isValidDatamessage-------",isValidData.error.message)
+
     return res.status(400).json({ message: isValidData.error.message });
   } else {
     const food  = new Food(req.body);

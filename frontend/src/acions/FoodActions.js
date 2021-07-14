@@ -117,7 +117,7 @@ console.log("1st")
     }
     console.log("2nd")
 
-    const { data } = await axios.post(`http://localhost:5000/api/foods`, {food}, config)
+    const { data } = await axios.post(`http://localhost:5000/api/foods`, food, config)
 
     dispatch({
       type: FOOD_ADD_SUCCESS,

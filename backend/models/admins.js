@@ -11,6 +11,9 @@ const adminSchema = new mongoose.Schema({
     max: 1024,
     required: true,
   },
+},
+{
+  timestamps: true,
 });
 
 module.exports = mongoose.model("Admin", adminSchema);

@@ -5,11 +5,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-  },
-  foods: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "Food",
-  },
+  }
+},
+{
+  timestamps: true,
 });
 
 module.exports = mongoose.model("Category", categorySchema);

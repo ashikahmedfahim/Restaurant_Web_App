@@ -5,11 +5,10 @@ const typeSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-  },
-  foods: {
-    type: [Schema.Types.ObjectId],
-    ref: "Food",
-  },
+  }
+},
+{
+  timestamps: true,
 });
 
 module.exports = mongoose.model("Type", typeSchema);
