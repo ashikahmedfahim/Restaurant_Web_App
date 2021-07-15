@@ -45,11 +45,14 @@ export const login = (form) => async (dispatch) => {
       config
     );
 
+    // if (localStorage.getItem('seller')) {
+    //   req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('seller')).token}`;
+    // }
+    
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,

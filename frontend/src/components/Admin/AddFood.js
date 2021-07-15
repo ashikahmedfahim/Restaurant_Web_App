@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {addFOOD} from "../../acions/FoodActions";
+import { addFood } from "../../acions/FoodActions";
 const initialState = {
   name: "",
   type: "",
@@ -12,7 +12,7 @@ const initialState = {
   discount: "",
   image: "",
 };
-const AddFood = (history) => {
+const AddFood = ({ type, history }) => {
   const [food, setFood] = useState(initialState);
 
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const AddFood = (history) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("food---------", food);
-    dispatch(addFOOD(food, history));
+    dispatch(addFood(food, history));
 
     setFood(initialState);
   };
@@ -56,8 +56,10 @@ const AddFood = (history) => {
               <Form.Label>Select Type</Form.Label>
               <Form.Control as="select" name="type" onChange={handleChange}>
                 <option value="">Choose a type</option>
-                <option value="newlyAdded">Newly Added</option>
-                <option value="popular">Popular</option>
+
+                {Object.keys(type).map((item) => (
+                  <option key={type[item]._id} value={type[item].name}>{type[item].name}</option>
+                ))}
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">

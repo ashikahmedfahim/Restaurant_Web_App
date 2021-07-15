@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 import {
   FOOD_LIST_REQUEST,
   FOOD_LIST_SUCCESS,
@@ -15,44 +15,44 @@ import {
   FOOD_UPDATE_REQUEST,
   FOOD_UPDATE_SUCCESS,
   FOOD_UPDATE_FAIL,
-} from '../constant/FoodConstant'
+} from "../constant/FoodConstant";
 /* import { logout } from './userActions'
  */
-export const listFOODs = (keyword = '', pageNumber = '') => async (
-  dispatch
-) => {
-  try {
-    dispatch({ type: FOOD_LIST_REQUEST })
+export const listFOODs =
+  (keyword = "", pageNumber = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: FOOD_LIST_REQUEST });
 
-    const { data } = await axios.get(
-      `/api/FOODs?keyword=${keyword}&pageNumber=${pageNumber}`
-    )
+      const { data } = await axios.get(
+        `/api/FOODs?keyword=${keyword}&pageNumber=${pageNumber}`
+      );
 
-    dispatch({
-      type: FOOD_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: FOOD_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
+      dispatch({
+        type: FOOD_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: FOOD_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listFOODDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: FOOD_DETAILS_REQUEST })
+    dispatch({ type: FOOD_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/FOODs/${id}`)
+    const { data } = await axios.get(`/api/FOODs/${id}`);
 
     dispatch({
       type: FOOD_DETAILS_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: FOOD_DETAILS_FAIL,
@@ -60,123 +60,121 @@ export const listFOODDetails = (id) => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const deleteFOOD = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: FOOD_DELETE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
-    }
+    };
 
-    await axios.delete(`/api/FOODs/${id}`, config)
+    await axios.delete(`/api/FOODs/${id}`, config);
 
     dispatch({
       type: FOOD_DELETE_SUCCESS,
-    })
+    });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
+        : error.message;
+    if (message === "Not authorized, token failed") {
       // dispatch(logout())
     }
     dispatch({
       type: FOOD_DELETE_FAIL,
       payload: message,
-    })
+    });
   }
-}
+};
 
-export const addFOOD = (food) => async (dispatch, getState) => {
+export const addFood = (food) => async (dispatch, getState) => {
   try {
     dispatch({
       type: FOOD_ADD_REQUEST,
-    })
+    });
 
     const {
       adminLogin: { adminInfo },
-    } = getState()
-console.log("1st")
+    } = getState();
     const config = {
       headers: {
         Authorization: `Bearer ${adminInfo}`,
       },
-    }
-    console.log("2nd")
+    };
 
-    const { data } = await axios.post(`http://localhost:5000/api/foods`, food, config)
+    const { data } = await axios.post(
+      `http://localhost:5000/api/foods`,
+      food,
+      config
+    );
 
     dispatch({
       type: FOOD_ADD_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
+        : error.message;
+    if (message === "Not authorized, token failed") {
       // dispatch(logout())
     }
     dispatch({
       type: FOOD_ADD_FAIL,
       payload: message,
-    })
+    });
   }
-}
+};
 
 export const updateFOOD = (FOOD) => async (dispatch, getState) => {
   try {
     dispatch({
       type: FOOD_UPDATE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
-    }
+    };
 
-    const { data } = await axios.put(
-      `/api/FOODs/${FOOD._id}`,
-      FOOD,
-      config
-    )
+    const { data } = await axios.put(`/api/FOODs/${FOOD._id}`, FOOD, config);
 
     dispatch({
       type: FOOD_UPDATE_SUCCESS,
       payload: data,
-    })
-    dispatch({ type: FOOD_DETAILS_SUCCESS, payload: data })
+    });
+    dispatch({ type: FOOD_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
-        : error.message
-    if (message === 'Not authorized, token failed') {
+        : error.message;
+    if (message === "Not authorized, token failed") {
       // dispatch(logout())
     }
     dispatch({
       type: FOOD_UPDATE_FAIL,
       payload: message,
-    })
+    });
   }
-}
+};
