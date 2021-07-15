@@ -40,6 +40,7 @@ app.use("/api/users", users);
 app.use("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
 });
+
 app.use((err, req, res, next) => {
   const { status = 500, message = "Server Error" } = err;
   res.status(status).send(message);

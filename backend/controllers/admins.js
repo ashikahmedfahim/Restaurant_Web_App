@@ -1,7 +1,7 @@
 const Admin = require("../models/admins");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const adminValidations = require("../utilities/adminObjectValidations");
+const dataValidations = require("../utilities/dataValidations");
 
 module.exports.getAll = async (req, res, next) => {
   const admins = await Admin.find({}, "email");
@@ -9,7 +9,7 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.createOne = async (req, res, next) => {
-  const isValidData = adminValidations.isValidAdmin(req.body);
+  const isValidData = dataValidations.isValidUserObject(req.body);
   if (isValidData.error) return res.status(400).send(isValidData.error.message);
   const isAlreadyRegistered = await Admin.findOne({ email: req.body.email });
   if (isAlreadyRegistered) return res.send("Admin is Already Registered");
@@ -28,7 +28,7 @@ module.exports.createOne = async (req, res, next) => {
 };
 
 module.exports.getOne = async (req, res, next) => {
-  const isValidData = adminValidations.isValidObjectId(req.params.id);
+  const isValidData = dataValidations.isValidObjectId(req.params.id);
   if (isValidData.error) return res.status(400).send("Invalid ID");
   const result = await Admin.findOne({ _id: req.params.id });
   if (!result) return res.send("ID Not Found");
@@ -36,9 +36,9 @@ module.exports.getOne = async (req, res, next) => {
 };
 
 module.exports.updateOne = async (req, res, next) => {
-  const isValidObjectId = adminValidations.isValidObjectId(req.params.id);
+  const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
   if (isValidObjectId.error) return res.status(400).send("Invalid ID");
-  const isValidPwd = adminValidations.isvalidPassword(req.body);
+  const isValidPwd = dataValidations.isvalidPassword(req.body);
   if (isValidPwd.error) return res.status(400).send("Please enter a password");
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -51,7 +51,7 @@ module.exports.updateOne = async (req, res, next) => {
 };
 
 module.exports.deleteOne = async (req, res, next) => {
-  const isValidObjectId = adminValidations.isValidObjectId(req.params.id);
+  const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
   if (isValidObjectId.error) return res.status(400).send("Invalid ID");
   const result = await Admin.findOneAndDelete({ _id: req.params.id });
   if (!result) return res.send("Admin Id not found");

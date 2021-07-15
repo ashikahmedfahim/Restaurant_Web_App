@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utilities/catchAsync");
-const admin = require("../controllers/admin");
+const admin = require("../controllers/admins");
 
 router.get("/", catchAsync(admin.getAll));
 router.post("/", catchAsync(admin.createOne));
