@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const catchAsync = require("../utilities/catchAsync");
+const category = require("../controllers/categories");
 
-router.get("/", (req, res, next) => {});
-router.post("/", (req, res, next) => {});
-router.get("/:id", (req, res, next) => {});
-router.put("/:id", (req, res, next) => {});
-router.delete("/:id", (req, res, next) => {});
-
+router.get("/", catchAsync(category.getAll));
+router.post("/", catchAsync(category.createOne));
+router.get("/:id", catchAsync(category.getOne));
+router.put("/:id", catchAsync(category.updateOne));
+router.delete("/:id", catchAsync(category.deleteOne));
 
 module.exports = router;

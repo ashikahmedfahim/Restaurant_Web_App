@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const catchAsync = require("../utilities/catchAsync");
+const user = require("../controllers/users");
 
-
-router.get("/", (req, res, next) => {});
-router.post("/", (req, res, next) => {});
-router.get("/:id", (req, res, next) => {});
-router.put("/:id", (req, res, next) => {});
-router.delete("/:id", (req, res, next) => {});
+router.get("/", catchAsync(user.getAll));
+router.post("/", catchAsync(user.createOne));
+router.get("/:id", catchAsync(user.getOne));
+router.put("/:id", catchAsync(user.updateOne));
+router.delete("/:id", catchAsync(user.deleteOne));
 
 module.exports = router;
