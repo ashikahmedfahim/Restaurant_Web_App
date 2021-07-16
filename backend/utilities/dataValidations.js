@@ -45,3 +45,18 @@ module.exports.isValidString = (value) => {
   const isValidData = schema.validate(value);
   return isValidData;
 };
+
+module.exports.isValidFoodObject = (value) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    type: Joi.array().items(Joi.objectId().required()).required(),
+    category: Joi.array().items(Joi.objectId().required()).required(),
+    price: Joi.number().required(),
+    inStock: Joi.bool().required(),
+    image: Joi.string().required().uri(),
+    description: Joi.string().required(),
+    discount: Joi.number().min(0),
+  });
+  const isValidData = schema.validate(value);
+  return isValidData;
+}
