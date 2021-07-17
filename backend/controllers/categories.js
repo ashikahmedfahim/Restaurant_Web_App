@@ -3,44 +3,50 @@ const dataValidations = require("../utilities/dataValidations");
 
 module.exports.getAll = async (req, res, next) => {
   const result = await Category.find({});
+  if (!result.length) throw new ExpressError(204, "No Category found");
   res.status(201).send(result);
 };
 
 module.exports.createOne = async (req, res, next) => {
   const isValidData = dataValidations.isValidString(req.body);
-  if (isValidData.error) return res.status(400).send("Invalid Category Name");
+  if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const category = new Category(req.body);
   const result = await category.save();
-  res.status(201).send(result);
+  if (!result) throw new ExpressError(500, "Failed to create Category");
+  res.send(result);
 };
 
 module.exports.getOne = async (req, res, next) => {
   const isValidId = dataValidations.isValidObjectId(req.params.id);
-  if (isValidId.error) return res.status(400).send("Invalid ID");
+  if (isValidId.error) throw new ExpressError(400, "Invalid Category Id");
   const result = await Category.findOne({ _id: req.params.id });
-  if (!result) return res.send("ID does not Matched");
+  if (!result) throw new ExpressError(404, "no Category found");
   res.send(result);
 };
 
 module.exports.updateOne = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
-  if (isValidObjectId.error) return res.status(400).send("Invalid ID");
+  if (isValidObjectId.error) throw new ExpressError(400, "Invalid Category Id");
   const isValidName = dataValidations.isValidString(req.body);
-  if (isValidName.error) return res.status(400).send("Please enter a  Category Name");
+  if (isValidName.error) throw new ExpressError(400, "Invalid Category name");
   const isUnique = await Category.findOne({ name: req.body.name });
-  if (isUnique) return res.status(400).send("Category Name is already in use");
+  if (isUnique) throw new ExpressError(400, "Category name already exists");
+  const category = await Category.findOne({ _id: req.params.id });
+  if (!category) throw new ExpressError(404, "no Category found");
   const result = await Category.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { name: req.body.name } }
   );
-  if (!result) return res.send("Failed to update Categoty");
-  res.send("Categoty updated successfully");
+  if (!result) throw new ExpressError(500, "Failed to update Category name");
+  res.send("Category updated successfully");
 };
 
 module.exports.deleteOne = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
-  if (isValidObjectId.error) return res.status(400).send("Invalid ID");
+  if (isValidObjectId.error) throw new ExpressError(400, "Invalid Category Id");
+  const category = await Category.findOne({ _id: req.params.id });
+  if (!category) throw new ExpressError(404, "no Category found");
   const result = await Category.findOneAndDelete({ _id: req.params.id });
-  if (!result) return res.send("Category Id not found");
+  if (!result)  throw new ExpressError(500, "Failed to delete Category");
   res.send("Successfully Deleted Category");
 };

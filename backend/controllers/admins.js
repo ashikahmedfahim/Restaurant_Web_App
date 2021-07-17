@@ -5,9 +5,9 @@ const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
 module.exports.getAll = async (req, res, next) => {
-  const admins = await Admin.find({}, "email");
-  if (!admins.length) throw new ExpressError(204, "No admins found");
-  res.send(admins);
+  const result = await Admin.find({}, "email");
+  if (!result.length) throw new ExpressError(204, "No admin found");
+  res.send(result);
 };
 
 module.exports.createOne = async (req, res, next) => {
@@ -23,6 +23,7 @@ module.exports.createOne = async (req, res, next) => {
     password: hashedPassword,
   });
   const result = await admin.save();
+  if (!result) throw new ExpressError(500, "Failed to create admin");
   const token = jwt.sign(
     { _id: result._id, email: result.email, isAdmin: true },
     "thisstheprivatekey"
@@ -34,7 +35,7 @@ module.exports.getOne = async (req, res, next) => {
   const isValidData = dataValidations.isValidObjectId(req.params.id);
   if (isValidData.error) throw new ExpressError(400, "Invalid admin Id");
   const result = await Admin.findOne({ _id: req.params.id });
-  if (!result) throw new ExpressError(404, "No admins found");
+  if (!result) throw new ExpressError(404, "No admin found");
   res.send({ _id: result._id, email: result.email });
 };
 
