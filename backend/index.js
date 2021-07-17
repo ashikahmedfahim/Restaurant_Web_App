@@ -38,7 +38,7 @@ app.use("/api/types", types);
 app.use("/api/users", users);
 
 app.use("*", (req, res, next) => {
-  next(new ExpressError("Page Not Found", 404));
+  next(new ExpressError(404, "Page not found"));
 });
 
 app.use((err, req, res, next) => {
