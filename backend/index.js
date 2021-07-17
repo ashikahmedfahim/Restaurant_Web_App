@@ -42,6 +42,6 @@ app.use("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Server Error" } = err;
-  res.status(status).send(message);
+  const { statusCode = 500, message = "Server Error" } = err;
+  res.status(statusCode).send(message);
 });

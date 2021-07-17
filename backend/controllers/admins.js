@@ -2,17 +2,20 @@ const Admin = require("../models/admins");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
+const ExpressError = require("../utilities/expressError");
 
 module.exports.getAll = async (req, res, next) => {
   const admins = await Admin.find({}, "email");
+  if (!admins.length) throw new ExpressError(204, "No admins found");
   res.send(admins);
 };
 
 module.exports.createOne = async (req, res, next) => {
   const isValidData = dataValidations.isValidUserObject(req.body);
-  if (isValidData.error) return res.status(400).send(isValidData.error.message);
+  if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await Admin.findOne({ email: req.body.email });
-  if (isAlreadyRegistered) return res.send("Admin is Already Registered");
+  if (isAlreadyRegistered)
+    throw new ExpressError(400, "Admin is Already Registered");
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const admin = new Admin({
@@ -29,32 +32,35 @@ module.exports.createOne = async (req, res, next) => {
 
 module.exports.getOne = async (req, res, next) => {
   const isValidData = dataValidations.isValidObjectId(req.params.id);
-  if (isValidData.error) return res.status(400).send("Invalid ID");
+  if (isValidData.error) throw new ExpressError(400, "Invalid admin Id");
   const result = await Admin.findOne({ _id: req.params.id });
-  if (!result) return res.send("ID Not Found");
+  if (!result) throw new ExpressError(404, "No admins found");
   res.send({ _id: result._id, email: result.email });
 };
 
 module.exports.updateOne = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
-  if (isValidObjectId.error) return res.status(400).send("Invalid ID");
+  if (isValidObjectId.error) throw new ExpressError(400, "Invalid admin Id");
   const isValidPwd = dataValidations.isvalidPassword(req.body);
-  if (isValidPwd.error)
-    return res.status(400).send(isvalidPassword.error.message);
+  if (isValidPwd.error) throw new ExpressError(400, isValidPwd.error.message);
+  const admin = await Admin.findOne({ _id: req.params.id });
+  if (!admin) throw new ExpressError(404, "No admins found");
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const result = await Admin.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { password: hashedPassword } }
   );
-  if (!result) return res.send("Failed to update Password");
+  if (!result) throw new ExpressError(500, "Unable to update password");
   res.send("Password updated successfully");
 };
 
 module.exports.deleteOne = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
-  if (isValidObjectId.error) return res.status(400).send("Invalid ID");
+  if (isValidObjectId.error) throw new ExpressError(400, "Invalid admin Id");
+  const admin = await Admin.findOne({ _id: req.params.id });
+  if (!admin) throw new ExpressError(404, "No admins found");
   const result = await Admin.findOneAndDelete({ _id: req.params.id });
-  if (!result) return res.send("Admin Id not found");
+  if (!result) throw new ExpressError(500, "Failed to delete admin");
   res.send("Successfully Deleted Admin");
 };
