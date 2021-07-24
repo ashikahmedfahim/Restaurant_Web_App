@@ -8,6 +8,7 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.createOne = async (req, res, next) => {
+  console.log("category",req.body)
   const isValidData = dataValidations.isValidString(req.body);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const category = new Category(req.body);

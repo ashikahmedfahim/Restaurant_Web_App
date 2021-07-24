@@ -2,13 +2,15 @@
     /* background-color: yellowgreen; */
 }
 .sidebar-links {
+  padding-bottom: 0.65rem;
   cursor: pointer !important;
-  color: #888888 !important;
-  font-size: 1.2rem !important;
+  color: #5e5e5e !important;
+  font-size: 14px !important;
   font-weight: 300;
-  font-family: 'Arial', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Open Sans', 'Arial', 'Arial Narrow', Arial, sans-serif;
 }
 .sidebar-links:hover {
   color: #9828f4 !important;
-  
+  font-weight: 500;
+
 }

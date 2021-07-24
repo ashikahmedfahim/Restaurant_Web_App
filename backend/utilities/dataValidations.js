@@ -9,6 +9,14 @@ module.exports.isValidUserObject = (value) => {
   const isValidData = schema.validate(value);
   return isValidData;
 };
+module.exports.isValidAdminObject = (value) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(4).required(),
+  });
+  const isValidData = schema.validate(value);
+  return isValidData;
+};
 
 module.exports.isValidUserData = (value) => {
   const schema = Joi.object({
@@ -49,11 +57,14 @@ module.exports.isValidString = (value) => {
 module.exports.isValidFoodObject = (value) => {
   const schema = Joi.object({
     name: Joi.string().required(),
-    type: Joi.array().items(Joi.objectId().required()).required(),
-    category: Joi.array().items(Joi.objectId().required()).required(),
     price: Joi.number().required(),
+    // type: Joi.array().items(Joi.objectId().required()).required(),
+    // type: Joi.string().required(),
+    category: Joi.string().required(),
+    // category: Joi.array().items(Joi.objectId().required()).required(),
     inStock: Joi.bool().required(),
-    image: Joi.string().required().uri(),
+    image: Joi.string().required(),
+    // image: Joi.string().required().uri(),
     description: Joi.string().required(),
     discount: Joi.number().min(0),
   });

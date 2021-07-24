@@ -4,6 +4,26 @@ const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
+module.exports.logIn = async (req, res, next) => {
+  const isValidData = dataValidations.isValidAdminObject(req.body);
+  if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
+  const isAdmin = await Admin.findOne({ email: req.body.email });
+  if (isAdmin) {
+    const isValidAdmin = bcrypt.compare(req.body.password, isAdmin.password);
+    if (isValidAdmin) {
+      const token = jwt.sign(
+        { _id: isAdmin._id, email: isAdmin.email, isAdmin: true },
+        "thisstheprivatekey"
+      );
+      res.send(token);
+    } else {
+      res.status(400).json({ message: "Invalid credentials" });
+    }
+  } else {
+    res.status(404).json({ message: "Admin Doesn't Exists." });
+  }
+};
+
 module.exports.getAll = async (req, res, next) => {
   const result = await Admin.find({}, "email");
   res.send(result);

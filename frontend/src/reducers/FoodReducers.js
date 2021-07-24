@@ -19,19 +19,19 @@ import {
   } from '../constant/FoodConstant';
   
   
-export const foodListReducer = (state = { FOODs: [] }, action) => {
+export const foodListReducer = (state = {}, action) => {
     switch (action.type) {
       case FOOD_LIST_REQUEST:
-        return { loading: true, FOODs: [] }
+        return { foodListloading: true, FOODS: [] }
       case FOOD_LIST_SUCCESS:
         return {
-          loading: false,
-          FOODs: action.payload.FOODs,
-          pages: action.payload.pages,
-          page: action.payload.page,
+          foodListloading: false,
+          FOODS: action.payload,
+          // pages: action.payload.pages,
+          // page: action.payload.page,
         }
       case FOOD_LIST_FAIL:
-        return { loading: false, error: action.payload }
+        return { foodListloading: false, foodListerror: action.payload }
       default:
         return state
     }

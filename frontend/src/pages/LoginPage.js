@@ -10,11 +10,12 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../acions/AdminActions";
-import { getType } from "../acions/TypeActions";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import AdminLogin from "../components/Admin/AdminLogin";
-import UserLoginRegister from "../components/Admin/User/UserLoginRegister";
+import UserLoginRegister from "../components/User/UserLoginRegister";
+import { getCategory } from "../acions/CategoryActions";
+import { listFOODs } from "../acions/FoodActions";
 const initialState = {
   name: "",
   email: "",
@@ -66,8 +67,10 @@ const LoginPage = ({ location, history }) => {
     e.preventDefault();
 
     if (selectedbtn === "admin") {
+      console.log(loginForm)
       dispatch(login(loginForm, history));
-      dispatch(getType());
+      dispatch(getCategory());
+      dispatch(listFOODs());
       setLoginForm(loginInitialState);
     } else {
       if (isSignup === "true") {

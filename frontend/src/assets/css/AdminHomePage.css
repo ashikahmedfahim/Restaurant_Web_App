@@ -1,5 +1,13 @@
 .admin-home-page {
-  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
-  /* border-top-right-radius: 25px;
+ /* background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px; */
+}
+
+.btn a{
+  text-decoration: none;
+}
+
+.dropdown-toggle::after{
+  border: 0px !important;
 }

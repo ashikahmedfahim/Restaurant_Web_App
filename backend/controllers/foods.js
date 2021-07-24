@@ -3,17 +3,32 @@ const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
 module.exports.getAll = async (req, res, next) => {
-  const result = await Food.find({});
-  res.json(result);
-};
+  try {
+    const result = await Food.find({});
 
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 module.exports.createOne = async (req, res, next) => {
+  const { name, category, price, inStock, description, discount, image } =
+    req.body;
   const isValidData = dataValidations.isValidFoodObject(req.body);
+  if (isValidData)
+    throw res.status(400).json({ message: isValidData.error.message });
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyUsedName = await Food.findOne({ name: req.body.name });
-  if (isAlreadyUsedName)
-    throw new ExpressError(400, "User name already exists");
-  const food = new Food(req.body);
+  if (isAlreadyUsedName) throw new ExpressError(400, "Food already exists");
+  const food = new Food({
+    name,
+    category,
+    price,
+    inStock,
+    description,
+    discount,
+    image,
+  });
   const result = await food.save();
   if (!result) throw new ExpressError(500, "Failed to create Food");
   res.send(result);

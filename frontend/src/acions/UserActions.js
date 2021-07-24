@@ -40,7 +40,7 @@ export const login = (form) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/admins/login",
+      "http://localhost:5000/api/users",
       form,
       config
     );
@@ -86,7 +86,7 @@ export const register = (form) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/admins/",
+      "http://localhost:5000/api/users/",
       form,
       config
     );

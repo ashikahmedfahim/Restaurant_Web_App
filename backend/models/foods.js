@@ -1,21 +1,25 @@
 const mongoose = require("mongoose");
+const { startSession } = require("./admins");
 
 const foodSchema = new mongoose.Schema(
   {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Type",
-        required: true,
-      },
-    ],
-    category: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true,
-      },
-    ],
+    // type: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Type",
+    //     required: true,
+    //   },
+    // ],
+    type: {
+      type: String,
+      default: "New Added",
+      required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
     name: {
       type: String,
       unique: true,

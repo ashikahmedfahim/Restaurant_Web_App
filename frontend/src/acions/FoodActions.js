@@ -19,13 +19,15 @@ import {
 /* import { logout } from './userActions'
  */
 export const listFOODs =
-  (keyword = "", pageNumber = "") =>
-  async (dispatch) => {
+  // (keyword = "", pageNumber = "") =>
+  () => async (dispatch, getState) => {
+    console.log("sdg");
     try {
       dispatch({ type: FOOD_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `/api/FOODs?keyword=${keyword}&pageNumber=${pageNumber}`
+        `http://localhost:5000/api/foods`
+        // `/api/FOODs?keyword=${keyword}&pageNumber=${pageNumber}`
       );
 
       dispatch({
