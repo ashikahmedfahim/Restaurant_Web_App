@@ -4,7 +4,7 @@ Joi.objectId = require("joi-objectid")(Joi);
 module.exports.isValidUserObject = (value) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(4).required(),
   });
   const isValidData = schema.validate(value);
   return isValidData;

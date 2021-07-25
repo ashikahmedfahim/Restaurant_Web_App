@@ -15,25 +15,36 @@ import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { listFOODs } from "../acions/FoodActions";
 import image from "../assets/images/burger.png";
-const AdminHomePage = ({ history }) => {
+import { adminLogout } from "../acions/AdminActions";
+const AdminHomePage = ({ history, location }) => {
   const [selectedbtn, setSelectedbtn] = useState("");
   const appliedbtn = (value) => {
     setSelectedbtn(value);
   };
   const dispatch = useDispatch();
 
-  const allCategory = useSelector((state) => state.allCategory);
-  const { categoryloading, categoryerror, AllCategoryInfo } = allCategory;
-
   const foodList = useSelector((state) => state.foodList);
   const { foodListloading, foodListerror, FOODS } = foodList;
 
-  const Category = JSON.parse(localStorage.getItem("Category"));
+  const Admin = JSON.parse(localStorage.getItem("Admin"));
+
+  const adminRedirect = location.search
+    ? location.search.split("=")[1]
+    : "/login";
 
   useEffect(() => {
-    dispatch(listFOODs());
+    if (!Admin) {
+      history.push(adminRedirect);
+    }
     dispatch(getCategory());
+    dispatch(listFOODs());
   }, [history]);
+
+  const handleLogout = () => {
+    dispatch(adminLogout());
+    history.push("/login");
+  };
+
   return (
     <>
       {foodListloading ? (
@@ -61,8 +72,13 @@ const AdminHomePage = ({ history }) => {
               xl={12}
               className="d-flex justify-content-end align-items-center px-3 my-3"
             >
-              <Dropdown >
-                <Dropdown.Toggle size="sm" variant="light" id="dropdown-basic" className="d-flex justify-content-end align-items-center mx-3">
+              <Dropdown>
+                <Dropdown.Toggle
+                  size="sm"
+                  variant="light"
+                  id="dropdown-basic"
+                  className="d-flex justify-content-end align-items-center mx-3"
+                >
                   <Image
                     src={image}
                     roundedCircle
@@ -78,17 +94,15 @@ const AdminHomePage = ({ history }) => {
 
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Setting
-                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Setting</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item href="#/action-3">
-                    Suport
-                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Suport</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 
-              <Button variant="dark">Logout</Button>
+              <Button variant="dark" onClick={handleLogout}>
+                Logout
+              </Button>
             </Col>
             {selectedbtn === "addType" ? (
               <Col
@@ -121,7 +135,7 @@ const AdminHomePage = ({ history }) => {
                 style={{ backgroundColor: "white" }}
                 className="d-flex justify-content-center align-items-start py-5"
               >
-                <AddFood Category={Category} />
+                <AddFood />
               </Col>
             ) : selectedbtn === "allFood" ? (
               <Col

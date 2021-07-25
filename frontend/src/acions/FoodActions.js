@@ -21,7 +21,6 @@ import {
 export const listFOODs =
   // (keyword = "", pageNumber = "") =>
   () => async (dispatch, getState) => {
-    console.log("sdg");
     try {
       dispatch({ type: FOOD_LIST_REQUEST });
 

@@ -70,7 +70,6 @@ const LoginPage = ({ location, history }) => {
       console.log(loginForm)
       dispatch(login(loginForm, history));
       dispatch(getCategory());
-      dispatch(listFOODs());
       setLoginForm(loginInitialState);
     } else {
       if (isSignup === "true") {

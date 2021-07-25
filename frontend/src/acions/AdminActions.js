@@ -40,7 +40,7 @@ export const login = (form) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/admins/login",
+      "http://localhost:5000/api/auth/admin",
       form,
       config
     );
@@ -48,7 +48,7 @@ export const login = (form) => async (dispatch) => {
     // if (localStorage.getItem('seller')) {
     //   req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('seller')).token}`;
     // }
-    
+
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
       payload: data,
@@ -64,16 +64,17 @@ export const login = (form) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
-  localStorage.removeItem("ADMINInfo");
-  localStorage.removeItem("cartItems");
-  localStorage.removeItem("shippingAddress");
-  localStorage.removeItem("paymentMethod");
+export const adminLogout = () => (dispatch) => {
+  localStorage.removeItem("Admin");
+  // localStorage.removeItem("cartItems");
+  // localStorage.removeItem("shippingAddress");
+  // localStorage.removeItem("paymentMethod");
   dispatch({ type: ADMIN_LOGOUT });
-  dispatch({ type: ADMIN_DETAILS_RESET });
-  /*   dispatch({ type: ORDER_LIST_MY_RESET })
-   */ dispatch({ type: ADMIN_LIST_RESET });
-  document.location.href = "/login";
+  /*dispatch({ type: ADMIN_DETAILS_RESET });
+     dispatch({ type: ORDER_LIST_MY_RESET })
+     dispatch({ type: ADMIN_LIST_RESET });
+     */
+  // document.location.href = "/login";
 };
 
 export const register = (form) => async (dispatch) => {
