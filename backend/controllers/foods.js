@@ -11,8 +11,6 @@ module.exports.createOne = async (req, res, next) => {
   const { name, category, price, inStock, description, discount, image } =
     req.body;
   const isValidData = dataValidations.isValidFoodObject(req.body);
-  if (isValidData)
-    throw res.status(400).json({ message: isValidData.error.message });
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyUsedName = await Food.findOne({ name: req.body.name });
   if (isAlreadyUsedName) throw new ExpressError(400, "Food already exists");
@@ -28,7 +26,7 @@ module.exports.createOne = async (req, res, next) => {
   const result = await food.save();
   if (!result) throw new ExpressError(500, "Failed to create Food");
   res.send(result);
-};
+};  
 
 module.exports.getOne = async (req, res, next) => {
   const isValidId = dataValidations.isValidObjectId(req.params.id);

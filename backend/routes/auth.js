@@ -5,3 +5,5 @@ const auth = require("../controllers/auth")
 
 router.post("/admin", catchAsync(auth.adminLogin));
 router.post("/user", catchAsync(auth.userLogin));
+
+module.exports = router;

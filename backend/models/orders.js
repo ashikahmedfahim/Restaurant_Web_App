@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema(
   {
     user: {
-      type: [Schema.Types.ObjectId],
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
@@ -15,22 +15,19 @@ const orderSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    items: {
-      foodId: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Food",
-        required: true,
-      },
-      quantity: {
-        type: [Number],
-        required: true,
-        validate: {
-          validator: function () {
-            return this.foodId == this.quantity;
-          },
+    items: [
+      {
+        foodId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Food",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
         },
       },
-    },
+    ],
   },
   { timestamps: true }
 );
