@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage";
-const AllFood = ({ food }) => {
-  console.log(food);
+import { useDispatch, useSelector } from "react-redux";
+import { listFOODs } from "../../acions/FoodActions";
+
+const AllFood = ({ food, history }) => {
+  const dispatch = useDispatch();
+  const foodList = useSelector((state) => state.foodList);
+  const { foodListloading, foodListerror, FOODS } = foodList;
+
+  useEffect(() => {
+    dispatch(listFOODs());
+  }, [history]);
   return (
     <>
       <Row>
@@ -13,7 +22,10 @@ const AllFood = ({ food }) => {
           ) : (
             <>
               {" "}
-              <ErrorMessage variant="warning" message="No Product Found  or Something Went Wrong" />
+              <ErrorMessage
+                variant="warning"
+                message="No Food Found  or Something Went Wrong"
+              />
             </>
           )}
         </Col>
@@ -23,7 +35,7 @@ const AllFood = ({ food }) => {
           <Table striped bordered hover responsive variant="dark">
             <thead>
               <tr>
-                <th>#</th>
+                <th>SL</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
@@ -41,8 +53,8 @@ const AllFood = ({ food }) => {
                 <>
                   <tbody>
                     <tr>
-                      <td>1</td>
-                      <td>c</td>
+                      <td>{Number(item)+1}</td>
+                      <td>{food[item].image}</td>
                       <td>{food[item].name}</td>
                       <td>৳ {food[item].price}</td>
                       <td>{food[item].type}</td>
