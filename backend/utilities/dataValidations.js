@@ -9,14 +9,6 @@ module.exports.isValidUserObject = (value) => {
   const isValidData = schema.validate(value);
   return isValidData;
 };
-module.exports.isValidAdminObject = (value) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(4).required(),
-  });
-  const isValidData = schema.validate(value);
-  return isValidData;
-};
 
 module.exports.isValidUserData = (value) => {
   const schema = Joi.object({

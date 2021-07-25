@@ -5,7 +5,6 @@ const admin = require("../controllers/admins");
 
 router.get("/", catchAsync(admin.getAll));
 router.post("/", catchAsync(admin.createOne));
-router.post("/login", catchAsync(admin.logIn));
 router.get("/:id", catchAsync(admin.getOne));
 router.put("/:id", catchAsync(admin.updateOne));
 router.delete("/:id", catchAsync(admin.deleteOne));

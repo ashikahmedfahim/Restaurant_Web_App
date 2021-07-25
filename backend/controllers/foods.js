@@ -3,13 +3,9 @@ const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
 module.exports.getAll = async (req, res, next) => {
-  try {
-    const result = await Food.find({});
-
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
+  const result = await Food.find({});
+  if (result.length) return res.status(200).json(result);
+  res.status(404).json({ message: error.message });
 };
 module.exports.createOne = async (req, res, next) => {
   const { name, category, price, inStock, description, discount, image } =

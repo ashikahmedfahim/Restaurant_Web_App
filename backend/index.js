@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const ExpressError = require("./utilities/expressError");
 const admins = require("./routes/admins");
+const auth = require("./routes/auth");
 const categories = require("./routes/categories");
 const carts = require("./routes/carts");
 const foods = require("./routes/foods");
@@ -30,6 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/admins", admins);
+app.use("/api/auth", auth);
 app.use("/api/categories", categories);
 app.use("/api/carts", carts);
 app.use("/api/foods", foods);
@@ -43,5 +45,5 @@ app.use("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Server Error" } = err;
-  res.status(statusCode).send(message);
+  res.status(statusCode).json(message);
 });
