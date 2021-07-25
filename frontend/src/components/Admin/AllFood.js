@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Table, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Table,
+  Button,
+  Image,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +52,7 @@ const AllFood = ({ food, history }) => {
                 <th>inStock</th>
                 <th>Description</th>
                 <th>Discount</th>
+                <th>Total</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -53,8 +62,14 @@ const AllFood = ({ food, history }) => {
                 <>
                   <tbody>
                     <tr>
-                      <td>{Number(item)+1}</td>
-                      <td>{food[item].image}</td>
+                      <td>{Number(item) + 1}</td>
+                      <td>
+                        <Image
+                          rounded
+                          src={food[item].image}
+                          style={{ width: "4rem", height: "4rem" }}
+                        />
+                      </td>
                       <td>{food[item].name}</td>
                       <td>৳ {food[item].price}</td>
                       <td>{food[item].type}</td>
@@ -62,6 +77,7 @@ const AllFood = ({ food, history }) => {
                       <td>{food[item].inStock}</td>
                       <td>{food[item].description}</td>
                       <td>{food[item].discount}%</td>
+                      <td>৳ {(food[item].price-((food[item].discount)/100)*food[item].price)}</td>
                       <td>
                         <Button variant="light">
                           <Link to={`/edit/${food[item]._id}`}>Edit</Link>

@@ -1,28 +1,39 @@
-import React from 'react';
-import {Card, Button, Row, Col} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { Card, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import image from '../assets/images/pizza.jpg';
-import image from '../assets/images/burger.png';
+import image from "../assets/images/burger.png";
 
-const Food = ({name, price, des, id, img}) => {
+const Food = ({ name, price, des, id, img , discount}) => {
   return (
     <Card className="my-3 px-0">
       <Link to={`/food/${id}`}>
-        <Card.Img variant="top" src={image} />
+        <Card.Img
+          variant="top"
+          src={img}
+          alt={""}
+          // style={{ height: "16rem" }}
+        />
       </Link>
       <Card.Body>
         <Row>
           <Col>
             <Link
               to={`/food/${id}`}
-              style={{textDecoration: 'none', color: 'black'}}
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <Card.Title>{name}</Card.Title>
+              <Card.Title style={{ fontSize: "1.2rem" }}>{name}</Card.Title>
             </Link>
           </Col>
           <Col className="mr-auto">
-            <Card.Text as="h6" style={{textAlign: 'end'}}>
-              ${price}.00
+            <Card.Text as="h6" style={{ textAlign: "end" }}>
+            {discount===0?
+            <>৳ {price}.00</>:
+            <>
+            ৳  <s style={{ color: "grey" }}>{price}.00 </s>
+             <p>৳ {price-((discount/100)*price)}.00</p>
+            </>
+            }
             </Card.Text>
           </Col>
         </Row>

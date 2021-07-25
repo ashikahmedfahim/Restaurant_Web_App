@@ -77,7 +77,8 @@ const Section2 = ({ food, error }) => {
                             price={food[item].price}
                             des={food[item].description}
                             id={food[item]._id}
-                            image={food[item].image}
+                            img={food[item].image}
+                            discount={food[item].discount}
                           />
                         </Col>
                       </>
