@@ -29,7 +29,9 @@ module.exports.createOne = async (req, res, next) => {
 };  
 
 module.exports.getOne = async (req, res, next) => {
+  console.log(req.params.id)
   const isValidId = dataValidations.isValidObjectId(req.params.id);
+  console.log(isValidId)
   if (isValidId.error) throw new ExpressError(400, "Invalid Food Id");
   const result = await Food.findOne({ _id: req.params.id });
   if (!result) throw new ExpressError(404, "No Food found");

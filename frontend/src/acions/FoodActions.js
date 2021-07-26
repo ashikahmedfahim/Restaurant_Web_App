@@ -48,7 +48,7 @@ export const listFOODDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: FOOD_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/api/FOODs/${id}`);
+    const { data } = await axios.get(`http://localhost:5000/api/foods/${id}`);
 
     dispatch({
       type: FOOD_DETAILS_SUCCESS,

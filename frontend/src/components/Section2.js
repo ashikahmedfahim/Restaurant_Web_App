@@ -43,25 +43,25 @@ const Section2 = ({ food, error }) => {
                     <p>Menu</p>
 
                     <Nav
-                      className="mr-auto px-5"
+                      className="mr-auto d-flex"
                       fill
                       variant="tabs"
                       defaultActiveKey="/"
                     >
-                      <Nav.Link href="#/" className="px-5">
+                      <Nav.Link href="#/" className="">
                         All
                       </Nav.Link>
                       <Nav.Link
                         href="#link1"
                         eventKey="link-1"
-                        className="px-5"
+                        className=""
                       >
                         Newly Added
                       </Nav.Link>
-                      <Nav.Link href="#link2" className="px-5">
+                      <Nav.Link href="#link2" className="">
                         Popular
                       </Nav.Link>
-                      <Nav.Link href="#link3" className="px-5">
+                      <Nav.Link href="#link3" className="">
                         Top Selling
                       </Nav.Link>
                     </Nav>

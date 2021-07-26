@@ -38,7 +38,7 @@ export const foodListReducer = (state = {}, action) => {
   }
   
   export const foodDetailsReducer = (
-    state = { FOOD: { reviews: [] } },
+    state = {FOOD: {}},
     action
   ) => {
     switch (action.type) {
