@@ -31,7 +31,7 @@ const AddFood = ({ history }) => {
     setFood({ ...food, [e.target.name]: e.target.value });
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(food)
+    console.log(food);
     dispatch(addFood({ ...food }));
 
     setFood(initialState);
@@ -158,12 +158,6 @@ const AddFood = ({ history }) => {
                     <Col sm={12} md={6} lg={6} xl={6}>
                       <Form.Group controlId="formFileSm" className="mb-3">
                         <Form.Label>Add Image :</Form.Label>
-                        {/* <Form.Control
-                          type="file"
-                          name="image"
-                          size="sm"
-                          onChange={handleChange}
-                        /> */}
                         <FileBase
                           type="file"
                           multiple={false}

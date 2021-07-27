@@ -1,0 +1,13 @@
+.page-item .page-link{
+    color: #000000 ;
+    border-color: #8a8a8a;
+}
+.page-item.active .page-link{
+    color: #fff;
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+.nav-tabs a{
+    color: #000;
+}

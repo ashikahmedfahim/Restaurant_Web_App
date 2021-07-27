@@ -8,11 +8,13 @@ import LoginPage from "./pages/LoginPage";
 import AdminHomePage from "./pages/AdminHomePage";
 import Footer from "./components/Footer";
 import FoodDetailsPage from "./pages/FoodDetailsPage";
-
+import FoodCartPage from "./pages/FoodCartPage";
+import "./assets/css/index.css"
 function App() {
   return (
     <Router>
       {/* <Navbar /> */}
+      <Route path="/cart" component={FoodCartPage} />
       <Route path="/food/:id" component={FoodDetailsPage} />
       <Route path="/admin/home" component={AdminHomePage} />
       <Route path="/login" component={LoginPage} />

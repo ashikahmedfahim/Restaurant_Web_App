@@ -12,6 +12,8 @@ import {
 import ErrorMessage from "./ErrorMessage";
 import Foods from "./Food";
 import Loading from "./Loading";
+import "../assets/css/Section-2.css";
+
 const Section2 = ({ food, error }) => {
   let active = 3;
   let items = [];
@@ -27,7 +29,7 @@ const Section2 = ({ food, error }) => {
     <>
       {error ? (
         <div className="py-5">
-          <ErrorMessage variant="warning" message="No Food Found"/>
+          <ErrorMessage variant="warning" message="No Food Found" />
         </div>
       ) : (
         <>
@@ -40,7 +42,12 @@ const Section2 = ({ food, error }) => {
               <Container>
                 <Row>
                   <Col xs={12} md={12}>
-                    <p>Menu</p>
+                    <h2
+                      className="my-5"
+                      style={{ fontFamily: "Tangerine", fontSize: "3.5rem" }}
+                    >
+                      Menu
+                    </h2>
 
                     <Nav
                       className="mr-auto d-flex"
@@ -51,11 +58,7 @@ const Section2 = ({ food, error }) => {
                       <Nav.Link href="#/" className="">
                         All
                       </Nav.Link>
-                      <Nav.Link
-                        href="#link1"
-                        eventKey="link-1"
-                        className=""
-                      >
+                      <Nav.Link href="#link1" eventKey="link-1" className="">
                         Newly Added
                       </Nav.Link>
                       <Nav.Link href="#link2" className="">
@@ -89,6 +92,7 @@ const Section2 = ({ food, error }) => {
                 </Row>
                 <Row className="my-5">
                   <Pagination
+                    variant="dark"
                     size="sm"
                     className="d-flex justify-content-center"
                   >

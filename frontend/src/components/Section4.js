@@ -1,5 +1,5 @@
-import React from 'react';
-import {Container, Row, Col, Form, Button} from 'react-bootstrap';
+import React from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Section4 = () => {
   return (
@@ -14,15 +14,17 @@ const Section4 = () => {
         >
           <div>
             <Container>
-              <h1>Contacts</h1>
+              <h1 style={{ fontFamily: "Tangerine", fontSize: "5rem" }}>
+                Contacts
+              </h1>
               <hr />
-              <h5>Phone:</h5>
-              <h6>+880 17563258</h6>
-              <h6>+880 17563258</h6>
+              <h5 style={{ fontFamily: "Merienda" }}>Phone:</h5>
+              <h6 style={{ fontFamily: "Merienda" }}>+880 17563258</h6>
+              <h6 style={{ fontFamily: "Merienda" }}>+880 17563258</h6>
               <br />
-              <h5>Email:</h5>
-              <h6>restaurent@gmail.com</h6>
-              <Button variant="dark" style={{borderRadius: '30px'}}>
+              <h5 style={{ fontFamily: "Merienda" }}>Email:</h5>
+              <h6 style={{ fontFamily: "Merienda" }}>restaurent@gmail.com</h6>
+              <Button variant="dark" style={{ borderRadius: "30px" }}>
                 Learn more
               </Button>
             </Container>
@@ -55,11 +57,19 @@ const Section4 = () => {
             <Row>
               <Col sm={12} md={8} lg={8} xl={8}>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check type="checkbox" bg="dark" label="Accept all rules" />
+                  <Form.Check
+                    type="checkbox"
+                    bg="dark"
+                    label="Accept all rules"
+                  />
                 </Form.Group>
               </Col>
               <Col sm={12} md={4} lg={4} xl={4}>
-                <Button type="submit" variant="dark" style={{borderRadius: '30px'}}>
+                <Button
+                  type="submit"
+                  variant="dark"
+                  style={{ borderRadius: "30px" }}
+                >
                   Submit
                 </Button>
               </Col>

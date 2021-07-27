@@ -13,51 +13,89 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import "../assets/css/Navbar.css";
 const NavBar = () => {
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
-  return (
-    <Container fluid>
-      <Row>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">Logo</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
-              <LinkContainer to="/">
-                <Nav.Link>Home</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/">
-                <Nav.Link>Menu</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/">
-                <Nav.Link>About us</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/">
-                <Nav.Link>Contacts</Nav.Link>
-              </LinkContainer>
-            </Nav>
 
-            <Button variant="outline-success">Search</Button>
-            <Nav className="ml-auto">
-              <LinkContainer to="/favourite">
-                <Nav.Link href="#link">
-                  <FontAwesomeIcon icon="heart" style={{ color: "red" }} />
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/cart">
-                <Nav.Link href="#link">
-                  <FontAwesomeIcon icon="shopping-cart" />
-                </Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link href="#link">
-                  {" "}
-                  <FontAwesomeIcon icon="user" /> Login
-                </Nav.Link>
-              </LinkContainer>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </Row>
-    </Container>
+  return (
+    <Navbar expand="lg" sticky="top" style={{ backgroundColor: "#fff" }}>
+      <Container fluid>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          style={{ fontSize: "15px", border: "none" }}
+        />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Brand href="#home">Logo</Navbar.Brand>
+          <Nav className="mr-auto ml-auto">
+            <LinkContainer to="/">
+              <Nav.Link>Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/">
+              <Nav.Link>Menu</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/">
+              <Nav.Link>About us</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/">
+              <Nav.Link>Contacts</Nav.Link>
+            </LinkContainer>
+            <Button
+              variant="dark"
+              style={{ borderRadius: "2.2rem" }}
+              className="px-3"
+            >
+              Search
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+        <Nav className="ml-auto" style={{ flexDirection: "row" }}>
+          <LinkContainer to="/favourite">
+            <Nav.Link href="#link" className="d-flex align-items-center">
+              <FontAwesomeIcon
+                icon="heart"
+                style={{ color: "red", fontSize: "1.5rem" }}
+              />
+            </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/cart">
+            <Nav.Link href="#link" className="d-flex align-items-center">
+              <p
+                style={{
+                  display: "flex",
+                  fontSize: ".6rem",
+                  position: "relative",
+                  top: "-2px",
+                  right: "-33px",
+                  width: "15px",
+                  height: "15px",
+                  color: "#fff",
+                  backgroundColor: "#418deb",
+                  borderRadius: "50%",
+                  textAlign: "center",
+                  border: "1px solid white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                0{/* {Number(cartQty) > 0 ? <>{cartQty}</> : <>0</>} */}
+              </p>
+              <FontAwesomeIcon
+                icon="shopping-cart"
+                style={{ fontSize: "1.5rem" }}
+              />
+            </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/login">
+            <Nav.Link href="#link" className="d-flex align-items-center">
+              {" "}
+              <FontAwesomeIcon
+                icon="user"
+                style={{ fontSize: "1.5rem" }}
+                className="mx-2"
+              />{" "}
+              Login
+            </Nav.Link>
+          </LinkContainer>
+        </Nav>
+      </Container>
+    </Navbar>
   );
 };
 

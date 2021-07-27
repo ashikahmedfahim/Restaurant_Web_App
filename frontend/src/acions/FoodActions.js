@@ -115,16 +115,11 @@ export const addFood = (food) => async (dispatch, getState) => {
         Authorization: `Bearer ${adminInfo}`,
       },
     };
-
-    console.log("111")
-    console.log(food);
-
     const { data } = await axios.post(
       `http://localhost:5000/api/foods`,
       food,
       config
     );
-console.log("222")
     dispatch({
       type: FOOD_ADD_SUCCESS,
       payload: data,

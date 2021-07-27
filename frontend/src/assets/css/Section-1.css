@@ -1,0 +1,15 @@
+html,body{
+    height: 100%;
+}
+.sec-1 {
+  background-image: url("../images/sec-1.jpg");
+  height: 48rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; */
+  color: #fff;
+}
