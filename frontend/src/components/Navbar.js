@@ -38,15 +38,17 @@ const NavBar = () => {
             <LinkContainer to="/">
               <Nav.Link>Contacts</Nav.Link>
             </LinkContainer>
-            <Button
-              variant="dark"
-              style={{ borderRadius: "2.2rem" }}
-              className="px-3"
-            >
-              Search
-            </Button>
           </Nav>
         </Navbar.Collapse>
+        <LinkContainer to="/search" style={{ borderRadius: "2.2rem" }}>
+          <Button
+            variant="dark"
+            style={{ borderRadius: "2.2rem" }}
+            className="mr-auto px-3"
+          >
+            Search
+          </Button>
+        </LinkContainer>
         <Nav className="ml-auto" style={{ flexDirection: "row" }}>
           <LinkContainer to="/favourite">
             <Nav.Link href="#link" className="d-flex align-items-center">
@@ -80,16 +82,16 @@ const NavBar = () => {
               </p>
               <FontAwesomeIcon
                 icon="shopping-cart"
-                style={{ fontSize: "1.5rem" }}
+                style={{ fontSize: "1.5rem", color: "black" }}
               />
             </Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/login">
+          <LinkContainer to="/login" style={{ color: "black" }}>
             <Nav.Link href="#link" className="d-flex align-items-center">
               {" "}
               <FontAwesomeIcon
                 icon="user"
-                style={{ fontSize: "1.5rem" }}
+                style={{ fontSize: "1.5rem", color: "black" }}
                 className="mx-2"
               />{" "}
               Login

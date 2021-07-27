@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import image from '../assets/images/pizza.jpg';
 import image from "../assets/images/burger.png";
-
+import '../assets/css/Section-2.css'
 const Food = ({ name, price, des, id, img, discount, inStock }) => {
   return (
     <Card className="my-3 px-0" style={{ height: "25rem" }}>
@@ -34,7 +33,7 @@ const Food = ({ name, price, des, id, img, discount, inStock }) => {
                 {discount ? (
                   <>
                     <br />
-                    <p style={{ fontSize: "0.8rem", color: "grey" }}>
+                    <p style={{ fontSize: "0.8rem"}} className="discount">
                       {discount}% OFF
                     </p>
                   </>

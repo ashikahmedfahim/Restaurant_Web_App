@@ -11,10 +11,12 @@ import FoodDetailsPage from "./pages/FoodDetailsPage";
 import FoodCartPage from "./pages/FoodCartPage";
 import "./assets/css/index.css";
 import FoodEditPage from "./pages/FoodEditPage";
+import FoodSearchPage from "./pages/FoodSearchPage";
 function App() {
   return (
     <Router>
       {/* <Navbar /> */}
+      <Route path="/search" component={FoodSearchPage} />
       <Route path="/edit/:id" component={FoodEditPage} />
       <Route path="/cart" component={FoodCartPage} />
       <Route path="/food/:id" component={FoodDetailsPage} />

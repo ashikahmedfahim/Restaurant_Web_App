@@ -7,8 +7,12 @@ import FileBase from "react-file-base64";
 import image from "../assets/images/burger.png";
 import { useDispatch, useSelector } from "react-redux";
 import { listFOODDetails } from "../acions/FoodActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 const FoodEditPage = ({ match }) => {
+  library.add(faArrowLeft);
   const dispatch = useDispatch();
   const foodDetails = useSelector((state) => state.foodDetails);
   const { loading, error, FOOD } = foodDetails;
@@ -19,7 +23,7 @@ const FoodEditPage = ({ match }) => {
   return (
     <>
       <Link to="/admin/home" className="btn btn-dark my-3 mx-3">
-        Go Back
+        <FontAwesomeIcon icon="arrow-left" /> Go Back
       </Link>
       <Container>
         <h1>Edit Food</h1>

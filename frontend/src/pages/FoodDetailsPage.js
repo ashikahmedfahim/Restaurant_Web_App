@@ -16,7 +16,13 @@ import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import NavBar from "../components/Navbar";
 import { addToCart } from "../acions/CartActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
 const FoodDetailsPage = ({ match }) => {
+  library.add(faArrowLeft);
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
@@ -31,17 +37,17 @@ const FoodDetailsPage = ({ match }) => {
 
   const addToCartHandler = () => {
     if (User) {
-      dispatch(addToCart(match.params.id))
+      dispatch(addToCart(match.params.id));
     } else {
       console.log("False");
     }
   };
   return (
-    <Container fluid  className="px-0">
+    <Container fluid className="px-0">
       <NavBar />
       <Container>
         <Link className="btn btn-dark my-3 " to="/">
-          Go Back
+          <FontAwesomeIcon icon="arrow-left" /> Go Back
         </Link>
         {loading ? (
           <>
@@ -74,7 +80,7 @@ const FoodDetailsPage = ({ match }) => {
                         <Row>
                           <Col>Discount:</Col>
                           <Col>
-                            <p>{FOOD.discount} % OFF</p>
+                            <p className="discount" style={{ fontSize: "0.8rem"}}>{FOOD.discount} % OFF</p>
                           </Col>
                         </Row>
                       </ListGroup.Item>
