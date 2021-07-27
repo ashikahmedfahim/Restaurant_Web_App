@@ -54,8 +54,8 @@ const AddFood = ({ history }) => {
               <Loading />
             </>
           ) : (
-            <>
-              <Row className="px-3">
+            <Container>
+              <Row>
                 {success ? (
                   <>
                     <ErrorMessage
@@ -155,7 +155,7 @@ const AddFood = ({ history }) => {
                         />
                       </Form.Group>
                     </Col>
-                    <Col sm={12} md={6} lg={6} xl={6}>
+                    <Col sm={12} md={6} lg={6} xl={6} >
                       <Form.Group controlId="formFileSm" className="mb-3">
                         <Form.Label>Add Image :</Form.Label>
                         <FileBase
@@ -198,7 +198,7 @@ const AddFood = ({ history }) => {
                   </Row>
                 </Form>
               </Row>
-            </>
+            </Container>
           )}
         </>
       )}

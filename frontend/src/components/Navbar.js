@@ -22,7 +22,9 @@ const NavBar = () => {
           style={{ fontSize: "15px", border: "none" }}
         />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Navbar.Brand href="#home">Logo</Navbar.Brand>
+          <LinkContainer to="/">
+            <Navbar.Brand href="#home">Logo</Navbar.Brand>
+          </LinkContainer>
           <Nav className="mr-auto ml-auto">
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>

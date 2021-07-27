@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import image from '../assets/images/pizza.jpg';
 import image from "../assets/images/burger.png";
 
-const Food = ({ name, price, des, id, img, discount }) => {
+const Food = ({ name, price, des, id, img, discount, inStock }) => {
   return (
     <Card className="my-3 px-0" style={{ height: "25rem" }}>
       <Link to={`/food/${id}`} style={{ objectFit: "cover", height: "14rem" }}>
@@ -60,7 +60,13 @@ const Food = ({ name, price, des, id, img, discount }) => {
         <Card.Subtitle className="mb-2 text-muted">{des}</Card.Subtitle>
         <Row>
           <Col>
-            <Button variant="dark">Cart</Button>
+            {inStock === true ? (
+              <>
+                <Button variant="dark">Add to Cart</Button>
+              </>
+            ) : (
+              <><Button variant="dark" disabled>Out of Stock</Button></>
+            )}
           </Col>
         </Row>
       </Card.Body>

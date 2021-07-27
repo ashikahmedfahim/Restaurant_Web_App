@@ -46,7 +46,7 @@ const Section1 = () => {
               <h6 style={{ color: "black", fontFamily: "Merienda" }}>
                 We serve Best Food in Bangladesh
               </h6>
-              <h3 style={{ color: "black", }}>
+              <h3 style={{ color: "black", fontFamily: "Open Sans"}}>
                 Get Upto 20% Discount
               </h3>
               <p style={{ color: "black", fontFamily: "Kaushan Script" }}>

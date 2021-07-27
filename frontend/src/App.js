@@ -9,11 +9,13 @@ import AdminHomePage from "./pages/AdminHomePage";
 import Footer from "./components/Footer";
 import FoodDetailsPage from "./pages/FoodDetailsPage";
 import FoodCartPage from "./pages/FoodCartPage";
-import "./assets/css/index.css"
+import "./assets/css/index.css";
+import FoodEditPage from "./pages/FoodEditPage";
 function App() {
   return (
     <Router>
       {/* <Navbar /> */}
+      <Route path="/edit/:id" component={FoodEditPage} />
       <Route path="/cart" component={FoodCartPage} />
       <Route path="/food/:id" component={FoodDetailsPage} />
       <Route path="/admin/home" component={AdminHomePage} />

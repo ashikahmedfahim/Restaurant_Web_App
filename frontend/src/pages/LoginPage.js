@@ -16,6 +16,7 @@ import AdminLogin from "../components/Admin/AdminLogin";
 import UserLoginRegister from "../components/User/UserLoginRegister";
 import { getCategory } from "../acions/CategoryActions";
 import { listFOODs } from "../acions/FoodActions";
+import NavBar from "../components/Navbar";
 const initialState = {
   name: "",
   email: "",
@@ -67,7 +68,7 @@ const LoginPage = ({ location, history }) => {
     e.preventDefault();
 
     if (selectedbtn === "admin") {
-      console.log(loginForm)
+      console.log(loginForm);
       dispatch(login(loginForm, history));
       dispatch(getCategory());
       setLoginForm(loginInitialState);
@@ -86,6 +87,7 @@ const LoginPage = ({ location, history }) => {
 
   return (
     <>
+      <NavBar />
       {adminloading ? (
         <Loading />
       ) : (
