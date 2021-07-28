@@ -27,7 +27,7 @@ import {
 } from "../constant/UserConstant";
 // import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
-export const login = (form) => async (dispatch) => {
+export const userLogin = (form) => async (dispatch) => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -73,7 +73,7 @@ export const logout = () => (dispatch) => {
   document.location.href = "/login";
 };
 
-export const register = (form) => async (dispatch) => {
+export const userRegister = (form) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
@@ -101,7 +101,6 @@ export const register = (form) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

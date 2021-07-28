@@ -73,19 +73,18 @@ const Section2 = ({ food, error }) => {
                 <Row>
                   {food ? (
                     Object.keys(food).map((item) => (
-                      <>
-                        <Col sm={12} md={6} lg={4} xl={3}>
-                          <Foods
-                            name={food[item].name}
-                            price={food[item].price}
-                            des={food[item].description}
-                            id={food[item]._id}
-                            img={food[item].image}
-                            discount={food[item].discount}
-                            inStock={food[item].inStock}
-                          />
-                        </Col>
-                      </>
+                      <Col sm={12} md={6} lg={4} xl={3} key={food[item]._id}>
+                        <Foods
+                          key={food[item]._id}
+                          name={food[item].name}
+                          price={food[item].price}
+                          des={food[item].description}
+                          id={food[item]._id}
+                          img={food[item].image}
+                          discount={food[item].discount}
+                          inStock={food[item].inStock}
+                        />
+                      </Col>
                     ))
                   ) : (
                     <></>

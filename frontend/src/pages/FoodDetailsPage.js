@@ -21,13 +21,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-const FoodDetailsPage = ({ match }) => {
+const FoodDetailsPage = ({ match, history }) => {
   library.add(faArrowLeft);
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
-  //   const User = JSON.parse(localStorage.getItem("User"));
-  let User = true;
+  const User = JSON.parse(localStorage.getItem("UserInfo"));
 
   const foodDetails = useSelector((state) => state.foodDetails);
   const { loading, error, FOOD } = foodDetails;
@@ -39,7 +38,7 @@ const FoodDetailsPage = ({ match }) => {
     if (User) {
       dispatch(addToCart(match.params.id));
     } else {
-      console.log("False");
+      history.push(`/login`)
     }
   };
   return (
@@ -80,7 +79,12 @@ const FoodDetailsPage = ({ match }) => {
                         <Row>
                           <Col>Discount:</Col>
                           <Col>
-                            <p className="discount" style={{ fontSize: "0.8rem"}}>{FOOD.discount} % OFF</p>
+                            <p
+                              className="discount"
+                              style={{ fontSize: "0.8rem" }}
+                            >
+                              {FOOD.discount} % OFF
+                            </p>
                           </Col>
                         </Row>
                       </ListGroup.Item>

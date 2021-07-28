@@ -38,7 +38,7 @@ const Section4 = () => {
           className="d-flex justify-content-center align-items-center my-3"
         >
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Enter your name</Form.Label>
               <Form.Control type="text" placeholder="Enter your name" />
             </Form.Group>

@@ -5,14 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import UserLogin from "./UserLogin";
 import { useDispatch, useSelector } from "react-redux";
+import { userRegister } from "../../acions/UserActions";
 
-const UserLoginRegister = ({
-  isSignup,
-  switchMode,
-  history,
-  location
-}) => {
-  const [form, setForm] = useState("");
+const UserLoginRegister = ({ isSignup, switchMode, history, location }) => {
+  const [form, setForm] = useState({});
   const userLogin = useSelector((state) => state.userLogin);
   const { userloading, usererror, userInfo } = userLogin;
 
@@ -38,15 +34,15 @@ const UserLoginRegister = ({
   // }
   const onSubmit = (value) => {
     console.log(value);
-    setForm(value);
-    console.log("form----",form);
-    dispatch(register(form, history));
+    setForm(() => ({ value }));
+    console.log("form----", form);
+    dispatch(userRegister(form, history));
   };
   // const userRedirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (userInfo) {
-      console.log(userInfo)
+      console.log(userInfo);
     }
   }, [history, userInfo]);
   return (

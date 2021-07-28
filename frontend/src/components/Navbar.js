@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Navbar, Nav, Button } from "react-bootstrap";
+import { Container, Row, Navbar, Nav, Button, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +13,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import "../assets/css/Navbar.css";
 const NavBar = () => {
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
-
+  const User = JSON.parse(localStorage.getItem("UserInfo"));
+  const handleLogout = () => {};
   return (
     <Navbar expand="lg" sticky="top" style={{ backgroundColor: "#fff" }}>
       <Container fluid>
@@ -87,17 +88,63 @@ const NavBar = () => {
               />
             </Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/login" style={{ color: "black" }}>
-            <Nav.Link href="#link" className="d-flex align-items-center">
-              {" "}
-              <FontAwesomeIcon
-                icon="user"
-                style={{ fontSize: "1.5rem", color: "black" }}
-                className="mx-2"
-              />{" "}
-              Login
-            </Nav.Link>
-          </LinkContainer>
+          {User ? (
+            <>
+              <Dropdown>
+                <Dropdown.Toggle
+                  size="sm"
+                  variant="light"
+                  id="dropdown-basic"
+                  className="d-flex justify-content-end align-items-center mx-3"
+                >
+                  <FontAwesomeIcon
+                    icon="user"
+                    style={{ fontSize: "1.5rem", color: "black" }}
+                    className="mx-2"
+                  />
+                  {/* <Image
+                    src={image}
+                    roundedCircle
+                    style={{
+                      width: "3rem",
+                      height: "3rem",
+                      border: "2px solid black",
+                    }}
+                    alt="avatar"
+                  /> */}
+                  <p className="mx-2 my-0">{User.name}</p>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <LinkContainer to="/Profile">
+                    <Dropdown.Item>Profile</Dropdown.Item>
+                  </LinkContainer>
+                  <Dropdown.Divider />
+                  <LinkContainer to="/Suport">
+                    <Dropdown.Item>Suport</Dropdown.Item>
+                  </LinkContainer>
+                </Dropdown.Menu>
+              </Dropdown>
+
+              <Button variant="dark" onClick={handleLogout}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <LinkContainer to="/login" style={{ color: "black" }}>
+                <Nav.Link href="#link" className="d-flex align-items-center">
+                  {" "}
+                  <FontAwesomeIcon
+                    icon="user"
+                    style={{ fontSize: "1.5rem", color: "black" }}
+                    className="mx-2"
+                  />{" "}
+                  Login
+                </Nav.Link>
+              </LinkContainer>
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>
