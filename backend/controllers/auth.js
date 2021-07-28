@@ -19,7 +19,7 @@ module.exports.adminLogin = async (req, res, next) => {
         { _id: isAdmin._id, email: isAdmin.email, isAdmin: true },
         "thisstheprivatekey"
       );
-      res.send(token);
+      res.status(200).json({ result: isAdmin, token });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }

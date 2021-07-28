@@ -33,10 +33,7 @@ const UserLoginRegister = ({ isSignup, switchMode, history, location }) => {
   //   e.preventDefault();
   // }
   const onSubmit = (value) => {
-    console.log(value);
-    setForm(() => ({ value }));
-    console.log("form----", form);
-    dispatch(userRegister(form, history));
+    dispatch(userRegister(value));
   };
   // const userRedirect = location.search ? location.search.split("=")[1] : "/";
 
