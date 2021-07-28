@@ -37,17 +37,9 @@ const FoodSearchPage = () => {
   };
   const renderSuggestions = () => {
     const { suggestions } = SearchText;
-    console.log(suggestions);
-    suggestions.map((item) => {
-      console.log(item);
-    });
-    if (suggestions.length <= 0) {
-      return null;
-    } else {
-      return
-      <ul>
-        {suggestions.map((item) => {
-          <li
+    return suggestions.length
+      ? suggestions.map((item) => (
+          <p
             style={{
               listStyle: "none",
               backgroundColor: "black",
@@ -56,11 +48,10 @@ const FoodSearchPage = () => {
             }}
             className="d-flex"
           >
-            {item}
-          </li>;
-        })}
-      </ul>
-    }
+            {item} hi{console.log(item)}
+          </p>
+        ))
+      : null;
   };
 
   const dispatch = useDispatch();
@@ -71,6 +62,7 @@ const FoodSearchPage = () => {
   return (
     <>
       <Navbar />
+
       <Container fluid>
         <Row style={{ backgroundColor: "black" }}>
           <Col sm={12} md={12} lg={12} xl={12} className="my-3 px-3">
@@ -92,7 +84,7 @@ const FoodSearchPage = () => {
                 Search
               </Button>
             </Form>
-            {renderSuggestions()}
+            {FOODS && renderSuggestions()}
           </Col>
         </Row>
         <Row>
