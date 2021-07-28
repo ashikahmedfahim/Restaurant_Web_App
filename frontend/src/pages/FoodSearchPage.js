@@ -37,14 +37,16 @@ const FoodSearchPage = () => {
   };
   const renderSuggestions = () => {
     const { suggestions } = SearchText;
+    console.log(suggestions);
     suggestions.map((item) => {
       console.log(item);
     });
-    if (suggestions.length < 0) {
+    if (suggestions.length <= 0) {
       return null;
     } else {
-      return suggestions.map((item) => {
-        <>
+      return
+      <ul>
+        {suggestions.map((item) => {
           <li
             style={{
               listStyle: "none",
@@ -55,9 +57,9 @@ const FoodSearchPage = () => {
             className="d-flex"
           >
             {item}
-          </li>
-        </>;
-      });
+          </li>;
+        })}
+      </ul>
     }
   };
 
