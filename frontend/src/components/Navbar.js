@@ -76,6 +76,7 @@ const NavBar = () => {
                   border: "1px solid white",
                   alignItems: "center",
                   justifyContent: "center",
+                  paddingBottom: "2px",
                 }}
               >
                 0{/* {Number(cartQty) > 0 ? <>{cartQty}</> : <>0</>} */}
