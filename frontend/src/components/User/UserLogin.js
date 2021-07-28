@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../acions/UserActions";
 
-const UserLogin = ({ switchMode }) => {
+const UserLogin = ({ switchMode, history, location }) => {
+
   const loginschema = yup.object().shape({
     email: yup.string().email().required("Email is required"),
     password: yup.string().min(8).required("Password is required"),
   });
-
+  const dispatch = useDispatch();
+  
   const {
     register,
     handleSubmit,
@@ -17,8 +21,13 @@ const UserLogin = ({ switchMode }) => {
   } = useForm({
     resolver: yupResolver(loginschema),
   });
-  const onSubmit = (value) => console.log(value);
+  const onSubmit = (value) => {
+    dispatch(userLogin(value, history));
+  };
 
+
+
+ 
   return (
     <Col>
       <Form onSubmit={handleSubmit(onSubmit)}>

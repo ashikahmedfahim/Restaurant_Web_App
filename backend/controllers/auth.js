@@ -42,7 +42,10 @@ module.exports.userLogin = async (req, res, next) => {
         { _id: isUser._id, email: isUser.email, isAdmin: false },
         "thisstheprivatekey"
       );
-      res.send(token);
+      // res.header("x-auth-token", token).send(result);
+      res.status(200).json({ result: isUser, token });
+
+      // res.send(token);
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }

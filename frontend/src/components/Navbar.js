@@ -9,12 +9,17 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-
+import { useDispatch, useSelector } from "react-redux";
 import "../assets/css/Navbar.css";
+import { Userlogout } from "../acions/UserActions";
 const NavBar = () => {
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
   const User = JSON.parse(localStorage.getItem("UserInfo"));
-  const handleLogout = () => {};
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(Userlogout());
+  };
   return (
     <Navbar expand="lg" sticky="top" style={{ backgroundColor: "#fff" }}>
       <Container fluid>
@@ -112,11 +117,11 @@ const NavBar = () => {
                     }}
                     alt="avatar"
                   /> */}
-                  <p className="mx-2 my-0">{User.name}</p>
+                  <p className="mx-2 my-0">{User.result.name}</p>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <LinkContainer to="/Profile">
+                  <LinkContainer to={`/Profile/${User.result._id}`}>
                     <Dropdown.Item>Profile</Dropdown.Item>
                   </LinkContainer>
                   <Dropdown.Divider />
