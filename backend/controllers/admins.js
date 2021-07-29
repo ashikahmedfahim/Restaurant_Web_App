@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
+const secretKey = process.env.SECRETKEY;
+
 module.exports.getAll = async (req, res, next) => {
   const result = await Admin.find({}, "email");
   res.send(result);
@@ -25,7 +27,7 @@ module.exports.createOne = async (req, res, next) => {
   if (!result) throw new ExpressError(500, "Failed to create Admin");
   const token = jwt.sign(
     { _id: result._id, email: result.email, isAdmin: true },
-    "thisstheprivatekey"
+    secretKey
   );
   res.header("x-auth-token", token).send(result);
 };

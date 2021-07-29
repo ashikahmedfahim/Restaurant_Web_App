@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
+const secretKey = process.env.SECRETKEY;
+
 module.exports.getAll = async (req, res, next) => {
   const users = await User.find({}, "email");
   res.send(users);
@@ -26,10 +28,7 @@ module.exports.createOne = async (req, res, next) => {
   });
   const result = await user.save();
   if (!result) throw new ExpressError(500, "Failed to create User");
-  const token = jwt.sign(
-    { _id: result._id, email: result.email },
-    "thisstheprivatekey"
-  );
+  const token = jwt.sign({ _id: result._id, email: result.email }, secretKey);
   res.header("x-auth-token", token).send(result);
 };
 
