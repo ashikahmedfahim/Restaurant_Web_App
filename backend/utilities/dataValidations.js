@@ -16,7 +16,7 @@ module.exports.isValidUserData = (value) => {
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
     phone: Joi.string().min(11).max(11).required(),
-    address: Joi.string().min(10).required(),
+    address: Joi.string().min(3).required(),
   });
   const isValidData = schema.validate(value);
   return isValidData;

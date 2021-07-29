@@ -35,11 +35,10 @@ const LoginPage = ({ location, history }) => {
   const [loginForm, setLoginForm] = useState(loginInitialState);
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userloading, usererror, userInfo } = userLogin;
-
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminloading, adminerror, adminInfo } = adminLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userloading, usererror, UserInfo } = userLogin;
 
   const adminRedirect = location.search
     ? location.search.split("=")[1]
@@ -51,10 +50,10 @@ const LoginPage = ({ location, history }) => {
     if (adminInfo) {
       history.push(adminRedirect);
     }
-    if (userInfo) {
+    if (UserInfo) {
       history.push(userRedirect);
     }
-  }, [history, userInfo, adminInfo, userRedirect, adminRedirect]);
+  }, [history, adminInfo, UserInfo, userRedirect, adminRedirect]);
 
   const appliedbtn = (value) => {
     setForm(initialState);

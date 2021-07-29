@@ -19,7 +19,7 @@ module.exports.adminLogin = async (req, res, next) => {
         { _id: isAdmin._id, email: isAdmin.email, isAdmin: true },
         "thisstheprivatekey"
       );
-      res.send(token);
+      res.status(200).json({ result: isAdmin, token });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }
@@ -42,7 +42,10 @@ module.exports.userLogin = async (req, res, next) => {
         { _id: isUser._id, email: isUser.email, isAdmin: false },
         "thisstheprivatekey"
       );
-      res.send(token);
+      // res.header("x-auth-token", token).send(result);
+      res.status(200).json({ result: isUser, token });
+
+      // res.send(token);
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }
