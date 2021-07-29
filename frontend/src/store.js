@@ -21,7 +21,11 @@ import {
   adminRegisterReducer,
 } from "./reducers/AdminReducers";
 import { typeAddReducer, typeGetReducer } from "./reducers/TypeReducers";
-import { categoryAddReducer, categoryGetReducer } from "./reducers/CategoryReducers";
+import {
+  categoryAddReducer,
+  categoryGetReducer,
+} from "./reducers/CategoryReducers";
+import { cartAddReducer, cartGetReducer } from "./reducers/CartReducers";
 
 const reducer = combineReducers({
   foodList: foodListReducer,
@@ -34,9 +38,11 @@ const reducer = combineReducers({
   adminLogin: adminLoginReducer,
   adminRegister: adminRegisterReducer,
   typeAdd: typeAddReducer,
-  allTypes:typeGetReducer,
+  allTypes: typeGetReducer,
   categoryAdd: categoryAddReducer,
-  allCategory:categoryGetReducer
+  allCategory: categoryGetReducer,
+  cartAdd: cartAddReducer,
+  cartGet: cartGetReducer,
   // userDetails: userDetailsReducer,
   // userUpdateProfile: userUpdateProfileReducer,
   // userList: userListReducer,

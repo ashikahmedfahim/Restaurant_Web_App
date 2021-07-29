@@ -2,6 +2,9 @@ import {
   CART_ADD_ITEM_REQUEST,
   CART_ADD_ITEM_SUCCESS,
   CART_ADD_ITEM_FAIL,
+  CART_GET_ITEM_REQUEST,
+  CART_GET_ITEM_SUCCESS,
+  CART_GET_ITEM_FAIL,
   CART_EDIT_ITEM_REQUEST,
   CART_EDIT_ITEM_SUCCESS,
   CART_EDIT_ITEM_FAIL,
@@ -19,12 +22,25 @@ import {
 
 export const cartAddReducer = (state = { CartItems: {} }, action) => {
   switch (action.type) {
-    case CART_ADD_REQUEST:
-      return { loading: true };
-    case CART_ADD_SUCCESS:
-      return { loading: false, success: true, CartItems: action.payload };
-    case CART_ADD_FAIL:
-      return { loading: false, error: action.payload };
+    case CART_ADD_ITEM_REQUEST:
+      return { cartloading: true };
+    case CART_ADD_ITEM_SUCCESS:
+      return { cartloading: false, success: true, CartItems: action.payload };
+    case CART_ADD_ITEM_FAIL:
+      return { cartloading: false, carterror: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const cartGetReducer = (state = { CartItems: {} }, action) => {
+  switch (action.type) {
+    case CART_GET_ITEM_REQUEST:
+      return { cartloading: true };
+    case CART_GET_ITEM_SUCCESS:
+      return { cartloading: false, success: true, CartItems: action.payload };
+    case CART_GET_ITEM_FAIL:
+      return { cartloading: false, carterror: action.payload };
     default:
       return state;
   }
@@ -32,11 +48,11 @@ export const cartAddReducer = (state = { CartItems: {} }, action) => {
 
 export const CartUpdateReducer = (state = {}, action) => {
   switch (action.type) {
-    case CART_EDIT_REQUEST:
+    case CART_EDIT_ITEM_REQUEST:
       return { loading: true };
-    case CART_EDIT_SUCCESS:
+    case CART_EDIT_ITEM_SUCCESS:
       return { loading: false, success: true, FOOD: action.payload };
-    case CART_EDIT_FAIL:
+    case CART_EDIT_ITEM_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

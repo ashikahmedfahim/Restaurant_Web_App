@@ -3,6 +3,9 @@ import {
   CART_ADD_ITEM_REQUEST,
   CART_ADD_ITEM_SUCCESS,
   CART_ADD_ITEM_FAIL,
+  CART_GET_ITEM_REQUEST,
+  CART_GET_ITEM_SUCCESS,
+  CART_GET_ITEM_FAIL,
   CART_EDIT_ITEM_REQUEST,
   CART_EDIT_ITEM_SUCCESS,
   CART_EDIT_ITEM_FAIL,
@@ -18,29 +21,68 @@ import {
   CART_CLEAR_ITEMS,
 } from "../constant/CartConstant";
 
-export const addToCart = (cart) => async (dispatch, getState) => {
-  console.log(cart);
+export const addToCart =
+  (food_id, qty, user_id) => async (dispatch, getState) => {
+    let cart = {
+      item: food_id,
+      qty: qty,
+      user: user_id,
+    };
+    try {
+      dispatch({
+        type: CART_ADD_ITEM_REQUEST,
+      });
+
+      // const {
+      //   adminLogin: { adminInfo },
+      // } = getState();
+      // const config = {
+      //   headers: {
+      //     Authorization: `Bearer ${adminInfo}`,
+      //   },
+      // };
+
+      const { data } = await axios.post(
+        `http://localhost:5000/api/carts`,
+        cart
+        // config
+      );
+
+      dispatch({
+        type: CART_ADD_ITEM_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        // dispatch(logout())
+      }
+      dispatch({
+        type: CART_ADD_ITEM_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const getCart = (user_id) => async (dispatch, getState) => {
+  console.log(user_id);
   try {
     dispatch({
-      type: CART_ADD_ITEM_REQUEST,
+      type: CART_GET_ITEM_REQUEST,
     });
 
-    // const {
-    //   adminLogin: { adminInfo },
-    // } = getState();
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${adminInfo}`,
-    //   },
-    // };
+    const { data } = await axios.get(
+      `http://localhost:5000/api/carts/${user_id}`
 
-    const { data } = await axios.post(
-      `http://localhost:5000/api/foods`,
-      cart,
       // config
     );
+    console.log("444");
+
     dispatch({
-      type: CART_ADD_ITEM_SUCCESS,
+      type: CART_GET_ITEM_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -52,7 +94,7 @@ export const addToCart = (cart) => async (dispatch, getState) => {
       // dispatch(logout())
     }
     dispatch({
-      type: CART_ADD_ITEM_FAIL,
+      type: CART_GET_ITEM_FAIL,
       payload: message,
     });
   }

@@ -29,6 +29,7 @@ module.exports.adminLogin = async (req, res, next) => {
 };
 
 module.exports.userLogin = async (req, res, next) => {
+  console.log(req.body);
   const isValidData = dataValidations.isValidUserObject(req.body);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isUser = await User.findOne({ email: req.body.email });

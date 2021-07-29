@@ -30,15 +30,19 @@ const FoodDetailsPage = ({ match, history }) => {
 
   const foodDetails = useSelector((state) => state.foodDetails);
   const { loading, error, FOOD } = foodDetails;
+
+  const cartAdd = useSelector((state) => state.cartAdd);
+  const { cartloading, carterror, CartItems } = cartAdd;
+
   useEffect(() => {
     dispatch(listFOODDetails(match.params.id));
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
     if (User) {
-      dispatch(addToCart(match.params.id));
+      dispatch(addToCart(match.params.id, qty, User.result._id));
     } else {
-      history.push(`/login`)
+      history.push(`/login?redirect=/food/${match.params.id}`);
     }
   };
   return (
@@ -52,6 +56,8 @@ const FoodDetailsPage = ({ match, history }) => {
           <>
             <Loading />
           </>
+        ) : cartloading ? (
+          <><Loading /></>
         ) : (
           <Container className="my-5">
             <Row>
