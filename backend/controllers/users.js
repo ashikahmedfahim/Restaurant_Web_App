@@ -12,9 +12,9 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.createOne = async (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   const isValidData = dataValidations.isValidUserData(req.body);
-  console.log(isValidData)
+  console.log(isValidData);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await User.findOne({ email: req.body.email });
   if (isAlreadyRegistered)
@@ -30,10 +30,7 @@ module.exports.createOne = async (req, res, next) => {
   });
   const result = await user.save();
   if (!result) throw new ExpressError(500, "Failed to create User");
-  const token = jwt.sign(
-    { _id: result._id, email: result.email },
-    "thisstheprivatekey"
-  );
+  const token = jwt.sign({ _id: result._id, email: result.email }, secretKey);
   res.status(200).json({ result: result, token });
 };
 
