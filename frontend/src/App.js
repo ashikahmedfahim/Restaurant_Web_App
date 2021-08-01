@@ -8,9 +8,11 @@ import FoodCartPage from "./pages/FoodCartPage";
 import "./assets/css/index.css";
 import FoodEditPage from "./pages/FoodEditPage";
 import FoodSearchPage from "./pages/FoodSearchPage";
+import UserProfilePage from "./pages/UserProfilePage";
 function App() {
   return (
     <Router>
+      <Route path="/profile/:id" component={UserProfilePage} />
       <Route path="/search" component={FoodSearchPage} />
       <Route path="/edit/:id" component={FoodEditPage} />
       <Route path="/cart" component={FoodCartPage} />
