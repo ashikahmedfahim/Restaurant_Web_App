@@ -4,7 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
+
 const secretKey = process.env.SECRETKEY;
+
 module.exports.adminLogin = async (req, res, next) => {
   const isValidData = dataValidations.isValidUserObject(req.body);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
