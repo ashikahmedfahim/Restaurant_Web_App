@@ -8,6 +8,7 @@ module.exports.isAuthenticated = (req, res, next) => {
     jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
       if (error) throw new ExpressError(400, "Invalid Token");
       req.credentials = decoded;
+      console.log(decoded);
     });
     next();
   } catch (error) {
@@ -20,5 +21,19 @@ module.exports.isAdmin = async (req, res, next) => {
     next();
   } else {
     throw new ExpressError(400, "Not Authorized");
+  }
+};
+
+module.exports.isAuthorized = (req, res, next) => {
+  try {
+    const { _id: authorizedID } = req.credentials;
+    const requestedID = req.params.id;
+    if (authorizedID === requestedID) {
+      next();
+    } else {
+      throw new ExpressError(400, "Invalid Token");
+    }
+  } catch (error) {
+    next(error);
   }
 };

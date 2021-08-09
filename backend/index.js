@@ -13,7 +13,7 @@ const types = require("./routes/types");
 const users = require("./routes/users");
 require("dotenv").config();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 const MongoDB = process.env.DB;
 mongoose
   .connect(MongoDB, {
