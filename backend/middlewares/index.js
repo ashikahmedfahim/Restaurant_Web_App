@@ -8,7 +8,6 @@ module.exports.isAuthenticated = (req, res, next) => {
     jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
       if (error) throw new ExpressError(400, "Invalid Token");
       req.credentials = decoded;
-      console.log(decoded);
     });
     next();
   } catch (error) {
@@ -17,10 +16,14 @@ module.exports.isAuthenticated = (req, res, next) => {
 };
 
 module.exports.isAdmin = async (req, res, next) => {
-  if (req.credentials.isAdmin) {
-    next();
-  } else {
-    throw new ExpressError(400, "Not Authorized");
+  try {
+    if (req.credentials.isAdmin) {
+      next();
+    } else {
+      throw new ExpressError(400, "Not Authorized");
+    }
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -31,7 +34,7 @@ module.exports.isAuthorized = (req, res, next) => {
     if (authorizedID === requestedID) {
       next();
     } else {
-      throw new ExpressError(400, "Invalid Token");
+      throw new ExpressError(400, "Not Authorized");
     }
   } catch (error) {
     next(error);
