@@ -12,7 +12,6 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.createOne = async (req, res, next) => {
-  console.log(req.body);
   const isValidData = dataValidations.isValidUserData(req.body);
   console.log(isValidData);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
