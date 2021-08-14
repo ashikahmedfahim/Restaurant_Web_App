@@ -68,7 +68,6 @@ export const addToCart =
   };
 
 export const getCart = (user_id) => async (dispatch, getState) => {
-  console.log(user_id);
   try {
     dispatch({
       type: CART_GET_ITEM_REQUEST,
@@ -79,7 +78,6 @@ export const getCart = (user_id) => async (dispatch, getState) => {
 
       // config
     );
-    console.log("444");
 
     dispatch({
       type: CART_GET_ITEM_SUCCESS,

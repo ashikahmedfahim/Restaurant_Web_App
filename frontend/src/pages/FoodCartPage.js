@@ -20,6 +20,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 const FoodCartPage = ({ history }) => {
+  const [cartQty, setcartQty] = useState(1);
+
   library.add(faTrash);
   const User = JSON.parse(localStorage.getItem("UserInfo"));
 
@@ -27,7 +29,7 @@ const FoodCartPage = ({ history }) => {
 
   const cartDetails = useSelector((state) => state.cartGet);
 
-  const { cartloading, carterror, CartItems } = cartDetails;
+  const { cartloading, success, carterror, CartItems } = cartDetails;
 
   useEffect(() => {
     if (User) {
@@ -35,13 +37,10 @@ const FoodCartPage = ({ history }) => {
     } else {
       history.push(`/login?redirect=/cart`);
     }
+  
   }, [dispatch]);
-  const handleChange = (e) => {
-    // console.log(e.target.value)
-    //   dispatch(
-    //     addToCart(item.product, Number(e.target.value))
-    //   )
-  };
+
+  const handleChange = (e) => {};
   return (
     <Row>
       <Col md={8} sm={8} lg={8} xl={8}>
@@ -54,10 +53,8 @@ const FoodCartPage = ({ history }) => {
               </>
             ) : (
               <>
-                {CartItems.result ? (
+                {CartItems.result && CartItems.qty ? (
                   <>
-                    {CartItems.result.name}
-                    {CartItems.qty}
                     <ListGroup variant="flush">
                       {/* {cartItems.map((item) => ( */}
                       <ListGroup.Item key={CartItems.result.Id}>
@@ -77,16 +74,28 @@ const FoodCartPage = ({ history }) => {
                           </Col>
                           <Col md={2}>${CartItems.result.price}</Col>
                           <Col md={2}>
-                            <Form.Control
-                              type="Number"
-                              value={CartItems.qty}
-                              onChange={handleChange}
-                            ></Form.Control>
+                            {CartItems.qty>0 ? (
+                              
+                              
+                              <Form>
+                              {console.log(CartItems.qty)}
+                              {setcartQty(10)}
+                                <Form.Control
+                                  type="number"
+                                  value={cartQty}
+                                  onChange={(e) => setcartQty(e.target.value)}
+                                />
+                              </Form>
+                            ) : (
+                              <>
+                                <Loading />
+                              </>
+                            )}
                           </Col>
                           <Col md={2}>
                             <Button
                               type="button"
-                              variant="danger"
+                              variant="outline-danger"
                               // onClick={() => removeFromCartHandler(item.product)}
                             >
                               <FontAwesomeIcon icon="trash" />
@@ -98,7 +107,9 @@ const FoodCartPage = ({ history }) => {
                     </ListGroup>
                   </>
                 ) : (
-                  <></>
+                  <>
+                    <Loading />
+                  </>
                 )}
               </>
             )}

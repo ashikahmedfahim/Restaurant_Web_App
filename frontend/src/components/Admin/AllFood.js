@@ -17,7 +17,7 @@ const AllFood = ({ food, history }) => {
   const dispatch = useDispatch();
   const foodList = useSelector((state) => state.foodList);
   const { foodListloading, foodListerror, FOODS } = foodList;
-
+  
   useEffect(() => {
     dispatch(listFOODs());
   }, [history]);
