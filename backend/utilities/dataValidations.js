@@ -14,7 +14,7 @@ module.exports.isValidUserData = (value) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(4).required(),
     phone: Joi.string().min(11).max(11).required(),
     address: Joi.string().min(3).required(),
   });
@@ -32,7 +32,7 @@ module.exports.isValidObjectId = (value) => {
 
 module.exports.isvalidPassword = (value) => {
   const passwordSchema = Joi.object({
-    password: Joi.string().min(8).required(),
+    password: Joi.string().min(4).required(),
   });
   const isValidPassword = passwordSchema.validate(value);
   return isValidPassword;

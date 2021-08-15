@@ -34,7 +34,6 @@ module.exports.adminLogin = async (req, res, next) => {
 };
 
 module.exports.userLogin = async (req, res, next) => {
-  console.log(req.body);
   const isValidData = dataValidations.isValidUserObject(req.body);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isUser = await User.findOne({ email: req.body.email });
@@ -42,12 +41,12 @@ module.exports.userLogin = async (req, res, next) => {
     const isValidUser = await bcrypt.compare(
       req.body.password,
       isUser.password
-    );
-    if (isValidUser) {
-      const token = jwt.sign(
-        { _id: isUser._id, email: isUser.email, isAdmin: false },
-        secretKey
       );
+      if (isValidUser) {
+        const token = jwt.sign(
+          { _id: isUser._id, email: isUser.email, isAdmin: false },
+          "JWTsecretkey"
+          );
       // res.header("x-auth-token", token).send(result);
       res.status(200).json({ result: isUser, token });
 

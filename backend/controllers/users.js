@@ -13,7 +13,7 @@ module.exports.getAll = async (req, res, next) => {
 
 module.exports.createOne = async (req, res, next) => {
   const isValidData = dataValidations.isValidUserData(req.body);
-  console.log(isValidData);
+  console.log(isValidData.error);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await User.findOne({ email: req.body.email });
   if (isAlreadyRegistered)
