@@ -52,7 +52,7 @@ const UserProfilePage = () => {
 
               <Col sm={12} md={12} lg={8} xl={8}>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                 
+                 1
                   <Form.Group controlId="formBasicName">
                     <Form.Label>Your Name</Form.Label>
                     <Form.Control
