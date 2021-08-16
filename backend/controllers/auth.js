@@ -45,7 +45,7 @@ module.exports.userLogin = async (req, res, next) => {
       if (isValidUser) {
         const token = jwt.sign(
           { _id: isUser._id, email: isUser.email, isAdmin: false },
-          "JWTsecretkey"
+          process.env.SECRETKEY
           );
       // res.header("x-auth-token", token).send(result);
       res.status(200).json({ result: isUser, token });

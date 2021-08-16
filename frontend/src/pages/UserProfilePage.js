@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import NavBar from "../components/Navbar";
 
 const UserProfilePage = () => {
   library.add(faArrowLeft);
@@ -43,6 +44,7 @@ const UserProfilePage = () => {
     <>
       {User ? (
         <>
+          <NavBar />
           <Container>
             <Link className="btn btn-dark my-3 " to="/">
               <FontAwesomeIcon icon="arrow-left" /> Go Back
@@ -52,7 +54,6 @@ const UserProfilePage = () => {
 
               <Col sm={12} md={12} lg={8} xl={8}>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                 1
                   <Form.Group controlId="formBasicName">
                     <Form.Label>Your Name</Form.Label>
                     <Form.Control
@@ -76,20 +77,6 @@ const UserProfilePage = () => {
                       {errors.email?.message}
                     </Form.Text>
                   </Form.Group>
-
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      {...register("password")}
-                      placeholder="Password"
-                      value={User.result.password}
-                    />
-                    <Form.Text style={{ color: "red" }}>
-                      {errors.password?.message}
-                    </Form.Text>
-                  </Form.Group>
-
                   <Form.Group controlId="formBasicPhone">
                     <Form.Label>Phone</Form.Label>
                     <Form.Control
@@ -112,6 +99,11 @@ const UserProfilePage = () => {
                   <Button variant="dark" type="submit" className="my-3">
                     Update
                   </Button>
+                  <Link to={`/resetp_password/${User.result._id}`}>
+                    <Button variant="dark" type="submit" className="my-3 mx-3">
+                      Reset Password
+                    </Button>
+                  </Link>
                 </Form>
               </Col>
             </Row>

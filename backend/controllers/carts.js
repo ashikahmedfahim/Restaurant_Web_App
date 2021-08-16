@@ -19,28 +19,29 @@ module.exports.addCart = async (req, res, next) => {
       "items.foodId": req.body.item,
       user: req.body.user,
     });
-    // console.log(id);
-    if (id[0].items) {
-       const items = { foodId: req.body.item, quantity: req.body.qty };
-      old = id[0].items[0].quantity;
-      console.log(old);
+    console.log(id);
+    if (id.length === 0) {
+      // const items = { foodId: req.body.item, quantity: req.body.qty };
+      // old = id[0].items[0].quantity;
+      // // console.log(old);
 
-      // old.push(items);
-      const result = await Cart.findByIdAndUpdate(
-        { _id: id[0]._id, user: req.body.user },
-        { $set: { "items.quantity": req.body.qty } }
-      );
-      // console.log(result);
-      res.send(result);
+      // // old.push(items);
+      // const result = await Cart.findByIdAndUpdate(
+      //   { _id: id[0]._id, user: req.body.user },
+      //   { $set: { "items.quantity": req.body.qty } }
+      // );
+      console.log("result");
+      // res.send(result);
     } else {
-      const items = { foodId: req.body.item, quantity: req.body.qty };
-      old = user.items;
-      old.push(items);
-      const result = await Cart.findByIdAndUpdate(
-        { _id: user._id },
-        { $set: { items: old } }
-      );
-      res.send("result");
+      console.log("result2");
+      // const items = { foodId: req.body.item, quantity: req.body.qty };
+      // old = user.items;
+      // old.push(items);
+      // const result = await Cart.findByIdAndUpdate(
+      //   { _id: user._id },
+      //   { $set: { items: old } }
+      // );
+      // res.send("result");
     }
     // res.send(result);
   } else {
