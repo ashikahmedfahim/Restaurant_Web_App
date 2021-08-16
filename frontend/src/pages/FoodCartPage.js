@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import CartItem from "../components/Cart/CartItem";
 
 const FoodCartPage = ({ history }) => {
   library.add(faTrash);
@@ -34,9 +35,6 @@ const FoodCartPage = ({ history }) => {
   useEffect(() => {
     if (User) {
       dispatch(getCart(User.result._id));
-      // if (CartItems) {
-      //   setcartQty(CartItems.qty);
-      // }
     } else {
       history.push(`/login?redirect=/cart`);
     }
@@ -58,7 +56,32 @@ const FoodCartPage = ({ history }) => {
               </>
             ) : (
               <>
-                {console.log(CartItems.result.items)}
+                {CartItems && !cartloading ? (
+                  <>
+                    {console.log(CartItems.result)}
+                    {CartItems.result != undefined ? (
+                      <>
+                        {Object.keys(CartItems.result.items).map((item) => (
+                          <div key={CartItems.result.items[item]._id}>
+                            {/* {CartItems.result.items[item].foodId}
+                            <br />
+                            {CartItems.result.items[item].quantity}
+                            <br /> */}
+                              
+                            <CartItem
+                              foodId={CartItems.result.items[item].foodId}
+                              qty={CartItems.result.items[item].quantity}
+                            />
+                          </div>
+                        ))}
+                      </>
+                    ) : (
+                      <>{console.log("CartItems.result")}</>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
                 {/* {CartItems.result.items.map((items) => (
                   <>{items}</>
                 ))} */}

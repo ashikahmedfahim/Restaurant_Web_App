@@ -33,19 +33,18 @@ export const addToCart =
         type: CART_ADD_ITEM_REQUEST,
       });
 
-      // const {
-      //   adminLogin: { adminInfo },
-      // } = getState();
-      // const config = {
-      //   headers: {
-      //     Authorization: `Bearer ${adminInfo}`,
-      //   },
-      // };
+      const User = JSON.parse(localStorage.getItem("UserInfo"));
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${User.token}`,
+        },
+      };
 
       const { data } = await axios.post(
         `http://localhost:5000/api/carts`,
-        cart
-        // config
+        cart,
+        config
       );
 
       dispatch({
@@ -72,11 +71,17 @@ export const getCart = (user_id) => async (dispatch, getState) => {
     dispatch({
       type: CART_GET_ITEM_REQUEST,
     });
+    const User = JSON.parse(localStorage.getItem("UserInfo"));
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${User.token}`,
+      },
+    };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/carts/${user_id}`
-
-      // config
+      `http://localhost:5000/api/carts/${user_id}`,
+      config
     );
 
     dispatch({
@@ -97,49 +102,3 @@ export const getCart = (user_id) => async (dispatch, getState) => {
     });
   }
 };
-
-// export const addToCart = (id, qty) => async (dispatch, getState) => {
-
-//   const { data } = await axios.get(`/api/products/${id}`)
-
-//   dispatch({
-//     type: CART_ADD_ITEM,
-//     payload: {
-//       product: data._id,
-//       name: data.name,
-//       image: data.image,
-//       price: data.price,
-//       countInStock: data.countInStock,
-//       qty,
-//     },
-//   })
-
-//   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-// }
-
-// export const removeFromCart = (id) => (dispatch, getState) => {
-//   dispatch({
-//     type: CART_REMOVE_ITEM,
-//     payload: id,
-//   })
-
-//   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-// }
-
-// export const saveShippingAddress = (data) => (dispatch) => {
-//   dispatch({
-//     type: CART_SAVE_SHIPPING_ADDRESS,
-//     payload: data,
-//   });
-
-//   localStorage.setItem("shippingAddress", JSON.stringify(data));
-// };
-
-// export const savePaymentMethod = (data) => (dispatch) => {
-//   dispatch({
-//     type: CART_SAVE_PAYMENT_METHOD,
-//     payload: data,
-//   });
-
-//   localStorage.setItem("paymentMethod", JSON.stringify(data));
-// };

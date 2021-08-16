@@ -34,8 +34,9 @@ const FoodDetailsPage = ({ match, history }) => {
   const cartAdd = useSelector((state) => state.cartAdd);
   const { cartloading, carterror, CartItems } = cartAdd;
 
+  const id = match.params.id;
   useEffect(() => {
-    dispatch(listFOODDetails(match.params.id));
+    dispatch(listFOODDetails(id));
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
@@ -57,7 +58,9 @@ const FoodDetailsPage = ({ match, history }) => {
             <Loading />
           </>
         ) : cartloading ? (
-          <><Loading /></>
+          <>
+            <Loading />
+          </>
         ) : (
           <Container className="my-5">
             <Row>

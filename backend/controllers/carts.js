@@ -8,18 +8,18 @@ const ExpressError = require("../utilities/expressError");
 module.exports.addCart = async (req, res, next) => {
   // const isValidData = dataValidations.isValidUserObject(req.body);
   // if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
-  const user = await Cart.findOne({ user: req.body.user });
-  if (user) {
+  const cart = await Cart.findOne({ user: req.body.user });
+  if (cart) {
     const id = await Cart.find({
       user: req.body.user,
       "items.foodId": req.body.item,
     });
     if (id.length === 0) {
       const items = { foodId: req.body.item, quantity: req.body.qty };
-      old = user.items;
+      old = cart.items;
       old.push(items);
       const result = await Cart.findByIdAndUpdate(
-        { _id: user._id },
+        { _id: cart._id },
         { $set: { items: old } }
       );
       res.send(result);
@@ -30,7 +30,7 @@ module.exports.addCart = async (req, res, next) => {
       const item = { foodId: req.body.item, quantity: req.body.qty };
       oldItems.push(item);
       const result = await Cart.findByIdAndUpdate(
-        { _id: user._id },
+        { _id: cart._id },
         { $set: { items: oldItems } }
       );
       if (!result) res.status(501);
@@ -45,9 +45,20 @@ module.exports.addCart = async (req, res, next) => {
 };
 
 module.exports.getCart = async (req, res, next) => {
-  console.log(req.params.id);
   const cart = await Cart.findOne({ user: req.params.id });
-  console.log(cart);
+  // let food = {};
+  // let foods = [];
+  // let foodid = "";
+  // Object.keys(cart.items).map((item) => (
+  //   // console.log(cart.items[item].foodId)
+  //   foodid = cart.items[item].foodId
+  //   // food =  Food.findOne({ _id: foodId })
+  //   // foods.push(food)
+  // ));
+  // food = await Food.findOne({ _id: foodid });
+  // foods.push(food.name);
+  // console.log(foodid);
+  // console.log(foods);
   res.status(200).json({ result: cart });
 };
 
