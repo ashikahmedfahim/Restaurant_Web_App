@@ -58,7 +58,7 @@ const FoodCartPage = ({ history }) => {
               </>
             ) : (
               <>
-                {console.log(CartItems.result)}
+                {console.log(CartItems.result.items)}
                 {/* {CartItems.result.items.map((items) => (
                   <>{items}</>
                 ))} */}
