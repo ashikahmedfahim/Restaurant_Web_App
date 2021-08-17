@@ -15,7 +15,7 @@ import Loading from "./Loading";
 import "../assets/css/Section-2.css";
 
 const Section2 = ({ food, error }) => {
-  let active = 3;
+  let active = 1;
   let items = [];
   for (let number = 1; number <= 5; number++) {
     items.push(
@@ -95,6 +95,7 @@ const Section2 = ({ food, error }) => {
                     variant="dark"
                     size="sm"
                     className="d-flex justify-content-center"
+                    style={{ borderBottom: "none" }}
                   >
                     {items}
                   </Pagination>

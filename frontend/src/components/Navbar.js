@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../assets/css/Navbar.css";
 import { Userlogout } from "../acions/UserActions";
 import { Link } from "react-scroll";
+import { PersonFill } from "react-bootstrap-icons";
 
 const NavBar = () => {
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
@@ -36,41 +37,47 @@ const NavBar = () => {
     dispatch(Userlogout());
   };
   return (
-    <Navbar expand="lg" sticky="top" style={{ backgroundColor: "#fff" }}>
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      sticky="top"
+      style={{ backgroundColor: "#fff" }}
+    >
       <Container fluid>
         <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
+          aria-controls="responsive-navbar-nav"
           style={{ fontSize: "15px", border: "none" }}
         />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="responsive-navbar-nav">
           <LinkContainer to="/">
             <Navbar.Brand href="#">Logo</Navbar.Brand>
           </LinkContainer>
           <Nav className="mr-auto ml-auto">
-            {/* <LinkContainer to="/"> */}
             <Link to="home" spy={true} smooth={true} duration={100}>
-              <Nav.Link>Home</Nav.Link>
+              <LinkContainer to="/#">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
             </Link>
-            {/* </LinkContainer> */}
-            {/* <LinkContainer to="/"> */}
             <Link to="menu" spy={true} smooth={true} duration={100}>
-              <Nav.Link>Menu</Nav.Link>
+              <LinkContainer to="/#">
+                <Nav.Link>Menu</Nav.Link>
+              </LinkContainer>
             </Link>
-            {/* </LinkContainer> */}
-            {/* <LinkContainer to="/"> */}
             <Link to="about" spy={true} smooth={true} duration={100}>
-              <Nav.Link>About us</Nav.Link>
+              <LinkContainer to="/#">
+                <Nav.Link>About us</Nav.Link>
+              </LinkContainer>
             </Link>
-            {/* </LinkContainer> */}
-            {/* <LinkContainer to="/"> */}
             <Link to="contact" spy={true} smooth={true} duration={100}>
-              <Nav.Link>Contacts</Nav.Link>
+              <LinkContainer to="/#">
+                <Nav.Link>Contacts</Nav.Link>
+              </LinkContainer>
             </Link>
-            {/* </LinkContainer> */}
           </Nav>
         </Navbar.Collapse>
         <LinkContainer to="/search" style={{ borderRadius: "2.2rem" }}>
           <Button
+            size="sm"
             variant="dark"
             style={{ borderRadius: "2.2rem" }}
             className="mr-auto px-3"
@@ -155,24 +162,13 @@ const NavBar = () => {
                     <Dropdown.Item>Suport</Dropdown.Item>
                   </LinkContainer>
                   <Dropdown.Divider />
-                  <LinkContainer to="/"
+                  <LinkContainer
+                    to="/"
                     onClick={handleLogout}
                     style={{ background: "#000" }}
                   >
                     <Dropdown.Item>Logout</Dropdown.Item>
                   </LinkContainer>
-                  {/* <Button
-                    variant="dark"
-                    onClick={handleLogout}
-                    style={{
-                      height: "2rem",
-                      display: "flex",
-                      alignItems: "center",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    Logout
-                  </Button> */}
                 </Dropdown.Menu>
               </Dropdown>
               <br />
@@ -182,11 +178,16 @@ const NavBar = () => {
               <LinkContainer to="/login" style={{ color: "black" }}>
                 <Nav.Link href="#link" className="d-flex align-items-center">
                   {" "}
-                  <FontAwesomeIcon
+                  <PersonFill
+                    style={{ color: "black" }}
+                    className="mx-2"
+                    size={30}
+                  />
+                  {/* <FontAwesomeIcon
                     icon="user"
                     style={{ fontSize: "1.5rem", color: "black" }}
                     className="mx-2"
-                  />{" "}
+                  />{" "} */}
                   Login
                 </Nav.Link>
               </LinkContainer>

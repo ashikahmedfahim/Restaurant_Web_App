@@ -4,7 +4,7 @@ import image from "../assets/images/pizza.jpg";
 
 const Section3 = () => {
   return (
-    <Container fluid >
+    <Container fluid id="about">
       <Row>
         <Col sm={12} md={8} lg={8} xl={6} className="px-0">
           <Image src={image} style={{ width: "100%" }} />
@@ -17,14 +17,16 @@ const Section3 = () => {
           className="d-flex justify-content-end align-items-center"
         >
           <div className="d-flex justify-content-end align-items-center">
-            <Container id="about">
+            <Container>
               <h1 style={{ fontFamily: "Tangerine", fontSize: "5rem" }}>
                 About us
               </h1>
               <h5 style={{ fontFamily: "Merienda" }}>
                 Best Restaurant in Bangladesh
               </h5>
-              <h6 style={{ fontFamily: "Merienda" }}>The Best Food and price:</h6>
+              <h6 style={{ fontFamily: "Merienda" }}>
+                The Best Food and price:
+              </h6>
               <Button variant="dark" style={{ borderRadius: "30px" }}>
                 Learn more"
               </Button>
