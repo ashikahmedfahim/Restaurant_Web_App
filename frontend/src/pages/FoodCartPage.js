@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import CartItem from "../components/Cart/CartItem";
+import NavBar from "../components/Navbar";
 
 const FoodCartPage = ({ history }) => {
   library.add(faTrash);
@@ -45,47 +46,49 @@ const FoodCartPage = ({ history }) => {
   };
   const handleChange = (e) => {};
   return (
-    <Row>
-      <Col md={8} sm={8} lg={8} xl={8}>
-        <h1>Shopping Cart</h1>
-        {User ? (
-          <>
-            {cartloading ? (
-              <>
-                <Loading />
-              </>
-            ) : (
-              <>
-                {CartItems && !cartloading ? (
-                  <>
-                    {console.log(CartItems.result)}
-                    {CartItems.result != undefined ? (
-                      <>
-                        {Object.keys(CartItems.result.items).map((item) => (
-                          <div key={CartItems.result.items[item]._id}>
-                            {/* {CartItems.result.items[item].foodId}
+    <>
+      <NavBar />
+      <Row>
+        <Col md={8} sm={8} lg={8} xl={8}>
+          <h1>Shopping Cart</h1>
+          {User ? (
+            <>
+              {cartloading ? (
+                <>
+                  <Loading />
+                </>
+              ) : (
+                <>
+                  {CartItems && !cartloading ? (
+                    <>
+                      {console.log(CartItems.result)}
+                      {CartItems.result != undefined ? (
+                        <>
+                          {Object.keys(CartItems.result.items).map((item) => (
+                            <div key={CartItems.result.items[item]._id}>
+                              {/* {CartItems.result.items[item].foodId}
                             <br />
                             {CartItems.result.items[item].quantity}
                             <br /> */}
-                              
-                            <CartItem
-                              foodId={CartItems.result.items[item].foodId}
-                              qty={CartItems.result.items[item].quantity}
-                            />
-                          </div>
-                        ))}
-                      </>
-                    ) : (
-                      <>{console.log("CartItems.result")}</>
-                    )}
-                  </>
-                ) : (
-                  <></>
-                )}
-                {/* {CartItems.result.items.map((items) => (
+
+                              <CartItem
+                                foodId={CartItems.result.items[item].foodId}
+                                qty={CartItems.result.items[item].quantity}
+                              />
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <>{console.log("CartItems.result")}</>
+                      )}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                  {/* {CartItems.result.items.map((items) => (
                   <>{items}</>
                 ))} */}
-                {/* {CartItems.result && CartItems.qty ? (
+                  {/* {CartItems.result && CartItems.qty ? (
                   <>
                     <ListGroup variant="flush">
                       <ListGroup.Item key={CartItems.result.Id}>
@@ -132,14 +135,15 @@ const FoodCartPage = ({ history }) => {
                     <Loading />
                   </>
                 )} */}
-              </>
-            )}
-          </>
-        ) : (
-          <>Please Login First.</>
-        )}
-      </Col>
-    </Row>
+                </>
+              )}
+            </>
+          ) : (
+            <>Please Login First.</>
+          )}
+        </Col>
+      </Row>
+    </>
   );
 };
 

@@ -1,6 +1,15 @@
-.ml-auto{
-    margin-left: auto !important;
+.ml-auto {
+  margin-left: auto !important;
 }
-.mr-auto{
-    margin-right: auto !important;
+.mr-auto {
+  margin-right: auto !important;
+}
+
+.active {
+  text-decoration: none;
+  border-bottom: 3px solid black;
+}
+
+.navbar-brand {
+  border-bottom: none;
 }

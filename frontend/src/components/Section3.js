@@ -4,7 +4,7 @@ import image from "../assets/images/pizza.jpg";
 
 const Section3 = () => {
   return (
-    <Container fluid>
+    <Container fluid >
       <Row>
         <Col sm={12} md={8} lg={8} xl={6} className="px-0">
           <Image src={image} style={{ width: "100%" }} />
@@ -17,7 +17,7 @@ const Section3 = () => {
           className="d-flex justify-content-end align-items-center"
         >
           <div className="d-flex justify-content-end align-items-center">
-            <Container>
+            <Container id="about">
               <h1 style={{ fontFamily: "Tangerine", fontSize: "5rem" }}>
                 About us
               </h1>

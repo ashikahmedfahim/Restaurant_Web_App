@@ -1,0 +1,10 @@
+.delivery-card {
+  border-radius: 15px !important;
+}
+.delivery-card:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+.delivery-card:hover > .delivery svg {
+  fill: #ffffff !important;
+}

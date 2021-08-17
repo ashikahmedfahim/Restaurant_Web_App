@@ -26,7 +26,6 @@ export const listFOODs =
 
       const { data } = await axios.get(
         `http://localhost:5000/api/foods`
-        // `/api/FOODs?keyword=${keyword}&pageNumber=${pageNumber}`
       );
 
       dispatch({

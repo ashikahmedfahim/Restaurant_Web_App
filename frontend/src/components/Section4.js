@@ -1,80 +1,116 @@
 import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button, Card } from "react-bootstrap";
+import "../assets/css/Section4.css";
 
+import { BagCheck } from "react-bootstrap-icons";
+import { CreditCard2Front } from "react-bootstrap-icons";
+import { BoxSeam } from "react-bootstrap-icons";
+import { TruckFlatbed } from "react-bootstrap-icons";
 const Section4 = () => {
   return (
     <Container className="my-5">
-      <Row>
+      <Row className="d-flex justify-content-center">
+        <h2
+          className="my-5"
+          style={{ fontFamily: "Tangerine", fontSize: "3.5rem" }}
+        >
+          Delivery
+        </h2>
         <Col
           sm={12}
           md={6}
-          lg={5}
-          xl={4}
-          className="d-flex justify-content-center align-items-center my-3"
+          lg={3}
+          xl={3}
+          className="px-3 d-flex justify-content-center"
         >
-          <div>
-            <Container>
-              <h1 style={{ fontFamily: "Tangerine", fontSize: "5rem" }}>
-                Contacts
-              </h1>
-              <hr />
-              <h5 style={{ fontFamily: "Merienda" }}>Phone:</h5>
-              <h6 style={{ fontFamily: "Merienda" }}>+880 17563258</h6>
-              <h6 style={{ fontFamily: "Merienda" }}>+880 17563258</h6>
-              <br />
-              <h5 style={{ fontFamily: "Merienda" }}>Email:</h5>
-              <h6 style={{ fontFamily: "Merienda" }}>restaurent@gmail.com</h6>
-              <Button variant="dark" style={{ borderRadius: "30px" }}>
-                Learn more
-              </Button>
-            </Container>
-          </div>
+          <Card style={{ width: "15rem" }} className="delivery-card">
+            <Card.Img variant="top" src="" />
+            <Card.Header
+              className="py-4 d-flex justify-content-center delivery"
+              style={{ borderBottom: "none" }}
+            >
+              <BagCheck color="black" size={40} />
+            </Card.Header>
+            <Card.Body className="py-4">
+              <Card.Title>Order</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </Col>
         <Col
           sm={12}
           md={6}
-          lg={7}
-          xl={8}
-          className="d-flex justify-content-center align-items-center my-3"
+          lg={3}
+          xl={3}
+          className="px-3 d-flex justify-content-center"
         >
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicName">
-              <Form.Label>Enter your name</Form.Label>
-              <Form.Control type="text" placeholder="Enter your name" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Row>
-              <Col sm={12} md={8} lg={8} xl={8}>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check
-                    type="checkbox"
-                    bg="dark"
-                    label="Accept all rules"
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={12} md={4} lg={4} xl={4}>
-                <Button
-                  type="submit"
-                  variant="dark"
-                  style={{ borderRadius: "30px" }}
-                >
-                  Submit
-                </Button>
-              </Col>
-            </Row>
-          </Form>
+          <Card style={{ width: "15rem" }} className="delivery-card">
+            <Card.Img variant="top" src="" />
+            <Card.Header
+              className="py-3 d-flex justify-content-center delivery"
+              style={{ borderBottom: "none" }}
+            >
+              <CreditCard2Front color="black" size={40} />
+            </Card.Header>
+            <Card.Body className="py-4">
+              <Card.Title>Payment</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col
+          sm={12}
+          md={6}
+          lg={3}
+          xl={3}
+          className="px-3 d-flex justify-content-center"
+        >
+          <Card style={{ width: "15rem" }} className="delivery-card">
+            <Card.Img variant="top" src="" />
+            <Card.Header
+              className="py-3 d-flex justify-content-center delivery"
+              style={{ borderBottom: "none" }}
+            >
+              <BoxSeam color="black" size={40} />
+            </Card.Header>
+            <Card.Body className="py-4">
+              <Card.Title>Packaging</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col
+          sm={12}
+          md={6}
+          lg={3}
+          xl={3}
+          className="px-3 d-flex justify-content-center"
+        >
+          <Card style={{ width: "15rem" }} className="delivery-card">
+            <Card.Img variant="top" src="" />
+            <Card.Header
+              className="py-3 d-flex justify-content-center delivery"
+              style={{ borderBottom: "none" }}
+            >
+              <TruckFlatbed color="black" size={40} />
+            </Card.Header>
+            <Card.Body className="py-4">
+              <Card.Title>Delivery</Card.Title>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

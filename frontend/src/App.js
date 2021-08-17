@@ -9,9 +9,11 @@ import "./assets/css/index.css";
 import FoodEditPage from "./pages/FoodEditPage";
 import FoodSearchPage from "./pages/FoodSearchPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import FavouritePage from "./pages/FavouritePage";
 function App() {
   return (
     <Router>
+      <Route path="/favourite" component={FavouritePage} />
       <Route path="/profile/:id" component={UserProfilePage} />
       <Route path="/search" component={FoodSearchPage} />
       <Route path="/edit/:id" component={FoodEditPage} />

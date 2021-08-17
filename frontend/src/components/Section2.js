@@ -39,7 +39,7 @@ const Section2 = ({ food, error }) => {
             </>
           ) : (
             <>
-              <Container>
+              <Container id="menu">
                 <Row>
                   <Col xs={12} md={12}>
                     <h2

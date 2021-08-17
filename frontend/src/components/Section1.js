@@ -4,7 +4,7 @@ import image from "../assets/images/sec-1.jpg";
 import "../assets/css/Section-1.css";
 const Section1 = () => {
   return (
-    <Container fluid>
+    <Container fluid id="home">
       <Row>
         <Col xs={12} md={12} sm={12} lg={12} xl={12} className="px-0 sec-1">
           {/* <Image
@@ -46,7 +46,7 @@ const Section1 = () => {
               <h6 style={{ color: "black", fontFamily: "Merienda" }}>
                 We serve Best Food in Bangladesh
               </h6>
-              <h3 style={{ color: "black", fontFamily: "Open Sans"}}>
+              <h3 style={{ color: "black", fontFamily: "Open Sans" }}>
                 Get Upto 20% Discount
               </h3>
               <p style={{ color: "black", fontFamily: "Kaushan Script" }}>

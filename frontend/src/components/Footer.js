@@ -1,9 +1,12 @@
-import React from 'react';
-import {Container, Row, Col, Form, Button} from 'react-bootstrap';
-import '../assets/css/Footer.css';
+import React from "react";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import "../assets/css/Footer.css";
+import { Facebook } from "react-bootstrap-icons";
+import { Instagram } from "react-bootstrap-icons";
+
 const Footer = () => {
   return (
-    <Container fluid style={{background: 'black', color: 'white'}}>
+    <Container fluid style={{ background: "black", color: "white" }}>
       <Container>
         <div className="py-5">
           <Row>
@@ -61,9 +64,16 @@ const Footer = () => {
               md={3}
               lg={3}
               xl={3}
-              className="d-flex justify-content-center align-items-center my-3"
+              className="d-grid justify-content-center align-items-center my-3"
             >
               <h5>Social Media</h5>
+              <Col
+                className="d-flex"
+                style={{ justifyContent: "space-evenly" }}
+              >
+                <Facebook size={30} style={{ cursor: "pointer" }} />
+                <Instagram size={30} style={{ cursor: "pointer" }} />
+              </Col>
             </Col>
           </Row>
         </div>
