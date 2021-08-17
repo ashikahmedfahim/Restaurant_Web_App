@@ -58,9 +58,9 @@ const NavBar = () => {
             </Link>
             {/* </LinkContainer> */}
             {/* <LinkContainer to="/"> */}
-              <Link to="about" spy={true} smooth={true} duration={100}>
-                <Nav.Link>About us</Nav.Link>
-              </Link>
+            <Link to="about" spy={true} smooth={true} duration={100}>
+              <Nav.Link>About us</Nav.Link>
+            </Link>
             {/* </LinkContainer> */}
             {/* <LinkContainer to="/"> */}
             <Link to="contact" spy={true} smooth={true} duration={100}>
@@ -134,12 +134,12 @@ const NavBar = () => {
                   <span
                     style={{
                       backgroundColor: "#e0e4e8",
-                      width: "3rem",
-                      height: "3rem",
+                      width: "2rem",
+                      height: "2rem",
                       borderRadius: "50%",
                       border: "1px solid black",
                       fontWeight: "400",
-                      fontSize: "1.9rem",
+                      fontSize: "1.3rem",
                     }}
                   >
                     {nameIcon}
@@ -151,11 +151,17 @@ const NavBar = () => {
                   <LinkContainer to={`/Profile/${User.result._id}`}>
                     <Dropdown.Item>Profile</Dropdown.Item>
                   </LinkContainer>
-                  <Dropdown.Divider />
                   <LinkContainer to="/Suport">
                     <Dropdown.Item>Suport</Dropdown.Item>
                   </LinkContainer>
-                  <Button
+                  <Dropdown.Divider />
+                  <LinkContainer to="/"
+                    onClick={handleLogout}
+                    style={{ background: "#000" }}
+                  >
+                    <Dropdown.Item>Logout</Dropdown.Item>
+                  </LinkContainer>
+                  {/* <Button
                     variant="dark"
                     onClick={handleLogout}
                     style={{
@@ -166,7 +172,7 @@ const NavBar = () => {
                     }}
                   >
                     Logout
-                  </Button>
+                  </Button> */}
                 </Dropdown.Menu>
               </Dropdown>
               <br />
