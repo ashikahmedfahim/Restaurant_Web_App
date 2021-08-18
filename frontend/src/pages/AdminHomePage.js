@@ -129,18 +129,7 @@ const AdminHomePage = ({ history, location }) => {
                 Logout
               </Button>
             </Col>
-            {selectedbtn === "addType" ? (
-              <Col
-                sm={12}
-                md={12}
-                lg={12}
-                xl={12}
-                style={{ backgroundColor: "white" }}
-                className="d-flex justify-content-center align-items-start py-5"
-              >
-                <AddType />
-              </Col>
-            ) : selectedbtn === "addCategory" ? (
+            {selectedbtn === "addCategory" ? (
               <Col
                 sm={12}
                 md={12}

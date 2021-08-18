@@ -57,10 +57,10 @@ const Sidebar = ({ props, appliedbtn }) => {
                   appliedbtn("home");
                   handleToggle();
                 }}
-                className="mb-0 sidebar-links py-0"
+                className="mb-0 sidebar-links"
               >
                 <Col sm={1} md={2} lg={2} xl={2} className="col-1">
-                  <FontAwesomeIcon icon="home" style={{ color: "#5e72e4" }} />{" "}
+                  <FontAwesomeIcon icon="home" style={{ color: "#8a99ff" }} />{" "}
                 </Col>
                 <Col sm={10} md={8} lg={8} xl={8} className="col-2">
                   <p className="mb-0">Home</p>
@@ -68,30 +68,8 @@ const Sidebar = ({ props, appliedbtn }) => {
                 <Col sm={1} md={2} lg={2} xl={2} className="col-3">
                   <FontAwesomeIcon
                     icon="chevron-right"
-                    style={{ color: "#5e72e4" }}
+                    style={{ color: "#8a99ff" }}
                   />
-                </Col>
-              </Row>
-            </Drawer.Item>
-            <Drawer.Item>
-              <Row
-                onClick={() => {
-                  appliedbtn("addType");
-                  handleToggle();
-                }}
-                className="mb-0 sidebar-links"
-              >
-                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
-                  <FontAwesomeIcon icon="plus" style={{ color: "#fb6340" }} />{" "}
-                </Col>
-                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
-                  <p className="mb-0">Add Type</p>
-                </Col>
-                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
-                  <FontAwesomeIcon
-                    icon="chevron-right"
-                    style={{ color: "#fb6340" }}
-                  />{" "}
                 </Col>
               </Row>
             </Drawer.Item>

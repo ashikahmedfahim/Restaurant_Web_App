@@ -2,6 +2,7 @@
     background-color: yellowgreen;
 } */
 .sidebar-links {
+  padding-top: 0.65rem;
   padding-bottom: 0.65rem;
   cursor: pointer !important;
   color: #ffffff !important;
@@ -30,7 +31,9 @@
 .drawer {
   width: 14rem;
 }
-
+.nav-item:hover{
+  background-color: #233e50 !important;
+}
 @media (min-width: 320px) and (max-width: 480px) {
   .drawer {
     width: 100% !important;
