@@ -57,13 +57,38 @@ const AdminHomePage = ({ history, location }) => {
       <Container
         fluid
         className="py-0 px-0"
-        style={{ backgroundColor: "white" }}
+        style={{ backgroundColor: "white", minHeight: "100vh", height: "auto" }}
       >
         <Row className="g-0">
-          <Col sm={2} md={3} lg={2} xl={2}>
-            <Sidebar appliedbtn={appliedbtn} />
+          <Col
+            sm={2}
+            md={3}
+            lg={2}
+            xl={2}
+            style={{
+              backgroundColor: "#152530",
+              height: "auto",
+              width: "14rem",
+            }}
+            className="col-1"
+          >
+            {/* <Col className="d-flex justify-content-start px-3 py-3">Logo</Col> */}
+            <Col>
+              <Sidebar appliedbtn={appliedbtn} />
+            </Col>
           </Col>
-          <Col sm={10} md={9} lg={10} xl={10}>
+          <Col
+            sm={10}
+            md={9}
+            lg={10}
+            xl={10}
+            style={{
+              backgroundColor: "white",
+              minHeight: "100vh",
+              height: "auto",
+            }}
+            className="mx-0 px-3"
+          >
             <Col
               xs={12}
               sm={12}
@@ -155,7 +180,7 @@ const AdminHomePage = ({ history, location }) => {
                 lg={12}
                 xl={12}
                 style={{ backgroundColor: "white" }}
-                className="py-5 admin-home-page mx-0"
+                className="px-3 py-5 admin-home-page mx-0"
               >
                 <Orders />
               </Col>
@@ -166,7 +191,7 @@ const AdminHomePage = ({ history, location }) => {
                 lg={12}
                 xl={12}
                 style={{ backgroundColor: "white" }}
-                className="d-flex admin-home-page justify-content-center align-items-start py-5"
+                className="px-3 py-5"
               >
                 <Users />
               </Col>
@@ -176,7 +201,7 @@ const AdminHomePage = ({ history, location }) => {
                 md={12}
                 lg={12}
                 xl={12}
-                className="d-flex admin-home-page justify-content-start px-2 py-5"
+                className="d-flex admin-home-page justify-content-start px-2 py-5 mx-0"
                 style={{ backgroundColor: "white" }}
               >
                 <HomePanel />

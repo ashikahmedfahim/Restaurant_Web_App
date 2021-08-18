@@ -1,16 +1,38 @@
-.nav-item:hover{
-    /* background-color: yellowgreen; */
-}
+/* .nav-item:hover{
+    background-color: yellowgreen;
+} */
 .sidebar-links {
   padding-bottom: 0.65rem;
   cursor: pointer !important;
-  color: #5e5e5e !important;
+  color: #ffffff !important;
   font-size: 14px !important;
   font-weight: 300;
-  font-family: 'Open Sans', 'Arial', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Open Sans", "Arial", "Arial Narrow", Arial, sans-serif;
+  display: grid !important;
+  grid-template-columns: 0.35fr 3fr 0.25fr !important;
 }
 .sidebar-links:hover {
-  color: #9828f4 !important;
+  color: #ffffff !important;
   font-weight: 500;
+}
 
+.col-1 {
+  grid-column: 1/2;
+}
+.col-2 {
+  width: 100% !important;
+  grid-column: 2/3;
+}
+.col-3 {
+  grid-column: 3/4;
+}
+
+.drawer {
+  width: 14rem;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .drawer {
+    width: 100% !important;
+  }
 }

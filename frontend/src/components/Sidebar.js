@@ -11,105 +11,209 @@ import {
   faTags,
   faHamburger,
   faUtensils,
-  faShoppingBag
+  faShoppingBag,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 const Sidebar = ({ props, appliedbtn }) => {
-  library.add(faHome, faUsers, faPlus, faTags, faHamburger, faUtensils ,faShoppingBag);
+  library.add(
+    faHome,
+    faUsers,
+    faPlus,
+    faTags,
+    faHamburger,
+    faUtensils,
+    faShoppingBag,
+    faChevronRight
+  );
 
   const [open, setOpen] = useState(false);
   const handleToggle = () => setOpen(!open);
 
   return (
-    <Drawer {...props} style={{ backgroundColor: "white" }}>
+    <Drawer
+      {...props}
+      style={{ backgroundColor: "white", borderRight: "none" }}
+    >
       <Drawer.Toggle onClick={handleToggle} className="mr-auto" />
 
       <Collapse in={open}>
         <Drawer.Overflow
-          style={{ backgroundColor: "white" }}
-          className="px-3 py-5"
+          style={{ backgroundColor: "#152530", borderRight: "none" }}
+          className="px-0 py-2 drawer"
         >
           {/* <Drawer.ToC> */}
-          {/* <Drawer.Header>Admin Panel</Drawer.Header> */}
+          <Drawer.Header className="py-3">
+            <span style={{ color: "#fff", cursor: "pointer" }}>
+              Admin Panel
+            </span>
+          </Drawer.Header>
 
           <Drawer.Nav>
             <Drawer.Item className="sidebar-links-bg">
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("home");
                   handleToggle();
                 }}
-                className="mb-0 sidebar-links"
+                className="mb-0 sidebar-links py-0"
               >
-                <FontAwesomeIcon icon="home" style={{color:"#5e72e4"}}/> Home
-              </p>
+                <Col sm={1} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon icon="home" style={{ color: "#5e72e4" }} />{" "}
+                </Col>
+                <Col sm={10} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Home</p>
+                </Col>
+                <Col sm={1} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#5e72e4" }}
+                  />
+                </Col>
+              </Row>
             </Drawer.Item>
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("addType");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="plus" style={{color:"#fb6340"}}/> Add Type
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon icon="plus" style={{ color: "#fb6340" }} />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Add Type</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#fb6340" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
+
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("addCategory");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="tags" style={{color:"#11cdef"}}/> Add Category
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon icon="tags" style={{ color: "#11cdef" }} />
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Add Category</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#11cdef" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("addFood");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="hamburger" style={{color:"#6b4800"}}/> Add Food
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon
+                    icon="hamburger"
+                    style={{ color: "#6b4800" }}
+                  />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Add Food</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#6b4800" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("allFood");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="utensils" style={{color:"#ffd600"}}/> All Food
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon
+                    icon="utensils"
+                    style={{ color: "#ffd600" }}
+                  />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">All Food</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#ffd600" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("orders");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="shopping-bag" style={{color:"#1db933"}}/> Orders
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon
+                    icon="shopping-bag"
+                    style={{ color: "#1db933" }}
+                  />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Orders</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#1db933" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
             <Drawer.Item>
-              <p
+              <Row
                 onClick={() => {
                   appliedbtn("Users");
                   handleToggle();
                 }}
                 className="mb-0 sidebar-links"
               >
-                <FontAwesomeIcon icon="users" style={{color:"#f3a4b5"}}/> Users
-              </p>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon icon="users" style={{ color: "#f3a4b5" }} />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Users</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#f3a4b5" }}
+                  />{" "}
+                </Col>
+              </Row>
             </Drawer.Item>
           </Drawer.Nav>
           {/* </Drawer.ToC> */}

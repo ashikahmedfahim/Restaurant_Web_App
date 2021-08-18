@@ -49,12 +49,12 @@ module.exports.getCart = async (req, res, next) => {
   // let food = {};
   // let foods = [];
   // let foodid = "";
-  // Object.keys(cart.items).map((item) => (
-  //   // console.log(cart.items[item].foodId)
-  //   foodid = cart.items[item].foodId
-  //   // food =  Food.findOne({ _id: foodId })
-  //   // foods.push(food)
-  // ));
+  Object.keys(cart.items).map((item) =>
+    console.log(cart.items[item].foodId)
+    // foodid = cart.items[item].foodId
+    // food =  Food.findOne({ _id: foodId })
+    // foods.push(food)
+  );
   // food = await Food.findOne({ _id: foodid });
   // foods.push(food.name);
   // console.log(foodid);

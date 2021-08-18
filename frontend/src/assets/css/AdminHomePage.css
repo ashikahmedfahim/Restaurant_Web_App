@@ -1,13 +1,37 @@
-.admin-home-page {
- /* background: linear-gradient(87deg, #11cdef, #1171ef) !important;
-   border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px; */
-}
+/* .admin-home-page {
+  background: linear-gradient(87deg, #11cdef, #1171ef) !important;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+} */
 
-.btn a{
+.btn a {
   text-decoration: none;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   border: 0px !important;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* .row{
+  display: grid !important;
+  grid-template-columns: 0.25fr 2fr !important;
+}
+.col-1 {
+  grid-column: 1/2;
+}
+.col-2 {
+  grid-column: 2/3;
+} */
+.col-1 {
+  /* width: 14rem !important; */
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  .col-1 {
+    width: 100% !important;
+  }
 }
