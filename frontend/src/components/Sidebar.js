@@ -73,7 +73,6 @@ const Sidebar = ({ props, appliedbtn }) => {
                 </Col>
               </Row>
             </Drawer.Item>
-
             <Drawer.Item>
               <Row
                 onClick={() => {
@@ -189,6 +188,28 @@ const Sidebar = ({ props, appliedbtn }) => {
                   <FontAwesomeIcon
                     icon="chevron-right"
                     style={{ color: "#f3a4b5" }}
+                  />{" "}
+                </Col>
+              </Row>
+            </Drawer.Item>
+            <Drawer.Item>
+              <Row
+                onClick={() => {
+                  appliedbtn("addAdmin");
+                  handleToggle();
+                }}
+                className="mb-0 sidebar-links"
+              >
+                <Col sm={2} md={2} lg={2} xl={2} className="col-1">
+                  <FontAwesomeIcon icon="plus" style={{ color: "#f47f47" }} />{" "}
+                </Col>
+                <Col sm={8} md={8} lg={8} xl={8} className="col-2">
+                  <p className="mb-0">Add Admin</p>
+                </Col>
+                <Col sm={2} md={2} lg={2} xl={2} className="col-3">
+                  <FontAwesomeIcon
+                    icon="chevron-right"
+                    style={{ color: "#f47f47" }}
                   />{" "}
                 </Col>
               </Row>

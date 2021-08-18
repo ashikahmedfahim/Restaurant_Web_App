@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Button, Dropdown } from "react-bootstrap";
 import Sidebar from "../components/Sidebar";
-import AddType from "../components/Admin/AddType";
+import AddAdmin from "../components/Admin/AddAdmin";
 import AddCategory from "../components/Admin/AddCategory";
 import AddFood from "../components/Admin/AddFood";
 import AllFood from "../components/Admin/AllFood";
@@ -173,7 +173,7 @@ const AdminHomePage = ({ history, location }) => {
               >
                 <Orders />
               </Col>
-            ) : selectedbtn === "Users" ? (
+            ) : selectedbtn === "users" ? (
               <Col
                 sm={12}
                 md={12}
@@ -183,6 +183,17 @@ const AdminHomePage = ({ history, location }) => {
                 className="px-3 py-5"
               >
                 <Users />
+              </Col>
+            ) : selectedbtn === "addAdmin" ? (
+              <Col
+                sm={12}
+                md={12}
+                lg={12}
+                xl={12}
+                style={{ backgroundColor: "white" }}
+                className="px-3 py-5"
+              >
+                <AddAdmin />
               </Col>
             ) : (
               <Col
