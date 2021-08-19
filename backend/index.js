@@ -6,7 +6,7 @@ const ExpressError = require("./utilities/expressError");
 const admins = require("./routes/admins");
 const auth = require("./routes/auth");
 const categories = require("./routes/categories");
-const carts = require("./routes/carts");
+const cart = require("./routes/cart");
 const foods = require("./routes/foods");
 const orders = require("./routes/orders");
 const types = require("./routes/types");
@@ -36,11 +36,11 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/api/admins", admins);
 app.use("/api/auth", auth);
 app.use("/api/categories", categories);
-app.use("/api/carts", carts);
 app.use("/api/foods", foods);
 app.use("/api/orders", orders);
 app.use("/api/types", types);
 app.use("/api/users", users);
+app.use("/api/users/:id/cart", cart);
 
 app.use("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found"));

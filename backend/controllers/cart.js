@@ -1,9 +1,12 @@
-const Cart = require("../models/carts");
+const Cart = require("../models/cart");
 const Food = require("../models/foods");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
+
+module.exports.getCart = async (req, res, next) => {};
+module.exports.updateOne = async (req, res, next) => {};
 
 module.exports.addCart = async (req, res, next) => {
   // const isValidData = dataValidations.isValidUserObject(req.body);
