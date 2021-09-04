@@ -5,7 +5,13 @@ const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
-module.exports.getCart = async (req, res, next) => {};
+module.exports.getCart = async (req, res, next) => {
+  const userId = req.credentials.id;
+  const cart = await Cart.findOne({ user: userId });
+  if (!cart) throw new ExpressError(400, "No cart found");
+  res.status(200).json({ result: cart });
+};
+
 module.exports.updateOne = async (req, res, next) => {};
 
 module.exports.addCart = async (req, res, next) => {
@@ -52,8 +58,8 @@ module.exports.getCart = async (req, res, next) => {
   // let food = {};
   // let foods = [];
   // let foodid = "";
-  Object.keys(cart.items).map((item) =>
-    console.log(cart.items[item].foodId)
+  Object.keys(cart.items).map(
+    (item) => console.log(cart.items[item].foodId)
     // foodid = cart.items[item].foodId
     // food =  Food.findOne({ _id: foodId })
     // foods.push(food)
