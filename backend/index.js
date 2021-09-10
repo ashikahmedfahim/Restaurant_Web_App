@@ -40,7 +40,7 @@ app.use("/api/foods", foods);
 app.use("/api/orders", orders);
 app.use("/api/types", types);
 app.use("/api/users", users);
-app.use("/api/users/:id/cart", cart);
+app.use("/api/users/:id/carts", cart);
 
 app.use("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found"));
