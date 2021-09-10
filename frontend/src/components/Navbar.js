@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -22,17 +22,22 @@ import "../assets/css/Navbar.css";
 import { Userlogout } from "../acions/UserActions";
 import { Link } from "react-scroll";
 import { PersonFill } from "react-bootstrap-icons";
-
+import { jsonDecoder } from "../services/jsonDecoder";
 const NavBar = () => {
+  const [Data, setData] = useState({});
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
-  const User = JSON.parse(localStorage.getItem("UserInfo"));
+  const token = JSON.parse(localStorage.getItem("UserInfo"));
+
   const dispatch = useDispatch();
   let nameIcon = "";
-  if (User) {
-    const nameSplit = User.result.name.split(" ");
-    nameIcon = nameSplit[0].charAt(0).toUpperCase();
-  }
 
+  useEffect(() => {
+    if (token) {
+      setData(jsonDecoder(token));
+      // const nameSplit = Data.name.split(" ");
+      // nameIcon = nameSplit[0].charAt(0).toUpperCase();
+    }
+  },[]);
   const handleLogout = () => {
     dispatch(Userlogout());
   };
@@ -129,7 +134,7 @@ const NavBar = () => {
               />
             </Nav.Link>
           </LinkContainer>
-          {User ? (
+          {token ? (
             <>
               <Dropdown>
                 <Dropdown.Toggle
@@ -149,13 +154,15 @@ const NavBar = () => {
                       fontSize: "1.3rem",
                     }}
                   >
-                    {nameIcon}
+                    {/* {nameIcon} */}
+                    {Data.name && Data.name[0]}
                   </span>
-                  <p className="mx-2 my-0">{User.result.name}</p>
+
+                  <p className="mx-2 my-0">{Data.name}</p>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <LinkContainer to={`/Profile/${User.result._id}`}>
+                  <LinkContainer to={`/Profile/${Data._id}`}>
                     <Dropdown.Item>Profile</Dropdown.Item>
                   </LinkContainer>
                   <LinkContainer to="/Suport">
@@ -183,11 +190,6 @@ const NavBar = () => {
                     className="mx-2"
                     size={30}
                   />
-                  {/* <FontAwesomeIcon
-                    icon="user"
-                    style={{ fontSize: "1.5rem", color: "black" }}
-                    className="mx-2"
-                  />{" "} */}
                   Login
                 </Nav.Link>
               </LinkContainer>

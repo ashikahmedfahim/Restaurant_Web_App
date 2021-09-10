@@ -10,7 +10,7 @@ import {
 import {
   userLoginReducer,
   userRegisterReducer,
-  // userDetailsReducer,
+  userDetailsReducer,
   // userUpdateProfileReducer,
   // userListReducer,
   // userDeleteReducer,
@@ -34,6 +34,7 @@ const reducer = combineReducers({
   foodAdd: foodAddReducer,
   foodUpdate: foodUpdateReducer,
   userLogin: userLoginReducer,
+  UserDetails: userDetailsReducer,
   userRegister: userRegisterReducer,
   adminLogin: adminLoginReducer,
   adminRegister: adminRegisterReducer,

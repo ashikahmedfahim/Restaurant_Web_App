@@ -27,6 +27,22 @@ import {
   USER_UPDATE_PROFILE_RESET,
 } from "../constant/UserConstant";
 
+export const userDetailsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_DETAILS_REQUEST:
+      return { userDetailsloading: true };
+    case USER_DETAILS_SUCCESS:
+      
+      // localStorage.setItem("UserInfo", JSON.stringify({ ...action?.payload }));
+      return { userDetailsloading: false, UserDetailsInfo: action.payload };
+    case USER_DETAILS_FAIL:
+      return { userDetailsloading: false, userDetailserror: action.payload };
+    case USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:

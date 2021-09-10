@@ -26,7 +26,36 @@ import {
   USER_UPDATE_REQUEST,
 } from "../constant/UserConstant";
 // import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
+import { baseUrl } from "../services/constants";
+export const userDetailsActions = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    });
+    const Token = JSON.parse(localStorage.getItem("UserInfo"));
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": Token.token,
+      },
+    };
 
+    const { data } = await axios.get(`${baseUrl}users/${id}`, config);
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 export const userLogin = (form) => async (dispatch) => {
   try {
     dispatch({
@@ -39,17 +68,12 @@ export const userLogin = (form) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "http://localhost:5000/api/auth/user",
-      form,
-      config
-    );
+    const { data } = await axios.post(`${baseUrl}auth/user`, form, config);
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -69,7 +93,7 @@ export const Userlogout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   // dispatch({ type: USER_DETAILS_RESET });
   /*   dispatch({ type: ORDER_LIST_MY_RESET })
-   */ 
+   */
   // dispatch({ type: USER_LIST_RESET });
   document.location.href = "/";
 };
@@ -86,10 +110,7 @@ export const userRegister = (form) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "http://localhost:5000/api/users/",
-      form
-    );
+    const { data } = await axios.post(`${baseUrl}users`, form, config);
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -100,7 +121,6 @@ export const userRegister = (form) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

@@ -15,7 +15,7 @@ module.exports.createOne = async (req, res, next) => {
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await User.findOne({ email: req.body.email });
   if (isAlreadyRegistered)
-    throw new ExpressError(400, "This E-mail is Already Registered");
+  throw new ExpressError(400, "This E-mail is Already Registered");
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const user = new User({
@@ -26,6 +26,7 @@ module.exports.createOne = async (req, res, next) => {
     address: req.body.address,
   });
   const result = await user.save();
+  console.log(result);
   if (!result) throw new ExpressError(500, "Failed to create User");
   const cart = new Cart({ user });
   await cart.save();
