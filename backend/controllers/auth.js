@@ -1,5 +1,6 @@
 const Admin = require("../models/admins");
 const User = require("../models/users");
+const Cart = require("../models/cart");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
@@ -41,16 +42,22 @@ module.exports.userLogin = async (req, res, next) => {
     const isValidUser = await bcrypt.compare(
       req.body.password,
       isUser.password
+    );
+    if (isValidUser) {
+      const cart = await Cart.findOne({ user: isUser._id });
+      if (!cart)
+        throw new ExpressError(400, "Internal Server Error, Please try again");
+      const token = jwt.sign(
+        {
+          _id: isUser._id,
+          name: isUser.name,
+          email: isUser.email,
+          isAdmin: false,
+          cartId: cart._id,
+        },
+        process.env.SECRETKEY
       );
-      if (isValidUser) {
-        const token = jwt.sign(
-          { _id: isUser._id, email: isUser.email, isAdmin: false },
-          process.env.SECRETKEY
-          );
-      // res.header("x-auth-token", token).send(result);
-      res.status(200).json({ result: isUser, token });
-
-      // res.send(token);
+      res.status(200).json({ token });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }
