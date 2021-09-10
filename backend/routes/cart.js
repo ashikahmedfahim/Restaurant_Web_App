@@ -4,8 +4,7 @@ const catchAsync = require("../utilities/catchAsync");
 const cart = require("../controllers/cart");
 const { isAuthenticated, isAdmin, isAuthorized } = require("../middlewares/index");
 
-router.get("/",isAuthenticated,isAuthorized, catchAsync(cart.getCart));
-router.patch("/:cartId", isAuthenticated, isAuthorized, catchAsync(cart.updateOne));
-
+router.get("/:cartId",isAuthenticated,isAuthorized, catchAsync(cart.getCart));
+router.put("/:cartId", isAuthenticated, isAuthorized, catchAsync(cart.updateOne));
 
 module.exports = router;

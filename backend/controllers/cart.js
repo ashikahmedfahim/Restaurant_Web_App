@@ -6,18 +6,18 @@ const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
 
 module.exports.getCart = async (req, res, next) => {
-  const userId = req.credentials.id;
+  const userId = req.params.id;
   const cart = await Cart.findOne({ user: userId });
   if (!cart) throw new ExpressError(400, "No cart found");
   res.status(200).json({ result: cart });
 };
 
-module.exports.updateOne = async (req, res, next) => {};
+module.exports.updateOne = async (req, res, next) => { };
 
 module.exports.addCart = async (req, res, next) => {
   // const isValidData = dataValidations.isValidUserObject(req.body);
   // if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
-  const cart = await Cart.findOne({ user: req.body.user });
+  const cart = await Cart.findOne({ _id: req.params.cartId });
   if (cart) {
     const id = await Cart.find({
       user: req.body.user,
@@ -45,11 +45,6 @@ module.exports.addCart = async (req, res, next) => {
       if (!result) res.status(501);
       res.send("result");
     }
-  } else {
-    const items = { foodId: req.body.item, quantity: req.body.qty };
-    const cart = new Cart({ items: items, user: req.body.user });
-    const result = await cart.save();
-    res.send(result);
   }
 };
 

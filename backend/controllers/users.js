@@ -1,9 +1,9 @@
 const User = require("../models/users");
+const Cart = require("../models/cart");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dataValidations = require("../utilities/dataValidations");
 const ExpressError = require("../utilities/expressError");
-
 
 module.exports.getAll = async (req, res, next) => {
   const users = await User.find({}, "email");
@@ -11,7 +11,6 @@ module.exports.getAll = async (req, res, next) => {
 };
 
 module.exports.createOne = async (req, res, next) => {
-  console.log(req.body);
   const isValidData = dataValidations.isValidUserData(req.body);
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await User.findOne({ email: req.body.email });
@@ -28,8 +27,13 @@ module.exports.createOne = async (req, res, next) => {
   });
   const result = await user.save();
   if (!result) throw new ExpressError(500, "Failed to create User");
-  const token = jwt.sign({ _id: result._id, email: result.email }, process.env.SECRETKEY);
-  res.status(200).json({ result: result, token });
+  const cart = new Cart({ user });
+  await cart.save();
+  const token = jwt.sign(
+    { _id: result._id, name: result.name, cartId: cart._id },
+    process.env.SECRETKEY
+  );
+  res.status(200).json({ token });
 };
 
 module.exports.getOne = async (req, res, next) => {
@@ -37,7 +41,13 @@ module.exports.getOne = async (req, res, next) => {
   if (isValidData.error) throw new ExpressError(400, "Invalid User Id");
   const result = await User.findOne({ _id: req.params.id });
   if (!result) throw new ExpressError(404, "No User found");
-  res.send({ _id: result._id, email: result.email });
+  res.send({
+    _id: result._id,
+    name: result.name,
+    email: result.email,
+    phone: result.phone,
+    address: result.address,
+  });
 };
 
 module.exports.updateOne = async (req, res, next) => {
