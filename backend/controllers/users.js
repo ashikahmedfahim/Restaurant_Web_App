@@ -26,7 +26,6 @@ module.exports.createOne = async (req, res, next) => {
     address: req.body.address,
   });
   const result = await user.save();
-  console.log(result);
   if (!result) throw new ExpressError(500, "Failed to create User");
   const cart = new Cart({ user });
   await cart.save();
