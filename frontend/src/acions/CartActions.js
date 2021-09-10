@@ -42,7 +42,7 @@ export const addToCart =
       };
 
       const { data } = await axios.post(
-        `http://localhost:5000/api/carts`,
+        `http://localhost:5000/api/users/`,
         cart,
         config
       );
@@ -80,7 +80,7 @@ export const getCart = (user_id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/carts/${user_id}`,
+      `http://localhost:5000/api/users/${user_id}/cart`,
       config
     );
 

@@ -104,7 +104,7 @@ const AdminHomePage = ({ history, location }) => {
                   id="dropdown-basic"
                   className="d-flex justify-content-end align-items-center mx-3"
                 >
-                  <Image
+                  {/* <Image
                     src={image}
                     roundedCircle
                     style={{
@@ -113,7 +113,7 @@ const AdminHomePage = ({ history, location }) => {
                       border: "2px solid black",
                     }}
                     alt="avatar"
-                  />
+                  /> */}
                   <p className="mx-2 my-0">Nayeem Ahmed</p>
                 </Dropdown.Toggle>
 
