@@ -9,10 +9,12 @@ import "./assets/css/index.css";
 import FoodEditPage from "./pages/FoodEditPage";
 import FoodSearchPage from "./pages/FoodSearchPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import UserPasswordResetPage from "./pages/UserPasswordResetPage";
 import FavouritePage from "./pages/FavouritePage";
 function App() {
   return (
     <Router>
+      <Route path="/reset_password/:id" component={UserPasswordResetPage} />
       <Route path="/favourite" component={FavouritePage} />
       <Route path="/profile/:id" component={UserProfilePage} />
       <Route path="/search" component={FoodSearchPage} />

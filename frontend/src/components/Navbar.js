@@ -23,19 +23,24 @@ import { Userlogout } from "../acions/UserActions";
 import { Link } from "react-scroll";
 import { PersonFill } from "react-bootstrap-icons";
 import { jsonDecoder } from "../services/jsonDecoder";
-const NavBar = () => {
-  const [Data, setData] = useState({});
+const NavBar = ({history}) => {
+  const [Data, setData] = useState();
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
-  const token = JSON.parse(localStorage.getItem("UserInfo"));
 
+  // const token = JSON.parse(localStorage.getItem("UserInfo"));
+  const token = localStorage.getItem("UserInfo");
+  console.log("1st",token)
   const dispatch = useDispatch();
   let nameIcon = "";
 
   useEffect(() => {
     if (token) {
+      console.log("2nd",token)
       setData(jsonDecoder(token));
     }
-  },[]);
+    
+
+  }, []);
   const handleLogout = () => {
     dispatch(Userlogout());
   };
@@ -132,7 +137,7 @@ const NavBar = () => {
               />
             </Nav.Link>
           </LinkContainer>
-          {token ? (
+          {Data ? (
             <>
               <Dropdown>
                 <Dropdown.Toggle
@@ -152,8 +157,7 @@ const NavBar = () => {
                       fontSize: "1.3rem",
                     }}
                   >
-                    {/* {nameIcon} */}
-                    {Data.name && Data.name[0]}
+                    {Data?.name && Data.name[0]}
                   </span>
 
                   <p className="mx-2 my-0">{Data.name}</p>

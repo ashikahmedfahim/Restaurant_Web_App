@@ -104,7 +104,7 @@ const UserProfilePage = ({ match, history }) => {
                       <Button variant="dark" type="submit" className="my-3">
                         Update
                       </Button>
-                      <Link to={`/resetp_password/${UserDetailsInfo._id}`}>
+                      <Link to={`/reset_password/${UserDetailsInfo._id}`}>
                         <Button
                           variant="dark"
                           type="submit"
