@@ -32,10 +32,19 @@ module.exports.isValidObjectId = (value) => {
 
 module.exports.isvalidPassword = (value) => {
   const passwordSchema = Joi.object({
-    password: Joi.string().min(4).required(),
+    password: Joi.string().min(8).required(),
   });
   const isValidPassword = passwordSchema.validate(value);
   return isValidPassword;
+};
+
+module.exports.isvalidResetPasswordBody = (value) => {
+  const passwordSchema = Joi.object({
+    password: Joi.string().min(8).required(),
+    newPassword: Joi.string().min(8).required().invalid(Joi.ref('password')),
+  });
+  const isvalidResetPasswordBody = passwordSchema.validate(value);
+  return isvalidResetPasswordBody;
 };
 
 module.exports.isValidString = (value) => {

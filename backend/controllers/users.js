@@ -37,8 +37,8 @@ module.exports.createOne = async (req, res, next) => {
 };
 
 module.exports.getOne = async (req, res, next) => {
-  const isValidData = dataValidations.isValidObjectId(req.params.id);
-  if (isValidData.error) throw new ExpressError(400, "Invalid User Id");
+  const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
+  if (isValidObjectId.error) throw new ExpressError(400, "Invalid User Id");
   const result = await User.findOne({ _id: req.params.id });
   if (!result) throw new ExpressError(404, "No User found");
   res.send({
@@ -53,12 +53,18 @@ module.exports.getOne = async (req, res, next) => {
 module.exports.updatePassword = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
   if (isValidObjectId.error) throw new ExpressError(400, "Invalid User Id");
-  const isValidPwd = dataValidations.isvalidPassword(req.body);
-  if (isValidPwd.error) throw new ExpressError(400, isValidPwd.error.message);
+  const isvalidResetPasswordBody = dataValidations.isvalidResetPasswordBody(req.body);
+  if (isvalidResetPasswordBody.error)
+    throw new ExpressError(400, isvalidResetPasswordBody.error.message);
   const user = await User.findOne({ _id: req.params.id });
   if (!user) throw new ExpressError(404, "No User found");
+  const isValidCredentials = await bcrypt.compare(
+    req.body.password,
+    user.password
+  );
+  if (!isValidCredentials) throw new ExpressError(401, "Invalid Credentials");
   const salt = await bcrypt.genSalt(12);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
   const result = await User.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { password: hashedPassword } }
