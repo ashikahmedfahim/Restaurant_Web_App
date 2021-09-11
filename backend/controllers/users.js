@@ -15,7 +15,7 @@ module.exports.createOne = async (req, res, next) => {
   if (isValidData.error) throw new ExpressError(400, isValidData.error.message);
   const isAlreadyRegistered = await User.findOne({ email: req.body.email });
   if (isAlreadyRegistered)
-  throw new ExpressError(400, "This E-mail is Already Registered");
+    throw new ExpressError(400, "This E-mail is Already Registered");
   const salt = await bcrypt.genSalt(12);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
   const user = new User({
@@ -30,7 +30,7 @@ module.exports.createOne = async (req, res, next) => {
   const cart = new Cart({ user });
   await cart.save();
   const token = jwt.sign(
-    { _id: result._id, name: result.name, cartId: cart._id },
+    { _id: result._id, name: result.name, cartId: cart._id, isAdmin: false },
     process.env.SECRETKEY
   );
   res.status(200).json({ token });
@@ -50,7 +50,7 @@ module.exports.getOne = async (req, res, next) => {
   });
 };
 
-module.exports.updateOne = async (req, res, next) => {
+module.exports.updatePassword = async (req, res, next) => {
   const isValidObjectId = dataValidations.isValidObjectId(req.params.id);
   if (isValidObjectId.error) throw new ExpressError(400, "Invalid User Id");
   const isValidPwd = dataValidations.isvalidPassword(req.body);

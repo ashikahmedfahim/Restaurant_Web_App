@@ -52,8 +52,8 @@ module.exports.userLogin = async (req, res, next) => {
           _id: isUser._id,
           name: isUser.name,
           email: isUser.email,
-          isAdmin: false,
           cartId: cart._id,
+          isAdmin: false,
         },
         process.env.SECRETKEY
       );

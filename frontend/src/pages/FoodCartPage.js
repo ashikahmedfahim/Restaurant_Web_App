@@ -76,10 +76,10 @@ const FoodCartPage = ({ history }) => {
                             {CartItems.result.items[item].quantity}
                             <br /> */}
 
-                              <CartItem
+                              {/* <CartItem
                                 foodId={CartItems.result.items[item].foodId}
                                 qty={CartItems.result.items[item].quantity}
-                              />
+                              /> */}
                             </div>
                           ))}
                         </>

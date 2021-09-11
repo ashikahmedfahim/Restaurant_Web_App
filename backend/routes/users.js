@@ -11,7 +11,7 @@ const {
 router.get("/", isAuthenticated, isAdmin, catchAsync(user.getAll));
 router.post("/", catchAsync(user.createOne));
 router.get("/:id", isAuthenticated, isAuthorized, catchAsync(user.getOne));
-router.put("/:id", isAuthenticated, isAuthorized, catchAsync(user.updateOne));
+router.patch("/:id/reset-password", isAuthenticated, isAuthorized, catchAsync(user.updatePassword));
 router.delete(
   "/:id",
   isAuthenticated,
