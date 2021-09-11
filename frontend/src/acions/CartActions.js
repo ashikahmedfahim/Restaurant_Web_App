@@ -20,6 +20,7 @@ import {
   CART_SAVE_PAYMENT_METHOD_FAIL,
   CART_CLEAR_ITEMS,
 } from "../constant/CartConstant";
+import { baseUrl } from "../services/constants";
 
 export const addToCart =
   (food_id, qty, user_id) => async (dispatch, getState) => {
@@ -66,21 +67,22 @@ export const addToCart =
     }
   };
 
-export const getCart = (user_id) => async (dispatch, getState) => {
+export const getCart = (user_id, cart_id) => async (dispatch, getState) => {
+  console.log("user_id",user_id);
   try {
     dispatch({
       type: CART_GET_ITEM_REQUEST,
     });
-    const User = JSON.parse(localStorage.getItem("UserInfo"));
+    const Token = JSON.parse(localStorage.getItem("UserInfo"));
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${User.token}`,
+        "x-auth-token": Token.token,
       },
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/users/${user_id}/cart`,
+      `${baseUrl}users/${user_id}/carts/${cart_id}`,
       config
     );
 

@@ -34,8 +34,6 @@ const NavBar = () => {
   useEffect(() => {
     if (token) {
       setData(jsonDecoder(token));
-      // const nameSplit = Data.name.split(" ");
-      // nameIcon = nameSplit[0].charAt(0).toUpperCase();
     }
   },[]);
   const handleLogout = () => {
@@ -102,7 +100,7 @@ const NavBar = () => {
               />
             </Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/cart">
+          <LinkContainer to={`/cart`}>
             <Nav.Link href="#link" className="d-flex align-items-center">
               <div
                 style={{

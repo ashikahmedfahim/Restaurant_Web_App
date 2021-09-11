@@ -20,30 +20,35 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import CartItem from "../components/Cart/CartItem";
 import NavBar from "../components/Navbar";
+import { jsonDecoder } from "../services/jsonDecoder";
 
 const FoodCartPage = ({ history }) => {
   library.add(faTrash);
-  const User = JSON.parse(localStorage.getItem("UserInfo"));
+  // const [cartQty, setcartQty] = useState(1);
+
+  const token = JSON.parse(localStorage.getItem("UserInfo"));
 
   const dispatch = useDispatch();
 
   const cartDetails = useSelector((state) => state.cartGet);
-
   const { cartloading, success, carterror, CartItems } = cartDetails;
 
-  const [cartQty, setcartQty] = useState(1);
+  const setUserData = () => {
+    const userData = jsonDecoder(token);
+    dispatch(getCart(userData?._id, userData?.cartId));
+  };
 
   useEffect(() => {
-    if (User) {
-      dispatch(getCart(User.result._id));
+    if (token) {
+      setUserData();
     } else {
       history.push(`/login?redirect=/cart`);
     }
-  }, [dispatch]);
+  }, []);
 
-  const qtyAdd = () => {
-    setcartQty(CartItems.qty);
-  };
+  // const qtyAdd = () => {
+  //   setcartQty(CartItems.qty);
+  // };
   const handleChange = (e) => {};
   return (
     <>
@@ -51,7 +56,7 @@ const FoodCartPage = ({ history }) => {
       <Row>
         <Col md={8} sm={8} lg={8} xl={8}>
           <h1>Shopping Cart</h1>
-          {User ? (
+          {token ? (
             <>
               {cartloading ? (
                 <>
@@ -61,7 +66,7 @@ const FoodCartPage = ({ history }) => {
                 <>
                   {CartItems && !cartloading ? (
                     <>
-                      {console.log(CartItems.result)}
+                      {CartItems.result?._id}
                       {CartItems.result != undefined ? (
                         <>
                           {Object.keys(CartItems.result.items).map((item) => (
@@ -79,7 +84,7 @@ const FoodCartPage = ({ history }) => {
                           ))}
                         </>
                       ) : (
-                        <>{console.log("CartItems.result")}</>
+                        <>{/* {console.log("CartItems.result")} */}</>
                       )}
                     </>
                   ) : (
