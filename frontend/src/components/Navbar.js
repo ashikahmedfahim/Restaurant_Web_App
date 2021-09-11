@@ -29,13 +29,11 @@ const NavBar = ({history}) => {
 
   // const token = JSON.parse(localStorage.getItem("UserInfo"));
   const token = localStorage.getItem("UserInfo");
-  console.log("1st",token)
   const dispatch = useDispatch();
   let nameIcon = "";
 
   useEffect(() => {
     if (token) {
-      console.log("2nd",token)
       setData(jsonDecoder(token));
     }
     

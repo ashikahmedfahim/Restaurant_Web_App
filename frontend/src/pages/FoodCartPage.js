@@ -24,14 +24,15 @@ import { jsonDecoder } from "../services/jsonDecoder";
 
 const FoodCartPage = ({ history }) => {
   library.add(faTrash);
-  // const [cartQty, setcartQty] = useState(1);
 
-  const token = JSON.parse(localStorage.getItem("UserInfo"));
+  const token = localStorage.getItem("UserInfo");
 
   const dispatch = useDispatch();
 
   const cartDetails = useSelector((state) => state.cartGet);
   const { cartloading, success, carterror, CartItems } = cartDetails;
+
+  const [cartQty, setcartQty] = useState();
 
   const setUserData = () => {
     const userData = jsonDecoder(token);
@@ -66,20 +67,68 @@ const FoodCartPage = ({ history }) => {
                 <>
                   {CartItems && !cartloading ? (
                     <>
-                      {CartItems.result?._id}
                       {CartItems.result != undefined ? (
                         <>
                           {Object.keys(CartItems.result.items).map((item) => (
                             <div key={CartItems.result.items[item]._id}>
-                              {/* {CartItems.result.items[item].foodId}
-                            <br />
-                            {CartItems.result.items[item].quantity}
-                            <br /> */}
-
-                              {/* <CartItem
-                                foodId={CartItems.result.items[item].foodId}
-                                qty={CartItems.result.items[item].quantity}
-                              /> */}
+                              <ListGroup variant="flush">
+                                <ListGroup.Item key={CartItems.result._id}>
+                                  <Row>
+                                    <Col md={2}>
+                                      <Image
+                                        src={
+                                          CartItems.result?.items[item].foodId
+                                            .image
+                                        }
+                                        alt={
+                                          CartItems.result?.items[item].foodId
+                                            .name
+                                        }
+                                        fluid
+                                        rounded
+                                      />
+                                    </Col>
+                                    <Col md={3}>
+                                      <Link
+                                        to={`/food/${CartItems.result?.items[item].foodId._id}`}
+                                      >
+                                        {
+                                          CartItems.result?.items[item].foodId
+                                            .name
+                                        }
+                                      </Link>
+                                    </Col>
+                                    <Col md={2}>
+                                      $
+                                      {
+                                        CartItems.result?.items[item].foodId
+                                          .price
+                                      }
+                                    </Col>
+                                    <Col md={2}>
+                                      <Form>
+                                      
+                                        <Form.Control
+                                          type="number"
+                                          value={CartItems.result?.items[item].quantity}
+                                          // onChange={(e) =>
+                                          //   setcartQty(e.target.value)
+                                          // }
+                                        />
+                                      </Form>
+                                    </Col>
+                                    <Col md={2}>
+                                      <Button
+                                        type="button"
+                                        variant="outline-danger"
+                                        // onClick={() => removeFromCartHandler(item.product)}
+                                      >
+                                        <FontAwesomeIcon icon="trash" />
+                                      </Button>
+                                    </Col>
+                                  </Row>
+                                </ListGroup.Item>
+                              </ListGroup>
                             </div>
                           ))}
                         </>
