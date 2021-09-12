@@ -23,7 +23,7 @@ import { Userlogout } from "../acions/UserActions";
 import { Link } from "react-scroll";
 import { PersonFill } from "react-bootstrap-icons";
 import { jsonDecoder } from "../services/jsonDecoder";
-const NavBar = ({history}) => {
+const NavBar = ({ history }) => {
   const [Data, setData] = useState();
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
 
@@ -36,8 +36,6 @@ const NavBar = ({history}) => {
     if (token) {
       setData(jsonDecoder(token));
     }
-    
-
   }, []);
   const handleLogout = () => {
     dispatch(Userlogout());
@@ -153,6 +151,7 @@ const NavBar = ({history}) => {
                       border: "1px solid black",
                       fontWeight: "400",
                       fontSize: "1.3rem",
+                      textTransform: "uppercase",
                     }}
                   >
                     {Data?.name && Data.name[0]}

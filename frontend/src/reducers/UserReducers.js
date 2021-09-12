@@ -21,9 +21,9 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
   USER_UPDATE_RESET,
-  USER_UPDATE_REQUEST,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_FAIL,
+  USER_RESET_PASS_REQUEST,
+  USER_RESET_PASS_SUCCESS,
+  USER_RESET_PASS_FAIL,
   USER_UPDATE_PROFILE_RESET,
 } from "../constant/UserConstant";
 
@@ -39,6 +39,19 @@ export const userDetailsReducer = (state = {}, action) => {
       return { userDetailsloading: false, userDetailserror: action.payload };
     case USER_LOGOUT:
       return {};
+    default:
+      return state;
+  }
+};
+export const userResetPassReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_RESET_PASS_REQUEST:
+      return { userResetPassloading: true };
+    case USER_RESET_PASS_SUCCESS:
+      
+      return { userResetPassloading: false, UserResetPassInfo: action.payload };
+    case USER_RESET_PASS_FAIL:
+      return { userResetPassloading: false, userResetPasserror: action.payload };
     default:
       return state;
   }

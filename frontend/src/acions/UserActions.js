@@ -21,9 +21,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
-  USER_UPDATE_FAIL,
-  USER_UPDATE_SUCCESS,
-  USER_UPDATE_REQUEST,
+  USER_RESET_PASS_FAIL,
+  USER_RESET_PASS_SUCCESS,
+  USER_RESET_PASS_REQUEST,
 } from "../constant/UserConstant";
 // import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 import { baseUrl } from "../services/constants";
@@ -56,6 +56,38 @@ export const userDetailsActions = (id) => async (dispatch) => {
     });
   }
 };
+
+export const userResetPassActions = (id,form) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_RESET_PASS_REQUEST,
+    });
+    const Token = JSON.parse(localStorage.getItem("UserInfo"));
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": Token.token,
+      },
+    };
+
+    const { data } = await axios.patch(`${baseUrl}users/${id}/reset-password`, form,config);
+
+    dispatch({
+      type: USER_RESET_PASS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_RESET_PASS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
 export const userLogin = (form) => async (dispatch) => {
   try {
     dispatch({
