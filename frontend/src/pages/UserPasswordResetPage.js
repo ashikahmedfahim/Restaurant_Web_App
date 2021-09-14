@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -17,9 +17,15 @@ const UserPasswordResetPage = ({ match }) => {
   library.add(faArrowLeft);
   const id = match.params.id;
   const dispatch = useDispatch();
+
   const reset_pass_schema = yup.object().shape({
     password: yup.string().min(8).required("Password is required"),
     newPassword: yup.string().min(8).required("Password is required"),
+    confirmPassword: yup
+      .string()
+      .min(8)
+      .required("Password is required")
+      .oneOf([yup.ref("newPassword"), null], "Passwords does not match"),
   });
   const {
     register,
@@ -28,14 +34,19 @@ const UserPasswordResetPage = ({ match }) => {
   } = useForm({
     resolver: yupResolver(reset_pass_schema),
   });
+
   const ResetPass = useSelector((state) => state.userResetPass);
   const { userResetPassloading, userResetPasserror, UserResetPassInfo } =
     ResetPass;
 
   const onSubmit = (value) => {
-    console.log(value);
-    dispatch(userResetPassActions(id, value));
+    const data = {
+      "password": value.password,
+      "newPassword": value.newPassword,
+    }
+    dispatch(userResetPassActions(id, data));
   };
+
   return (
     <>
       <NavBar />
@@ -70,11 +81,12 @@ const UserPasswordResetPage = ({ match }) => {
                   <Form.Label>Old Password</Form.Label>
                   <Form.Control
                     type="password"
+                    name="oldpassword"
                     {...register("password")}
                     placeholder="Old Password"
                   />
                   <Form.Text style={{ color: "red" }}>
-                    {errors.password?.message}
+                    {errors.password && <p>{errors.password.message}</p>}
                   </Form.Text>
                 </Form.Group>
 
@@ -82,21 +94,26 @@ const UserPasswordResetPage = ({ match }) => {
                   <Form.Label>New Password</Form.Label>
                   <Form.Control
                     type="password"
+                    name="password"
                     {...register("newPassword")}
                     placeholder="New Password"
                   />
                   <Form.Text style={{ color: "red" }}>
-                    {errors.newPassword?.message}
+                    {errors.newPassword && <p>{errors.newPassword.message}</p>}
                   </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="formConfirmPassword">
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     type="password"
+                    name="password_repeat"
+                    {...register("confirmPassword")}
                     placeholder="Confirm Password"
                   />
                   <Form.Text style={{ color: "red" }}>
-                    {errors.newPassword?.message}
+                    {errors.confirmPassword && (
+                      <p>{errors.confirmPassword.message}</p>
+                    )}
                   </Form.Text>
                 </Form.Group>
                 <Button variant="dark" type="submit" className="my-3">

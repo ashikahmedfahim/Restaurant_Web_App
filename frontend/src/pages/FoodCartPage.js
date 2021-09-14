@@ -103,7 +103,7 @@ const FoodCartPage = ({ history }) => {
                                       <Col md={2}>
                                         {
                                           CartItems.result?.items[item].foodId
-                                            .price
+                                            .price 
                                         }{" "}
                                         ৳
                                       </Col>
