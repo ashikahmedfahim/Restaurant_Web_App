@@ -55,10 +55,10 @@ const FoodCartPage = ({ history }) => {
   return (
     <>
       <NavBar />
-      <Container>
+      <Container fluid>
         <Row>
           <Col md={8} sm={8} lg={8} xl={8}>
-            <h1>Shopping Cart</h1>
+            <h1>Food Cart</h1>
             {token ? (
               <>
                 {cartloading ? (
@@ -150,6 +150,36 @@ const FoodCartPage = ({ history }) => {
               <>Please Login First.</>
             )}
           </Col>
+          <Col md={4} className="py-5">
+        <Card>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              {/* {Object.keys(CartItems.result.items).map((item) => ( */}
+                <>
+              <h2>
+                Subtotal ({CartItems?.result?.items.reduce((acc, item) => acc + item.quantity, 0)})
+                items
+              </h2>
+              ৳ {CartItems?.result?.items
+                .reduce((acc, item) => acc + item.quantity * item.foodId.price , 0)
+                .toFixed(2)}
+                </>
+              {/* ))} */}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type='button'
+                className='btn-block'
+                disabled={CartItems?.result?.items.length === 0}
+                // onClick={checkoutHandler}
+              >
+                Proceed To Checkout
+              </Button>
+             
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
         </Row>
       </Container>
     </>

@@ -23,6 +23,7 @@ import { Userlogout } from "../acions/UserActions";
 import { Link } from "react-scroll";
 import { PersonFill } from "react-bootstrap-icons";
 import { jsonDecoder } from "../services/jsonDecoder";
+import Image from "../assets/images/logo.png";
 const NavBar = ({ history }) => {
   const [Data, setData] = useState();
   library.add(faCheckSquare, faUser, faShoppingCart, faHeart);
@@ -54,7 +55,13 @@ const NavBar = ({ history }) => {
         />
         <Navbar.Collapse id="responsive-navbar-nav">
           <LinkContainer to="/">
-            <Navbar.Brand href="#">Logo</Navbar.Brand>
+            <Navbar.Brand href="#">
+              <img
+                src={Image}
+                alt="logo"
+                style={{ width: "100%", height: "2.5rem" }}
+              />
+            </Navbar.Brand>
           </LinkContainer>
           <Nav className="mr-auto ml-auto">
             <Link to="home" spy={true} smooth={true} duration={100}>
