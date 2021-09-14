@@ -20,13 +20,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { jsonDecoder } from "../services/jsonDecoder";
 
 const FoodDetailsPage = ({ match, history }) => {
   library.add(faArrowLeft);
   const [qty, setQty] = useState(1);
 
   const dispatch = useDispatch();
-  const User = JSON.parse(localStorage.getItem("UserInfo"));
+  const token = localStorage.getItem("UserInfo");
 
   const foodDetails = useSelector((state) => state.foodDetails);
   const { loading, error, FOOD } = foodDetails;
@@ -40,8 +41,9 @@ const FoodDetailsPage = ({ match, history }) => {
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
-    if (User) {
-      dispatch(addToCart(match.params.id, qty, User.result._id));
+    if (token) {
+      const userData = jsonDecoder(token);
+      dispatch(addToCart(match.params.id,qty,userData?._id, userData?.cartId));
     } else {
       history.push(`/login?redirect=/food/${match.params.id}`);
     }

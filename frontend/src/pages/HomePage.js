@@ -12,13 +12,29 @@ import { listFOODs } from "../acions/FoodActions.js";
 import Loading from "../components/Loading.js";
 import Comments from "../components/Comments.js";
 import Map from "../components/Map.js";
+import { getCart } from "../acions/CartActions";
+import { jsonDecoder } from "../services/jsonDecoder";
+
 const HomePage = () => {
   const foodList = useSelector((state) => state.foodList);
   const { foodListloading, foodListerror, FOODS } = foodList;
+  const token = localStorage.getItem("UserInfo");
+
+
+  const cartDetails = useSelector((state) => state.cartGet);
+  const { cartloading, success, carterror, CartItems } = cartDetails;
+
+const setUserData = () => {
+    const userData = jsonDecoder(token);
+    dispatch(getCart(userData?._id, userData?.cartId));
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listFOODs());
+    if (token) {
+      setUserData();
+    }
   }, [dispatch]);
 
   return (

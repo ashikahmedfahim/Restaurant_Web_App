@@ -38,6 +38,7 @@ export const cartGetReducer = (state = { CartItems: {} }, action) => {
     case CART_GET_ITEM_REQUEST:
       return { cartloading: true };
     case CART_GET_ITEM_SUCCESS:
+      localStorage.setItem("CartItems", JSON.stringify({ ...action?.payload }));
       return { cartloading: false, success: true, CartItems: action.payload };
     case CART_GET_ITEM_FAIL:
       return { cartloading: false, carterror: action.payload };
