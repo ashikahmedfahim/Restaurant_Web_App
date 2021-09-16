@@ -14,7 +14,6 @@ import { getCategory } from "../acions/CategoryActions";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { listFOODs } from "../acions/FoodActions";
-import image from "../assets/images/burger.png";
 import { adminLogout } from "../acions/AdminActions";
 const AdminHomePage = ({ history, location }) => {
   const [selectedbtn, setSelectedbtn] = useState("");
@@ -104,17 +103,7 @@ const AdminHomePage = ({ history, location }) => {
                   id="dropdown-basic"
                   className="d-flex justify-content-end align-items-center mx-3"
                 >
-                  {/* <Image
-                    src={image}
-                    roundedCircle
-                    style={{
-                      width: "3rem",
-                      height: "3rem",
-                      border: "2px solid black",
-                    }}
-                    alt="avatar"
-                  /> */}
-                  <p className="mx-2 my-0">Nayeem Ahmed</p>
+                  <p className="mx-2 my-0">{Admin.result}</p>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -173,7 +162,7 @@ const AdminHomePage = ({ history, location }) => {
               >
                 <Orders />
               </Col>
-            ) : selectedbtn === "users" ? (
+            ) : selectedbtn === "Users" ? (
               <Col
                 sm={12}
                 md={12}

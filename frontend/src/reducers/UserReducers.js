@@ -43,6 +43,18 @@ export const userDetailsReducer = (state = {}, action) => {
       return state;
   }
 };
+export const getAllUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LIST_REQUEST:
+      return { AllUserloading: true };
+    case USER_LIST_SUCCESS:
+      return { AllUserloading: false, AllUserInfo: action.payload };
+    case USER_LIST_FAIL:
+      return { AllUserloading: false, AllUsererror: action.payload };
+    default:
+      return state;
+  }
+};
 export const userResetPassReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_RESET_PASS_REQUEST:

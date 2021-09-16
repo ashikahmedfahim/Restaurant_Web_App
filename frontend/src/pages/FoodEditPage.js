@@ -10,16 +10,37 @@ import { listFOODDetails } from "../acions/FoodActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const initialState = {
+  name: "",
+  category: "",
+  price: "",
+  inStock: "",
+  description: "",
+  discount: "",
+  image: "",
+};
 const FoodEditPage = ({ match }) => {
   library.add(faArrowLeft);
   const dispatch = useDispatch();
   const foodDetails = useSelector((state) => state.foodDetails);
   const { loading, error, FOOD } = foodDetails;
+  const [food, setFood] = useState(initialState);
   useEffect(() => {
     dispatch(listFOODDetails(match.params.id));
-  }, [dispatch, match]);
+    if (FOOD) {
+      setFood(FOOD);
+    }
+  }, [dispatch, match, FOOD.name]);
 
+  const handleChange = (e) =>
+    setFood({ ...food, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(food);
+  };
   return (
     <>
       <Link to="/admin/home" className="btn btn-dark my-3 mx-3">
@@ -36,15 +57,19 @@ const FoodEditPage = ({ match }) => {
           <ErrorMessage variant="danger" message="" />
         ) : (
           <>
-            <Row className="d-flex justify-content-center">
-              <Col sm={12} md={8} lg={6} xl={4}>
-                <Image
-                  src={FOOD.image}
-                  alt=""
-                  style={{ width: "100%", height: "25rem" }}
-                  className="mb-3"
-                />
-                <Form>
+            <Form
+              // onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit}
+            >
+              <Row className="d-flex justify-content-center">
+                <Col sm={12} md={8} lg={6} xl={4}>
+                  <Image
+                    src={FOOD.image}
+                    alt=""
+                    style={{ width: "100%", height: "25rem" }}
+                    className="mb-3"
+                  />
+
                   <Form.Group
                     controlId="formFileSm"
                     className="mb-3"
@@ -53,51 +78,48 @@ const FoodEditPage = ({ match }) => {
                     <Form.Label>Change Image :</Form.Label>
                     <FileBase
                       type="file"
+                      name="image"
                       multiple={false}
                       style={{ width: "100%" }}
-                      //   onDone={({ base64 }) =>
-                      //     setFood({ ...food, image: base64 })
-                      //   }
+                      onDone={({ base64 }) => {
+                        setFood({ ...food, image: base64 });
+                      }}
                     />
                   </Form.Group>
-                  <Button type="submit" variant="dark">
-                    Update Image
-                  </Button>
-                </Form>
-              </Col>
-              {/* <Col sm={0} md={0} lg={0} xl={2} className="py-3 mb-3 "></Col> */}
-              <Col sm={12} md={8} lg={6} xl={6} className="py-3 mb-3 ">
-                {FOOD.inStock === true ? (
-                  <>
-                    <Form.Label
-                      className="mr-2 p-2"
-                      style={{
-                        backgroundColor: "green",
-                        color: "white",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      InStock : Yes
-                    </Form.Label>
-                  </>
-                ) : (
-                  <>
-                    <Form.Label
-                      className="mr-2 p-2"
-                      style={{
-                        backgroundColor: "red",
-                        color: "white",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      InStock : No
-                    </Form.Label>
-                  </>
-                )}
+                </Col>
+                <Col sm={12} md={8} lg={6} xl={6} className="py-3 mb-3 ">
+                  {FOOD.inStock === true ? (
+                    <>
+                      <Form.Label
+                        className="mr-2 p-2"
+                        style={{
+                          backgroundColor: "green",
+                          color: "white",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        InStock : Yes
+                      </Form.Label>
+                    </>
+                  ) : (
+                    <>
+                      <Form.Label
+                        className="mr-2 p-2"
+                        style={{
+                          backgroundColor: "red",
+                          color: "white",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        InStock : No
+                      </Form.Label>
+                    </>
+                  )}
 
-                <Form className="d-flex">
                   <Form.Group className="mb-3">
-                    <Form.Label className="mr-2">Change inStock :</Form.Label>
+                    <Form.Label className="mr-2">
+                      Change inStock to :
+                    </Form.Label>
 
                     <Form.Check
                       inline
@@ -105,7 +127,7 @@ const FoodEditPage = ({ match }) => {
                       value={true}
                       name="inStock"
                       type="radio"
-                      //   onChange={handleChange}
+                        onChange={handleChange}
                     />
                     <Form.Check
                       inline
@@ -113,34 +135,30 @@ const FoodEditPage = ({ match }) => {
                       value={false}
                       name="inStock"
                       type="radio"
-                      //   onChange={handleChange}
+                        onChange={handleChange}
                     />
                   </Form.Group>
-                  <Button type="submit" variant="dark">
-                    Update inStock
-                  </Button>
-                </Form>
-                <Form
-                // onSubmit={submitHandler}
-                >
+
                   <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Enter food name"
-                      value={FOOD.name}
-                      //   onChange={(e) => setName(e.target.value)}
+                      name="name"
+                      value={food.name}
+                      onChange={handleChange}
                     ></Form.Control>
                   </Form.Group>
 
                   <Form.Group controlId="price" className="mb-3">
                     <Form.Label>Price</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="Number"
+                      name="price"
                       placeholder="Enter food price"
-                      value={FOOD.price}
-                      //   onChange={(e) => setPrice(e.target.value)}
-                    ></Form.Control>
+                      value={food.price}
+                      onChange={handleChange}
+                    />
                   </Form.Group>
 
                   <Form.Group controlId="description">
@@ -150,8 +168,8 @@ const FoodEditPage = ({ match }) => {
                       name="description"
                       rows={3}
                       placeholder="Enter description"
-                      value={FOOD.description}
-                      //   onChange={(e) => setDescription(e.target.value)}
+                      value={food.description}
+                      onChange={handleChange}
                     ></Form.Control>
                   </Form.Group>
                   <Form.Group
@@ -163,16 +181,16 @@ const FoodEditPage = ({ match }) => {
                       type="number"
                       name="discount"
                       placeholder="Add Discount"
-                      value={FOOD.discount}
-                      // onChange={handleChange}
+                      value={food.discount}
+                      onChange={handleChange}
                     />
                   </Form.Group>
                   <Button type="submit" variant="dark">
                     Update
                   </Button>
-                </Form>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </Form>
           </>
         )}
       </Container>

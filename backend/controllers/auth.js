@@ -25,7 +25,7 @@ module.exports.adminLogin = async (req, res, next) => {
       res
         .status(200)
         .header("x-auth-token", token)
-        .json({ result: isAdmin, token });
+        .json({ result: isAdmin.email, token });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }

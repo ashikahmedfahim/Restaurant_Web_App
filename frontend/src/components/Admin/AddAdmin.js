@@ -25,6 +25,15 @@ const AddAdmin = (history) => {
       <h2 className="py-3">Add Admin</h2>
       <Col xl={6} sm={12} md={12} lg={8}>
         <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formBasicName">
+            <Form.Label>Enter Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Name"
+              name="name"
+              onChange={handleChange}
+            />
+          </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Enter Email</Form.Label>
             <Form.Control

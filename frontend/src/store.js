@@ -11,7 +11,8 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userDetailsReducer,
-  userResetPassReducer
+  userResetPassReducer,
+  getAllUserReducer
   // userUpdateProfileReducer,
   // userListReducer,
   // userDeleteReducer,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   foodUpdate: foodUpdateReducer,
   userLogin: userLoginReducer,
   UserDetails: userDetailsReducer,
+  AllUser: getAllUserReducer,
   userResetPass:userResetPassReducer,
   userRegister: userRegisterReducer,
   adminLogin: adminLoginReducer,

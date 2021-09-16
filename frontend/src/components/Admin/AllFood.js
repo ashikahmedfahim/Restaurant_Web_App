@@ -17,7 +17,7 @@ const AllFood = ({ food, history }) => {
   const dispatch = useDispatch();
   const foodList = useSelector((state) => state.foodList);
   const { foodListloading, foodListerror, FOODS } = foodList;
-  
+
   useEffect(() => {
     dispatch(listFOODs());
   }, [history]);
@@ -74,10 +74,14 @@ const AllFood = ({ food, history }) => {
                       <td>৳ {food[item].price}</td>
                       <td>{food[item].type}</td>
                       <td>{food[item].price}</td>
-                      <td>{food[item].inStock}</td>
+                      {food[item].inStock ? <td>Yes</td> : <td>No</td>}
                       <td>{food[item].description}</td>
                       <td>{food[item].discount}%</td>
-                      <td>৳ {(food[item].price-((food[item].discount)/100)*food[item].price)}</td>
+                      <td>
+                        ৳{" "}
+                        {food[item].price -
+                          (food[item].discount / 100) * food[item].price}
+                      </td>
                       <td>
                         <Button variant="light">
                           <Link to={`/edit/${food[item]._id}`}>Edit</Link>

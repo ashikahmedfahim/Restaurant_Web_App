@@ -1,33 +1,51 @@
-import React from 'react';
-import {Container, Row, Col, Form, Table, Button} from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Form, Table, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../Loading";
+import { getAllUserActions } from "../../acions/UserActions";
 
 const Users = () => {
-  return (
-    <Row>
-      <h2 className="py-3">Users</h2>
+  const dispatch = useDispatch();
 
-      <Table striped bordered hover responsive variant="dark">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Phone</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Nayeem</td>
-            <td>nayeem@gmai.com</td>
-            <td>*******</td>
-            <td>012365849</td>
-            <td>Dhaka</td>
-          </tr>
-        </tbody>
-      </Table>
+  const foodList = useSelector((state) => state.AllUser);
+  const { AllUserloading, AllUsererror, AllUserInfo } = foodList;
+
+  useEffect(() => {
+    dispatch(getAllUserActions());
+  }, [dispatch]);
+  return (
+    <Row className="d-flex justify-content-center">
+      <h2 className="py-3">Users</h2>
+      {AllUserloading ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <Col md={4} xs={12}>
+            <Table striped bordered hover responsive variant="dark">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              {AllUserInfo ? (
+                Object.keys(AllUserInfo).map((item) => (
+                  <tbody>
+                    <tr>
+                      <td>{Number(item) + 1}</td>
+                      <td>{AllUserInfo[item].email}</td>
+                    </tr>
+                  </tbody>
+                ))
+              ) : (
+                <></>
+              )}
+            </Table>
+          </Col>
+        </>
+      )}
     </Row>
   );
 };

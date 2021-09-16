@@ -5,7 +5,8 @@ const Loading = () => {
   return (
     <Container
       style={{
-        height: "100vh",
+        minHeight: "100vh",
+        height: "auto",
         justifyContent: "center",
         alignItems: "center",
         display: "flex",

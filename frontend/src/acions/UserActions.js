@@ -56,6 +56,35 @@ export const userDetailsActions = (id) => async (dispatch) => {
     });
   }
 };
+export const getAllUserActions = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+    const Token = JSON.parse(localStorage.getItem("Admin"));
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": Token.token,
+      },
+    };
+
+    const { data } = await axios.get(`${baseUrl}users/`, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const userResetPassActions = (id,form) => async (dispatch) => {
   try {
