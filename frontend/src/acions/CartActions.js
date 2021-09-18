@@ -24,71 +24,61 @@ import { baseUrl } from "../services/constants";
 
 export const addToCart =
   (food_id, qty, user_id, cart_id) => async (dispatch, getState) => {
-    let items = {
+    let newItems = {
       foodId: food_id,
       quantity: parseInt(qty),
     };
-    const OldItem = JSON.parse(localStorage.getItem("CartItems"));
-    // const all = OldItem.result?.items;
-    // console.log(OldItem);
-    const old = OldItem.result?.items.filter((item) => {
+    let OldCartItem = [];
+
+    const getOldCartItem = JSON.parse(localStorage.getItem("CartItems"));
+    const filterCartItem = getOldCartItem.result?.items.filter((item) => {
       if (item.foodId._id != food_id) {
-        console.log(item.foodId._id);
-        return { foodId: item.foodId._id, quantity: item.quantity };
+        const b = { foodId: item.foodId._id, quantity: item.quantity };
+        OldCartItem.push(b);
       }
-      return { foodId: item.foodId._id, quantity: item.quantity };
     });
-    // OldItem.result?.items.map((item) =>
-    //   console.log("OldItem---------", item.foodId._id, item.quantity)
-    // );
 
-    const newItems = [...old, items];
+    const items = [...OldCartItem, newItems];
 
-    console.log("old---------", old);
-    console.log("NewItem---------", newItems);
-    // all.push(items)
-    // console.log("NewItem---------", all);
+    console.log("old---------", OldCartItem);
+    console.log("NewItem---------", items);
 
-    // console.log(items);
+    try {
+      dispatch({
+        type: CART_ADD_ITEM_REQUEST,
+      });
 
-    // localStorage.setItem('CartItems', JSON.stringify(getState().cart.cartItems))
+      const Token = JSON.parse(localStorage.getItem("UserInfo"));
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": Token.token,
+        },
+      };
 
-    // try {
-    //   dispatch({
-    //     type: CART_ADD_ITEM_REQUEST,
-    //   });
+      const { data } = await axios.put(
+        `${baseUrl}users/${user_id}/carts/${cart_id}`,
+        { items },
+        config
+      );
 
-    //   const Token = JSON.parse(localStorage.getItem("UserInfo"));
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "x-auth-token": Token.token,
-    //     },
-    //   };
-
-    //   const { data } = await axios.put(
-    //     `${baseUrl}users/${user_id}/carts/${cart_id}`,
-    //     all,
-    //     config
-    //   );
-
-    //   dispatch({
-    //     type: CART_ADD_ITEM_SUCCESS,
-    //     payload: data,
-    //   });
-    // } catch (error) {
-    //   const message =
-    //     error.response && error.response.data.message
-    //       ? error.response.data.message
-    //       : error.message;
-    //   if (message === "Not authorized, token failed") {
-    //     // dispatch(logout())
-    //   }
-    //   dispatch({
-    //     type: CART_ADD_ITEM_FAIL,
-    //     payload: message,
-    //   });
-    // }
+      dispatch({
+        type: CART_ADD_ITEM_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        // dispatch(logout())
+      }
+      dispatch({
+        type: CART_ADD_ITEM_FAIL,
+        payload: message,
+      });
+    }
   };
 
 export const getCart = (user_id, cart_id) => async (dispatch, getState) => {
