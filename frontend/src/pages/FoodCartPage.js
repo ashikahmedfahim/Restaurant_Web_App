@@ -13,7 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getCart } from "../acions/CartActions";
+import { getCart, removeFromCart } from "../acions/CartActions";
 import Loading from "../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -39,7 +39,12 @@ const FoodCartPage = ({ history }) => {
     const userData = jsonDecoder(token);
     dispatch(getCart(userData?._id, userData?.cartId));
   };
-
+  const removeFromCartHandler = (id) => {
+    console.log(id);
+    const userData = jsonDecoder(token);
+    dispatch(removeFromCart(id, userData?._id, userData?.cartId));
+    setUserData();
+  };
   useEffect(() => {
     if (token) {
       setUserData();
@@ -103,13 +108,13 @@ const FoodCartPage = ({ history }) => {
                                       <Col md={2}>
                                         {
                                           CartItems.result?.items[item].foodId
-                                            .price 
+                                            .price
                                         }{" "}
                                         ৳
                                       </Col>
                                       <Col md={2}>
                                         <Form>
-                                          <Form.Control
+                                          <input
                                             type="number"
                                             value={
                                               CartItems.result?.items[item]
@@ -125,7 +130,12 @@ const FoodCartPage = ({ history }) => {
                                         <Button
                                           type="button"
                                           variant="outline-danger"
-                                          // onClick={() => removeFromCartHandler(item.product)}
+                                          onClick={() =>
+                                            removeFromCartHandler(
+                                              CartItems.result?.items[item]
+                                                .foodId._id
+                                            )
+                                          }
                                         >
                                           <FontAwesomeIcon icon="trash" />
                                         </Button>
@@ -151,35 +161,42 @@ const FoodCartPage = ({ history }) => {
             )}
           </Col>
           <Col md={4} className="py-5">
-        <Card>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              {/* {Object.keys(CartItems.result.items).map((item) => ( */}
-                <>
-              <h2>
-                Subtotal ({CartItems?.result?.items.reduce((acc, item) => acc + item.quantity, 0)})
-                items
-              </h2>
-              ৳ {CartItems?.result?.items
-                .reduce((acc, item) => acc + item.quantity * item.foodId.price , 0)
-                .toFixed(2)}
-                </>
-              {/* ))} */}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={CartItems?.result?.items.length === 0}
-                // onClick={checkoutHandler}
-              >
-                Proceed To Checkout
-              </Button>
-             
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
-      </Col>
+            <Card>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  {/* {Object.keys(CartItems.result.items).map((item) => ( */}
+                  <>
+                    <h2>
+                      Subtotal (
+                      {CartItems?.result?.items.reduce(
+                        (acc, item) => acc + item.quantity,
+                        0
+                      )}
+                      ) items
+                    </h2>
+                    ৳{" "}
+                    {CartItems?.result?.items
+                      .reduce(
+                        (acc, item) => acc + item.quantity * item.foodId.price,
+                        0
+                      )
+                      .toFixed(2)}
+                  </>
+                  {/* ))} */}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn-block"
+                    disabled={CartItems?.result?.items.length === 0}
+                    // onClick={checkoutHandler}
+                  >
+                    Proceed To Checkout
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
         </Row>
       </Container>
     </>

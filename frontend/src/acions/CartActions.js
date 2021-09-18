@@ -80,6 +80,61 @@ export const addToCart =
       });
     }
   };
+export const removeFromCart =
+  (food_id, user_id, cart_id) => async (dispatch, getState) => {
+    
+    let OldCartItem = [];
+
+    const getOldCartItem = JSON.parse(localStorage.getItem("CartItems"));
+    const filterCartItem = getOldCartItem.result?.items.filter((item) => {
+      if (item.foodId._id != food_id) {
+        const b = { foodId: item.foodId._id, quantity: item.quantity };
+        OldCartItem.push(b);
+      }
+    });
+
+    const items = [...OldCartItem];
+
+    console.log("old---------", OldCartItem);
+    console.log("NewItem---------", items);
+
+    try {
+      dispatch({
+        type: CART_ADD_ITEM_REQUEST,
+      });
+
+      const Token = JSON.parse(localStorage.getItem("UserInfo"));
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": Token.token,
+        },
+      };
+
+      const { data } = await axios.put(
+        `${baseUrl}users/${user_id}/carts/${cart_id}`,
+        { items },
+        config
+      );
+
+      dispatch({
+        type: CART_ADD_ITEM_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        // dispatch(logout())
+      }
+      dispatch({
+        type: CART_ADD_ITEM_FAIL,
+        payload: message,
+      });
+    }
+  };
 
 export const getCart = (user_id, cart_id) => async (dispatch, getState) => {
   console.log("user_id", user_id);
