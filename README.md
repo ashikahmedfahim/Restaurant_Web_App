@@ -1,4 +1,5 @@
-# Restaurant_Web_App
+# Restaurant Web App
+Using MERN stack
 
 ```diff
 + Homepage
