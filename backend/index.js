@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const cors = require("cors");
-const ExpressError = require("./utilities/expressError");
+const connectDataBase = require("./configs/db"); 
 const admins = require("./routes/admins");
 const auth = require("./routes/auth");
 const categories = require("./routes/categories");
@@ -11,19 +10,12 @@ const foods = require("./routes/foods");
 const orders = require("./routes/orders");
 const types = require("./routes/types");
 const users = require("./routes/users");
+const ExpressError = require("./utilities/expressError");
 require("dotenv").config();
 
 const port = process.env.PORT || 8000;
-const MongoDB = process.env.DB;
-mongoose
-  .connect(MongoDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then(() => console.log("Connected to MongoDB..."))
-  .catch((error) => console.log(error));
+
+connectDataBase(); 
 
 app.listen(port, () => {
   console.log("Server is running...");
