@@ -71,13 +71,17 @@ const UserLogin = ({ switchMode, history, location }) => {
             <Button variant="dark" type="submit" className="my-3">
               Login
             </Button>
-            <p
-              onClick={() => {
-                switchMode("true");
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              "Don't have an account? Sign Up"
+            <p>
+              "Don't have an account?{" "}
+              <span
+                onClick={() => {
+                  switchMode("true");
+                }}
+                style={{ fontWeight: "bold", cursor: "pointer" }}
+              >
+                Register
+              </span>
+              "
             </p>
           </Form>
         </Col>

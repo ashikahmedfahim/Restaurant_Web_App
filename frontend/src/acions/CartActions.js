@@ -137,7 +137,6 @@ export const removeFromCart =
   };
 
 export const getCart = (user_id, cart_id) => async (dispatch, getState) => {
-  console.log("user_id", user_id);
   try {
     dispatch({
       type: CART_GET_ITEM_REQUEST,

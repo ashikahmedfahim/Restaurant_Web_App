@@ -29,13 +29,9 @@ const UserLoginRegister = ({ isSignup, switchMode, history, location }) => {
   } = useForm({
     resolver: yupResolver(registerschema),
   });
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  // }
   const onSubmit = (value) => {
     dispatch(userRegister(value));
   };
-  // const userRedirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (userInfo) {
@@ -43,14 +39,11 @@ const UserLoginRegister = ({ isSignup, switchMode, history, location }) => {
     }
   }, [history, userInfo]);
   return (
-    <Col
-      xl={6}
-      lg={6}
-      className="d-flex justify-content-center align-items-center"
-    >
+    <Col xs={12} className="d-flex justify-content-center align-items-center">
       <Col>
-        {/* <Form onSubmit={handleSubmit}> */}
-        <h3>{isSignup === "true" ? "User Register" : "User LogIn"}</h3>
+        <h3 style={{ fontWeight: "bold" }}>
+          {isSignup === "true" ? "Register" : "LogIn"}
+        </h3>
         {isSignup === "false" ? (
           <>
             <UserLogin switchMode={switchMode} />
@@ -112,15 +105,19 @@ const UserLoginRegister = ({ isSignup, switchMode, history, location }) => {
                 />
               </Form.Group>
               <Button variant="dark" type="submit" className="my-3">
-                SignUp
+                Register
               </Button>
-              <p
-                onClick={() => {
-                  switchMode("false");
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                "Already have an account? Sign in"
+              <p>
+                "Already have an account?{" "}
+                <span
+                  onClick={() => {
+                    switchMode("false");
+                  }}
+                  style={{ fontWeight: "bold", cursor: "pointer" }}
+                >
+                  Sign in
+                </span>
+                "
               </p>
             </Form>
           </>

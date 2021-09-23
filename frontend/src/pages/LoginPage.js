@@ -7,6 +7,7 @@ import {
   Button,
   Alert,
   Spinner,
+  Card,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "../acions/AdminActions";
@@ -17,6 +18,7 @@ import UserLoginRegister from "../components/User/UserLoginRegister";
 import { getCategory } from "../acions/CategoryActions";
 import { listFOODs } from "../acions/FoodActions";
 import NavBar from "../components/Navbar";
+import Footer from "../components/Footer";
 const initialState = {
   name: "",
   email: "",
@@ -24,129 +26,67 @@ const initialState = {
   phone: "",
   address: "",
 };
-const loginInitialState = {
-  email: "",
-  password: "",
-};
 const LoginPage = ({ location, history }) => {
-  const [selectedbtn, setSelectedbtn] = useState("");
   const [isSignup, setIsSignup] = useState("false");
   const [form, setForm] = useState(initialState);
-  const [loginForm, setLoginForm] = useState(loginInitialState);
   const dispatch = useDispatch();
 
-  const adminLogin = useSelector((state) => state.adminLogin);
-  const { adminloading, adminerror, adminInfo } = adminLogin;
   const userLogin = useSelector((state) => state.userLogin);
   const { userloading, usererror, UserInfo } = userLogin;
-
-  const adminRedirect = location.search
-    ? location.search.split("=")[1]
-    : "/admin/home";
 
   const userRedirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
-    if (adminInfo) {
-      history.push(adminRedirect);
-    }
     if (UserInfo) {
       history.push(userRedirect);
     }
-  }, [history, adminInfo, UserInfo, userRedirect, adminRedirect]);
+  }, [history, UserInfo, userRedirect]);
 
-  const appliedbtn = (value) => {
-    setForm(initialState);
-    setSelectedbtn(value);
-  };
   const switchMode = (value) => {
     setForm(initialState);
     setIsSignup(value);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (selectedbtn === "admin") {
-      console.log(loginForm);
-      dispatch(login(loginForm, history));
-      dispatch(getCategory());
-      setLoginForm(loginInitialState);
-    } else {
-      if (isSignup === "true") {
-        dispatch(register(form, history));
-      } else {
-        dispatch(login(form, history));
-      }
-    }
-  };
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-  const loginhandleChange = (e) =>
-    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
-
+ 
   return (
     <>
       <NavBar />
-      {adminloading ? (
-        <Loading />
-      ) : (
-        <>
-          <Container className="py-5">
-            <Row>
-              {adminerror ? (
-                <>
-                  <ErrorMessage variant="danger" message={adminerror} />
-                </>
-              ) : (
-                <></>
-              )}
-              <Row>
-                <Col className="my-3">
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    onClick={() => {
-                      appliedbtn("admin");
-                    }}
-                  >
-                    Admin
-                  </Button>
 
-                  <Button
-                    variant="dark"
-                    type="submit"
-                    className="mx-3"
-                    onClick={() => {
-                      appliedbtn("user");
-                    }}
-                  >
-                    User
-                  </Button>
-                </Col>
-              </Row>
-              <Row>
-                {selectedbtn === "admin" ? (
-                  <>
-                    <AdminLogin
-                      loginhandleChange={loginhandleChange}
-                      handleSubmit={handleSubmit}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <UserLoginRegister
-                      handleSubmit={handleSubmit}
-                      handleChange={handleChange}
-                      isSignup={isSignup}
-                      switchMode={switchMode}
-                    />
-                  </>
-                )}
-              </Row>
+      <Container
+        className="py-5 d-flex justify-content-center"
+        style={{ marginTop: "7rem", marginBottom: "7rem" }}
+      >
+        <Card
+          style={{
+            width: "35rem",
+            boxShadow: "0 1px 3px #bababa, 9px 20px 60px #3434345c",
+          }}
+        >
+          <span
+            style={{
+              content: "",
+              display: "inline-block",
+              position: "absolute",
+              left: "0",
+              top: "0",
+              height: "3px",
+              width: "100%",
+              backgroundColor: "#000",
+              borderRadius: "0px 0px 30px 30px",
+            }}
+          ></span>
+
+          <Card.Body>
+            <Row>
+              <UserLoginRegister
+                isSignup={isSignup}
+                switchMode={switchMode}
+              />
             </Row>
-          </Container>
-        </>
-      )}
+          </Card.Body>
+        </Card>
+      </Container>
+
+      <Footer />
     </>
   );
 };

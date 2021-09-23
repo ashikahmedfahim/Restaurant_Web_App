@@ -5,7 +5,6 @@ const AdminLogin = ({handleSubmit, loginhandleChange}) => {
   return (
     <Col>
       <Col className="d-flex justify-content-center align-items-center">
-        <Form onSubmit={handleSubmit}>
           <h3>Admin LogIn</h3>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -32,7 +31,6 @@ const AdminLogin = ({handleSubmit, loginhandleChange}) => {
           <Button variant="dark" type="submit" className="my-3">
             Login
           </Button>
-        </Form>
       </Col>
     </Col>
   );

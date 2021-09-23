@@ -86,11 +86,11 @@ const NavBar = ({ history }) => {
             </Link>
           </Nav>
         </Navbar.Collapse>
-        <LinkContainer to="/search" style={{ borderRadius: "2.2rem" }}>
+        <LinkContainer to="/search" style={{ borderRadius: "2.2rem",}}>
           <Button
             size="sm"
             variant="dark"
-            style={{ borderRadius: "2.2rem" }}
+            style={{ borderRadius: "2.2rem",backgroundColor: "#fff"  }}
             className="mr-auto px-3"
           >
             Search
@@ -178,7 +178,7 @@ const NavBar = ({ history }) => {
                   <LinkContainer
                     to="/"
                     onClick={handleLogout}
-                    style={{ background: "#000" }}
+                    style={{ background: "#000", color: "#fff" }}
                   >
                     <Dropdown.Item>Logout</Dropdown.Item>
                   </LinkContainer>

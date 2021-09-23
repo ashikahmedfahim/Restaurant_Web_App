@@ -34,10 +34,14 @@ const FoodCartPage = ({ history }) => {
   const { cartloading, success, carterror, CartItems } = cartDetails;
 
   const [cartQty, setcartQty] = useState();
+  const [cart, setCart] = useState();
 
   const setUserData = () => {
     const userData = jsonDecoder(token);
     dispatch(getCart(userData?._id, userData?.cartId));
+    if (CartItems) {
+      setCart(CartItems);
+    }
   };
   const removeFromCartHandler = (id) => {
     console.log(id);
@@ -45,6 +49,7 @@ const FoodCartPage = ({ history }) => {
     dispatch(removeFromCart(id, userData?._id, userData?.cartId));
     setUserData();
   };
+
   useEffect(() => {
     if (token) {
       setUserData();
@@ -52,6 +57,29 @@ const FoodCartPage = ({ history }) => {
       history.push(`/login?redirect=/cart`);
     }
   }, []);
+
+  const incrementitemQuantity = (id) => {
+    let update = cart.result.items.map((item) => {
+      if (item.foodId._id === id) {
+        item.quantity++;
+        console.log("item", item);
+      }
+      return cart;
+    });
+    setCart(update[0]);
+    console.log("Cart-------", cart);
+    console.log("update-------", update[0]);
+  };
+  const decrementitemQuantity = (id) => {
+    let update = cart.result.items.map((item) => {
+      if (item.foodId._id === id && item.quantity > 1) {
+        item.quantity--;
+        console.log("iteminc", item);
+      }
+      return cart;
+    });
+    setCart(update[0]);
+  };
 
   // const qtyAdd = () => {
   //   setcartQty(CartItems.qty);
@@ -74,76 +102,111 @@ const FoodCartPage = ({ history }) => {
                   <>
                     {CartItems && !cartloading ? (
                       <>
-                        {CartItems.result != undefined ? (
+                        {cart?.result != undefined ? (
                           <>
-                            {Object.keys(CartItems.result.items).map((item) => (
-                              <div key={CartItems.result.items[item]._id}>
-                                <ListGroup variant="flush">
-                                  <ListGroup.Item key={CartItems.result._id}>
-                                    <Row>
-                                      <Col md={2}>
-                                        <Image
-                                          src={
-                                            CartItems.result?.items[item].foodId
-                                              .image
-                                          }
-                                          alt={
-                                            CartItems.result?.items[item].foodId
-                                              .name
-                                          }
-                                          fluid
-                                          rounded
-                                        />
-                                      </Col>
-                                      <Col md={3}>
-                                        <Link
-                                          to={`/food/${CartItems.result?.items[item].foodId._id}`}
-                                        >
-                                          {
-                                            CartItems.result?.items[item].foodId
-                                              .name
-                                          }
-                                        </Link>
-                                      </Col>
-                                      <Col md={2}>
-                                        {
-                                          CartItems.result?.items[item].foodId
-                                            .price
-                                        }{" "}
-                                        ৳
-                                      </Col>
-                                      <Col md={2}>
-                                        <Form>
-                                          <input
-                                            type="number"
-                                            value={
-                                              CartItems.result?.items[item]
-                                                .quantity
-                                            }
-                                            // onChange={(e) =>
-                                            //   setcartQty(e.target.value)
-                                            // }
+                            {cart?.result.items.map((item) => (
+                              <>
+                                {console.log("Org-------", item.quantity)}
+                                <div key={item._id}>
+                                  <ListGroup variant="flush">
+                                    <ListGroup.Item key={cart.result._id}>
+                                      <Row>
+                                        <Col md={2}>
+                                          <Image
+                                            src={item.foodId.image}
+                                            alt={item.foodId.name}
+                                            fluid
+                                            rounded
                                           />
-                                        </Form>
-                                      </Col>
-                                      <Col md={2}>
-                                        <Button
-                                          type="button"
-                                          variant="outline-danger"
-                                          onClick={() =>
-                                            removeFromCartHandler(
-                                              CartItems.result?.items[item]
-                                                .foodId._id
-                                            )
-                                          }
-                                        >
-                                          <FontAwesomeIcon icon="trash" />
-                                        </Button>
-                                      </Col>
-                                    </Row>
-                                  </ListGroup.Item>
-                                </ListGroup>
-                              </div>
+                                        </Col>
+                                        <Col md={3}>
+                                          <Link to={`/food/${item.foodId._id}`}>
+                                            {item.foodId.name}
+                                          </Link>
+                                        </Col>
+                                        <Col md={2}>{item.foodId.price} ৳</Col>
+                                        <Col md={2}>
+                                          <Col className="d-flex">
+                                            {/* <span>Qty: </span> */}
+                                            {/* <Form>*/}
+                                            {/* <Form.Control
+                                              type="number"
+                                              value={item.quantity}
+                                              // onChange={(e) =>
+                                              //   setcartQty(e.target.value)
+                                              // }
+                                            /> */}
+
+                                            <Button
+                                              variant="dark"
+                                              style={{
+                                                borderRadius: "50%",
+                                                padding: "2px 2px",
+                                                height: "25px",
+                                                width: "25px",
+                                                textAlign: "center",
+                                              }}
+                                              onClick={() => {
+                                                decrementitemQuantity(
+                                                  item.foodId._id
+                                                );
+                                              }}
+                                            >
+                                              -
+                                            </Button>
+                                            {/* <Link
+                                              to={`/food/${cart.result?.items[item].foodId._id}`}
+                                            > */}
+                                            <p
+                                              style={{
+                                                // border: "1px solid gray",
+                                                width: "40px",
+                                                textAlign: "center",
+                                                borderRadius: "5px",
+                                                padding: "2px 5px",
+                                              }}
+                                            >
+                                              {item.quantity}
+                                            </p>
+                                            {/* </Link> */}
+                                            <Button
+                                              variant="dark"
+                                              style={{
+                                                borderRadius: "50%",
+                                                padding: "0px 0px",
+                                                height: "25px",
+                                                width: "25px",
+                                                textAlign: "center",
+                                              }}
+                                              onClick={() => {
+                                                incrementitemQuantity(
+                                                  item.foodId._id
+                                                );
+                                              }}
+                                            >
+                                              +
+                                            </Button>
+                                            {/* </Form>*/}
+                                          </Col>
+                                        </Col>
+                                        <Col md={2}>
+                                          <Button
+                                            type="button"
+                                            variant="outline-danger"
+                                            onClick={() =>
+                                              removeFromCartHandler(
+                                                item.foodId._id
+                                              )
+                                            }
+                                          >
+                                            <FontAwesomeIcon icon="trash" />
+                                          </Button>
+                                        </Col>
+                                      </Row>
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                </div>
+                              </>
                             ))}
                           </>
                         ) : (
@@ -164,18 +227,18 @@ const FoodCartPage = ({ history }) => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  {/* {Object.keys(CartItems.result.items).map((item) => ( */}
+                  {/* {Object.keys(cart.result.items).map((item) => ( */}
                   <>
                     <h2>
                       Subtotal (
-                      {CartItems?.result?.items.reduce(
+                      {cart?.result?.items.reduce(
                         (acc, item) => acc + item.quantity,
                         0
                       )}
                       ) items
                     </h2>
                     ৳{" "}
-                    {CartItems?.result?.items
+                    {cart?.result?.items
                       .reduce(
                         (acc, item) => acc + item.quantity * item.foodId.price,
                         0
@@ -188,7 +251,7 @@ const FoodCartPage = ({ history }) => {
                   <Button
                     type="button"
                     className="btn-block"
-                    disabled={CartItems?.result?.items.length === 0}
+                    disabled={cart?.result?.items.length === 0}
                     // onClick={checkoutHandler}
                   >
                     Proceed To Checkout

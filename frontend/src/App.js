@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import AdminLoginPage from "./pages/AdminLoginPage";
 import LoginPage from "./pages/LoginPage";
 import AdminHomePage from "./pages/AdminHomePage";
 import FoodDetailsPage from "./pages/FoodDetailsPage";
@@ -22,6 +23,7 @@ function App() {
       <Route path="/cart" component={FoodCartPage} />
       <Route path="/food/:id" component={FoodDetailsPage} />
       <Route path="/admin/home" component={AdminHomePage} />
+      <Route path="/auth" component={AdminLoginPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/" component={HomePage} exact />
     </Router>
